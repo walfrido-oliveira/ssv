@@ -20,3 +20,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('clients', function() {
+    /*$client = App\Models\Client\Client::find(2);
+    $client->im = '123';
+    $client->save();
+    return $client->activity;
+    */
+
+    $contact = App\Models\Client\Contact\ClientContact::find(1);
+    $contact->contact = "ok";
+    $contact->save();
+    return $contact->contactType;
+});
