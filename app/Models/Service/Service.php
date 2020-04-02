@@ -18,7 +18,7 @@ class Service extends Model
     /**
      * The types that belong to the service.
      */
-    public function service_types()
+    public function serviceTypes()
     {
         return $this->belongsToMany(ServiceType::class);
     }
@@ -30,9 +30,9 @@ class Service extends Model
     public function getAmount()
     {
         $amount = 0;
-        $service_types = $this->service_types;
+        $serviceTypes = $this->serviceTypes;
 
-        foreach ($service_types as $value) {
+        foreach ($serviceTypes as $value) {
             $amount += $value->price;
         }
 

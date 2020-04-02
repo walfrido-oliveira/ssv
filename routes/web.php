@@ -30,7 +30,10 @@ Route::group(['middleware' => ['auth']], function() {
         */
 
         $service = App\Models\Service\Service::find(1);
-        return $service->getAmount();
+        $service->serviceTypes()->sync([2, 1]);
+
+        return  $service->serviceTypes;
+
     });
 });
 

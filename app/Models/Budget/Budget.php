@@ -3,6 +3,7 @@
 namespace App\Models\Budget;
 
 use App\Models\Client\Client;
+use App\Models\Service\ServiceType;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client\Contact\ClientContact;
 
@@ -78,5 +79,13 @@ class Budget extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * The types that belong to the budget.
+     */
+    public function serviceTypes()
+    {
+        return $this->belongsToMany(ServiceType::class);
     }
 }
