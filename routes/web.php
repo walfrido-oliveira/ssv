@@ -21,15 +21,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('budgets', function() {
-    /*$client = App\Models\Client\Client::find(2);
-    $client->im = '123';
-    $client->save();
-    return $client->activity;
-    */
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('budgets', function() {
+        /*$client = App\Models\Client\Client::find(2);
+        $client->im = '123';
+        $client->save();
+        return $client->activity;
+        */
 
-    $budget = App\Models\Budget\Budget::find(1);
-    $budget->description = "just two tests";
-    $budget->save();
-    return $budget;
+        $budget = App\Models\Budget\Budget::find(1);
+        $budget->description = "just two tests";
+        $budget->save();
+    });
 });
+
+
