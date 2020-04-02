@@ -22,16 +22,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('budgets', function() {
+    Route::get('services', function() {
         /*$client = App\Models\Client\Client::find(2);
         $client->im = '123';
         $client->save();
         return $client->activity;
         */
 
-        $budget = App\Models\Budget\Budget::find(1);
-        $budget->description = "just two tests";
-        $budget->save();
+        $service = App\Models\Service\Service::find(1);
+        return $service->getAmount();
     });
 });
 
