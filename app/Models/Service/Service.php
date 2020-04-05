@@ -23,20 +23,5 @@ class Service extends Model
         return $this->belongsToMany(ServiceType::class);
     }
 
-    /**
-     *
-     * Get amount of services types
-     */
-    public function getAmount()
-    {
-        $amount = 0;
-        $serviceTypes = $this->serviceTypes;
-
-        foreach ($serviceTypes as $value) {
-            $amount += $value->price;
-        }
-
-        return $amount;
-    }
 
 }

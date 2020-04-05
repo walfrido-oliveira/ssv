@@ -3,6 +3,7 @@
 namespace App\Models\Budget;
 
 use App\Models\Client\Client;
+use App\Models\Product\Product;
 use App\Models\Service\ServiceType;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client\Contact\ClientContact;
@@ -87,5 +88,54 @@ class Budget extends Model
     public function serviceTypes()
     {
         return $this->belongsToMany(ServiceType::class);
+    }
+
+    /**
+     * The products that belong to the budget.
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    /**
+     *
+     * Get amount of services types
+     */
+    public function getServiceAmount()
+    {
+        $amount = 0;
+        $serviceTypes = $this->serviceTypes;
+
+        foreach ($serviceTypes as $value) {
+            $amount += $value->price;
+        }
+
+        return $amount;
+    }
+
+    /**
+     *
+     * Get amount of products
+     */
+    public function getProductAmount()
+    {
+        $amount = 0;
+        $products = $this->products;
+
+        foreach ($products as $value) {
+            $amount += $value->price;
+        }
+
+        return $amount;
+    }
+
+    /**
+     *
+     * Get amount of budget
+     */
+    public function getAmount()
+    {
+        return $this->getServiceAmount() + $this->getProductAmount();
     }
 }
