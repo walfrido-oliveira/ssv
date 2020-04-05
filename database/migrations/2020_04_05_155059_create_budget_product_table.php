@@ -18,6 +18,8 @@ class CreateBudgetProductTable extends Migration
             $table->unsignedBigInteger('budget_id');
             $table->unsignedBigInteger('product_id');
 
+            $table->integer('amount');
+
             $table->timestamps();
 
             $table->foreign('budget_id')->references('id')->on('budgets');

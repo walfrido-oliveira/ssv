@@ -39,8 +39,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         $budget = App\Models\Budget\Budget::find(1);
 
-        return $budget->getAmount();
-
+        return $budget->getProductAmount();
     });
 });
 
