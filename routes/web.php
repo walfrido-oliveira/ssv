@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
     Route::get('products', function() {
         /*$client = App\Models\Client\Client::find(2);
         $client->im = '123';
@@ -42,5 +43,6 @@ Route::group(['middleware' => ['auth']], function() {
         return $budget->getProductAmount();
     });
 });
+
 
 
