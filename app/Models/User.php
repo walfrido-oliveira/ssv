@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles as HasRole;
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_image'
     ];
 
     /**
@@ -43,5 +44,31 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    public  function adminlte_image()
+    {
+        if (Storage::disk('public')->exists($this->profile_image))
+        {
+            return Storage::url($this->profile_image);
+        } else {
+            return Storage::url('img/empty_user.png');
+        }
+    }
+
+    public function adminlte_desc()
+    {
+        return $this->getType() == 'Admin' ? __('Administrator') : __('User');
+    }
+
+    public function getType()
+    {
+        if ($this->hasRole("Admin"))
+        {
+            return 'Admin';
+        }
+        else {
+            return 'User';
+        }
     }
 }
