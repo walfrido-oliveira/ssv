@@ -23,6 +23,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
+
+        Route::get('/profile', 'ProfileController@show')->name('profile.show');
+        Route::put('/profile/{id}', 'ProfileController@update')->name('profile.update');
+
+    });
+
     Route::get('products', function() {
         /*$client = App\Models\Client\Client::find(2);
         $client->im = '123';

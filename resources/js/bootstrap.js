@@ -11,6 +11,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('overlayscrollbars');
+    require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
+    require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2');
 } catch (e) {}
 
 /**
