@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -34,36 +35,33 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ProfileRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
-        $this->validate($request,
-        [
-            'name'  => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'roles' => 'required'
-        ]);
 
         $data = $request->all();
         $user = User::find($id);
+        $oldImageProfile = $user->profile_image;
         $user->update($data);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-        $user->assignRole($data['roles']);
+        $user->syncRoles($data['roles']);
 
-        if (!is_null('profile_image'))
+        if (!is_null($request->profile_image))
         {
+            Storage::delete('public/' . $oldImageProfile);
             $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
+
             $data['profile_image'] = $profileImage;
             $user->update($data);
         }
 
         flash(__('Profile updated successfully'))->success();
 
-        return \redirect(\route('admin.profile.show'));
+        return redirect(route('admin.profile.show'));
 
     }
+
 }

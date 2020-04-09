@@ -2,11 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Client\Client;
+use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
+    /**
+	 * @var Client
+	 */
+    private $client;
+
+    /**
+     * create a new instance of controll
+     */
+	public function __construct(Client $client)
+	{
+        $this->client = $client;
+
+        $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:client-create', ['only' => ['create','store']]);
+        $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +33,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = $this->client->paginate(10);
+        return view('admin.clients.index', compact('clients'));
     }
 
     /**
@@ -80,6 +100,18 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = $this->client->find($id);
+
+        $budgets = $client->budgets;
+
+        foreach ($budgets as $budget) {
+            $budget->delete();
+        }
+
+        $client->delete();
+
+        flash(__('Customer removed successfully.'))->success();
+
+        return redirect(route('admin.clients.index'));
     }
 }

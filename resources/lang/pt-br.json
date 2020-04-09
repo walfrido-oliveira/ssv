@@ -25,7 +25,22 @@
     "Profile Image":"Imagem de Perfil",
     "Choose image":"Escolher imagem",
     "Role":"Função",
+    "roles":"função",
     "Select a Role":"Selecione as funções",
     "Submit":"Salvar",
-    "Profile updated successfully":"Perfil atualizado com sucesso"
+    "Profile updated successfully":"Perfil atualizado com sucesso",
+    "There are problems with the fields.":"Há problemas com os campos.",
+    "Change Password":"Alterar Senha",
+    "Current Password":"Senha Atual",
+    "New Password":"Nova Senha",
+    "Re-enter Password":"Confirmar Senha",
+    "Password updated successfully":"Senha atualizada com sucesso",
+    "Customers":"Clientes",
+    "details":"detalhes",
+    "edit":"editar",
+    "delete":"deletar",
+    "Do you really want to delete this item?":"Deseja realmente excluir este item?",
+    "Yes":"Sim",
+    "No":"Não",
+    "Customer removed successfully.":"Cliente removido com sucesso"
 }

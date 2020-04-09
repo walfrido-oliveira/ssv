@@ -3,14 +3,14 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-<h1 class="m-0 text-dark">{{ __('Profile') }}</h1>
+    <h1 class="m-0 text-dark">{{ __('Profile') }}</h1>
 @stop
 
 @section('content')
 
     @include('flash::message')
 
-    <form action="{{ route('admin.profile.update', [ 'id' => $user->id ]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.profile.update', [ 'user' => $user->id ]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method("PUT")
@@ -21,11 +21,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">{{ __('Name') }}</label>
-                            {!! Form::text('name', $user->name, ['class' => 'form-control', 'id' => 'name', 'name' => 'name', 'placeholder' => __("Name")]) !!}
+                            {!! Form::text('name', old('name', $user->name), ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
+                            {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                         <div class="form-group">
                             <label for="email">{{ __("Email") }}</label>
-                            {!! Form::text('email', $user->email, ['class' => 'form-control', 'id' => 'email', 'email' => 'name', 'placeholder' => __("Email")]) !!}
+                            {!! Form::text('email', old('email', $user->email), ['class' => 'form-control ' . $errors->first('email','is-invalid'), 'id' => 'email', 'placeholder' => __("Email")]) !!}
+                            {!! $errors->first('email','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                         <div class="form-group">
                             <div class="row align-items-center">
@@ -47,8 +49,8 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Role') }}</label>
-                            {!! Form::select('roles[]', $roles,$userRole,
-                            array('class' => 'select2', 'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;')) !!}
+                            {!! Form::select('roles[]', $roles, $userRole,['class' => 'select2 ' . $errors->first('roles','is-invalid') , 'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
+                            {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="card-footer">

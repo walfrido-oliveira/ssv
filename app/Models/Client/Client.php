@@ -2,6 +2,7 @@
 
 namespace App\Models\Client;
 
+use App\Models\Budget\Budget;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
@@ -28,5 +29,14 @@ class Client extends Model
     {
         return $this->belongsTo(Activity::class);
     }
+
+    /**
+     * The budgets that belong to the client.
+     */
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
 
 }

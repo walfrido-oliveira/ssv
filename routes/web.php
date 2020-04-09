@@ -25,30 +25,24 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
 
-        Route::get('/profile', 'ProfileController@show')->name('profile.show');
-        Route::put('/profile/{id}', 'ProfileController@update')->name('profile.update');
+        Route::prefix('profile')->name('profile.')->group(function(){
+            Route::get('/', 'ProfileController@show')->name('show');
+            Route::put('/{user}', 'ProfileController@update')->name('update');
+
+            Route::prefix('credentials')->name('credentials.')->group(function(){
+                Route::get('/', 'CredentialController@show')->name('show');
+                Route::put('/{user}', 'CredentialController@update')->name('update');
+            });
+        });
+
+        //Route::prefix('clients')->name('clients.')->group(function(){
+            //Route::get('/', 'ClientController@index')->name('index');
+
+            Route::resource('clients', 'ClientController');
+        //});
 
     });
 
-    Route::get('products', function() {
-        /*$client = App\Models\Client\Client::find(2);
-        $client->im = '123';
-        $client->save();
-        return $client->activity;
-        */
-
-        $service = App\Models\Service\Service::find(1);
-        $service->serviceTypes()->sync([2, 1]);
-
-        //return  $service->serviceTypes;
-
-        //$products = App\Models\Product\Product::find(1);
-        //return $products;
-
-        $budget = App\Models\Budget\Budget::find(1);
-
-        return $budget->getProductAmount();
-    });
 });
 
 
