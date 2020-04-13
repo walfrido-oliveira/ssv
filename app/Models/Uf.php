@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,4 +14,9 @@ class Uf extends Model
     protected $fillable = [
         'uf', 'name'
     ];
+
+    public function getFullNameAttribute()
+    {
+        return $this->uf . ' - ' . $this->name;
+    }
 }

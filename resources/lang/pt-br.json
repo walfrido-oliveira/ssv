@@ -58,7 +58,7 @@
     "A short description for this company (do not required)":"Uma breve descrição (Não obrigatório)",
     "Adress":"Endereço",
     "Street":"Logradouro",
-    "Customer ID (only digits)":"CNPJ ou CPF (Somente números)",
+    "Customer ID (only numbers)":"CNPJ ou CPF (Somente números)",
     "Adress Number":"Número",
     "Ex.:Street,Avenue,Etc...":"Ex.:Stree,Avenida,Rodovia. Etc...",
     "If there is no number set 0":"Para sem número coloque 0",
@@ -66,5 +66,16 @@
     "Ex.:Apt. # 250...":"Ex.:Apto:302, Bloco B, Casa 2, Etc...",
     "District":"Bairro",
     "City":"Cidade",
-    "State":"Estado"
+    "State":"Estado",
+    "Zip code":"CEP",
+    "Only numbers":"Somente números",
+    "Contacts":"Contatos",
+    "Contact":"Contato",
+    "Phone":"Telefone",
+    "Mobile Phone":"Celular",
+    "Department":"Departamento",
+    "Add":"Adicionar",
+    "Remove":"Remover",
+    "Client Activity":"Tipo de Atividade",
+    "Contact Type":"Tipo de Contato"
 }

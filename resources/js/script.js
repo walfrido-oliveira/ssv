@@ -12,6 +12,49 @@ $(document).ready(function() {
     });
 });
 
+$(document).on('click', ".btn-add", function(e) {
+    e.preventDefault();
+
+    var controlContact = $('.contact:first'),
+        currentEntry   = $(this).parents('.entry:first'),
+        newEntry       = $(currentEntry.clone()).appendTo('.contact:first');
+
+    newEntry.find('input').val('');
+
+    var selector = newEntry.find('input').attr('name');
+    var index_value = selector.match(/\d+/)[0];
+
+    var nextIndexValue = parseInt(index_value,10)+1;
+
+    newEntry.find('input').each(function(){
+        this.name = this.name.replace(selector.match(/\d+/)[0],nextIndexValue)
+    });
+
+    controlContact.find('.entry:not(:last) .btn-add')
+        .removeClass('btn-add').addClass('btn-remove')
+        .removeClass('btn-success').addClass('btn-danger')
+        .find('i')
+        .removeClass('fa-plus').addClass('fa-minus');
+
+
+
+}).on('click', '.btn-remove', function(e)
+{
+    $(this).parents('.entry:first').remove();
+
+    e.preventDefault();
+    return false;
+});
+
+$(document).on('click', "#remove-contact", function() {
+    var contacts = document.getElementsByClassName('contact').length;
+
+    var id = $(this).data('contact-id');
+    var item = document.getElementById('contact-' + id);
+
+    item.remove();
+});
+
 var profileImage = document.getElementById('profile_image'),
     preview = document.getElementById('preview_image_profile'),
     container = document.getElementById('image_profile_preview_container'),

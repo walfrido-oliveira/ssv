@@ -14,7 +14,7 @@ class ClientContact extends Model
      */
     protected $fillable = [
         'contact', 'department', 'phone', 'mobile_phone',
-        'email',
+        'email', 'contact_type_id', 'client_id'
     ];
 
     /**

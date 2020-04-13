@@ -16,7 +16,8 @@ class Client extends Model
         'razao_social', 'nome_fantasia', 'im', 'ie', 'type',
         'home_page', 'description', 'adress', 'adress_number',
         'adress_district', 'adress_city', 'adress_state',
-        'adress_cep', 'adress_comp', 'logo'
+        'adress_cep', 'adress_comp', 'logo',  'activity_id',
+        'client_id'
     ];
 
 

@@ -241,8 +241,21 @@ return [
             'submenu' => [
                 [
                     'text' => 'customers',
-                    'url' => 'admin/clients',
-                    'icon' => 'fas fa-fw fa-users'
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-users',
+                    'submenu' => [
+                        [
+                            'text'  => 'customer_list',
+                            'url'   =>  'admin/clients',
+                            'icon'  =>  'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'url' => 'admin/clients/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                        ],
+                    ]
+
                 ]
             ]
         ]

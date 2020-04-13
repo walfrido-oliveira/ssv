@@ -19,4 +19,7 @@ return [
     'search'                        => 'burscar',
     'customers'                     => 'Customers',
     'comercial'                     => 'Comercial',
+    'new'                           => 'New',
+    'customer_list'                 => 'Cusromer List',
+    'contacts'                      => 'Contacts'
 ];

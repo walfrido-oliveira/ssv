@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Uf;
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Client\Client;
+use App\Models\Client\Activity;
 use App\Http\Controllers\Controller;
+use App\Models\Client\Contact\ContactType;
+use App\Models\Client\Contact\ClientContact;
 
 class ClientController extends Controller
 {
@@ -44,7 +49,12 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('admin.clients.create');
+        $ufs = Uf::all()->pluck('full_name', 'id');
+        $citys = City::all();
+        $activities = Activity::all()->pluck('name', 'id');
+        $contactType = ContactType::all()->pluck('name', 'id');
+
+        return view('admin.clients.create', compact('ufs', 'citys', 'activities', 'contactType'));
     }
 
     /**
@@ -55,7 +65,29 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $client = $this->client->create($data);
+
+        $contacts = $data['contacts'];
+
+        foreach ($contacts as $key => $contact) {
+            $clientContact = ClientContact::create(
+                [
+                    'client_id' => $client->id,
+                    'contact_type_id' => $contact['contact_type_id'],
+                    'contact'   => $contact['contact'],
+                    'department' => $contact['department'],
+                    'phone' => $contact['phone'],
+                    'mobile_phone' => $contact['mobile_phone'],
+                    'email' => $contact['email'],
+                ]
+            );
+        }
+
+        flash(__('Cliente added successfully'))->success();
+
+        return redirect(route('admin.clients.index'));
     }
 
     /**
@@ -77,7 +109,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ufs = Uf::all()->pluck('full_name', 'id');
+        $citys = City::all();
     }
 
     /**
