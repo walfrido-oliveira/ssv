@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label for="current-passwo">{{ __('Current Password') }}</label>
                             {!! Form::password('current-password', ['class' => 'form-control ' . $errors->first('current-password','is-invalid'), 'id' => 'current-password', 'placeholder' => __("Current Password")]) !!}
-                            {!! $errors->first('current-passwo','<div class="invalid-feedback">:message</div>') !!}
+                            {!! $errors->first('current-password','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                         <div class="form-group">
                             <label for="password">{{ __("New Password") }}</label>

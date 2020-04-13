@@ -14,6 +14,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                <a href="{{ route('admin.clients.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Customer') }}</i></a>
                     <table class="table table-hover table-head-fixed text-nowrap">
                         <thead>
                             <tr>

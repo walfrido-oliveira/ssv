@@ -20,7 +20,6 @@ class CreateClientsTable extends Migration
             $table->string('client_id', 14)->unique();
             $table->string('razao_social');
             $table->string('nome_fantasia');
-            $table->string('uf');
             $table->string('im')->nullable();
             $table->string('ie')->nullable();
             $table->enum('type', ['PJ', 'PF']);

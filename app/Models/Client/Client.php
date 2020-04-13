@@ -13,7 +13,7 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'razao_social', 'nome_fantasia', 'uf', 'im', 'ie', 'type',
+        'razao_social', 'nome_fantasia', 'im', 'ie', 'type',
         'home_page', 'description', 'adress', 'adress_number',
         'adress_district', 'adress_city', 'adress_state',
         'adress_cep', 'adress_comp', 'logo'
