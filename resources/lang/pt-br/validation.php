@@ -177,7 +177,15 @@ return [
         'year'      => 'ano',
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
-        'roles'     => 'função'
+        'roles'     => 'função',
+        'client_id' => 'CNPJ ou CPF',
+        'adress' => 'logradouro',
+        'razao_social' => 'razão social',
+        'nome_fantasia' => 'nome fantasia',
+        'adress_number' => 'número',
+        'adress_district' => 'bairro',
+        'adress_city' => 'cidade',
+        'adress_cep' => 'cep',
     ],
 
 ];

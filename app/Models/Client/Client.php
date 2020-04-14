@@ -4,6 +4,7 @@ namespace App\Models\Client;
 
 use App\Models\Budget\Budget;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Client\Contact\ClientContact;
 
 class Client extends Model
 {
@@ -37,6 +38,14 @@ class Client extends Model
     public function budgets()
     {
         return $this->hasMany(Budget::class);
+    }
+
+    /**
+     * The contacts that belong to the client.
+     */
+    public function contacts()
+    {
+        return $this->hasMany(ClientContact::class);
     }
 
 

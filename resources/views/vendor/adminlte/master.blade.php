@@ -62,8 +62,32 @@
 
 @yield('adminlte_js')
 @else
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/script.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/script.js') }}"></script>
+@yield('js')
+@endif
+
+@if(Session::has('message'))
+    <script>
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    </script>
 @endif
 
 </body>

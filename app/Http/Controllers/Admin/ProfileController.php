@@ -58,7 +58,8 @@ class ProfileController extends Controller
             $user->update($data);
         }
 
-        flash(__('Profile updated successfully'))->success();
+        Session::flash('message', __('Profile updated successfully.'));
+        Session::flash('alert-type', 'success');
 
         return redirect(route('admin.profile.show'));
 

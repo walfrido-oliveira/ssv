@@ -16,7 +16,6 @@ class ProfileRequest extends FormRequest
      */
     public function authorize()
     {
-
         $user = auth()->user();
         $this->user = User::find($this->route('user'));
         return $user->hasRole('Admin|User');
