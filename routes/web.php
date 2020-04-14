@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
             });
         });
 
-        //Route::prefix('clients')->name('clients.')->group(function(){
-            //Route::get('/', 'ClientController@index')->name('index');
+        Route::resource('clients', 'ClientController');
 
-            Route::resource('clients', 'ClientController');
-        //});
+        Route::prefix('contacts')->name('contacts.')->group(function(){
+            Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
+        });
 
     });
 

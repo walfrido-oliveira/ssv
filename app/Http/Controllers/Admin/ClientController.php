@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Client\Client;
 use App\Models\Client\Activity;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
+use Illuminate\Support\Facades\Session;
 use App\Models\Client\Contact\ContactType;
 use App\Models\Client\Contact\ClientContact;
 
@@ -38,6 +40,7 @@ class ClientController extends Controller
      */
     public function index()
     {
+
         $clients = $this->client->paginate(10);
         return view('admin.clients.index', compact('clients'));
     }
@@ -49,7 +52,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $ufs = Uf::all()->pluck('full_name', 'id');
+        $ufs = Uf::all()->pluck('full_name', 'uf');
         $citys = City::all();
         $activities = Activity::all()->pluck('name', 'id');
         $contactType = ContactType::all()->pluck('name', 'id');
@@ -60,14 +63,22 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\ClientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
         $data = $request->all();
 
         $client = $this->client->create($data);
+
+        if (!is_null($request->logo))
+        {
+            $logo = $request->logo->store('img', ['disk' => 'public']);
+
+            $data['logo'] = $logo;
+            $client->update($data);
+        }
 
         $contacts = $data['contacts'];
 
@@ -85,7 +96,8 @@ class ClientController extends Controller
             );
         }
 
-        flash(__('Cliente added successfully'))->success();
+        Session::flash('message', __('Cliente added successfully'));
+        Session::flash('alert-type', 'success');
 
         return redirect(route('admin.clients.index'));
     }
@@ -109,18 +121,24 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $ufs = Uf::all()->pluck('full_name', 'id');
+        $client = Client::find($id);
+
+        $ufs = Uf::all()->pluck('full_name', 'uf');
         $citys = City::all();
+        $activities = Activity::all()->pluck('name', 'id');
+        $contactType = ContactType::all()->pluck('name', 'id');
+
+        return view('admin.clients.edit', compact('client', 'ufs', 'citys', 'activities', 'contactType'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\ClientRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, $id)
     {
         //
     }
@@ -143,7 +161,8 @@ class ClientController extends Controller
 
         $client->delete();
 
-        flash(__('Customer removed successfully.'))->success();
+        Session::flash('message', __('Customer removed successfully.'));
+        Session::flash('alert-type', 'success');
 
         return redirect(route('admin.clients.index'));
     }

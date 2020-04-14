@@ -8,8 +8,6 @@
 
 @section('content')
 
-    @include('flash::message')
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -30,10 +28,14 @@
                                     <td>{{$client->nome_fantasia}}</td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-book"></i> {{ __('details') }}</i></a>
+                                            <a href="#" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-book"></i> {{ __('details') }}</i>
+                                            </a>
                                         </div>
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i></a>
+                                        <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
+                                            </a>
                                         </div>
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-danger btn-sm delete-modal-click" data-toggle="modal" data-target="#delete-modal" data-id={{ $client->id }}>
@@ -71,5 +73,20 @@
         </div>
     </div>
 @stop
+
+@section('js')
+    <script>
+        $('#delete-modal').on('show.bs.modal', function(e) {
+
+        var id = $(e.relatedTarget).data('id');
+
+        var form = $('#delete-modal-form');
+        var action = form.attr('action');
+        var newAction = action.replace("#", id);
+        form.attr('action', newAction);
+        });
+    </script>
+@stop
+
 
 

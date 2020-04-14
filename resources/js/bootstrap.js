@@ -14,6 +14,9 @@ try {
     require('overlayscrollbars');
     require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
     require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2');
+
+    window.toastr = require('toastr');
+
 } catch (e) {}
 
 /**
