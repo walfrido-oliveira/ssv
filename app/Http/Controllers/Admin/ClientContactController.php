@@ -31,7 +31,7 @@ class ClientContactController extends Controller
     {
         $clientContact = $this->clientContact->find($id);
 
-        //$clientContact->delete();
+        $clientContact->delete();
 
         return response()->json([
             'message' => __('Contact deleted successfully!')

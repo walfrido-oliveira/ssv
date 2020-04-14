@@ -208,4 +208,7 @@
     </form>
 @stop
 
+@section('js')
+    <script src="{{ mix('js/client.js') }}"></script>
+@stop
 

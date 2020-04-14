@@ -78,5 +78,6 @@
     "Remove":"Remover",
     "Client Activity":"Tipo de Atividade",
     "Contact Type":"Tipo de Contato",
-    "Contact deleted successfully!":"Cliente deletado com sucesso"
+    "Contact deleted successfully!":"Cliente deletado com sucesso!",
+    "Cliente updated successfully!":"Cliente atualizado com sucesso!"
 }

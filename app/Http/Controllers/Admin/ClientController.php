@@ -82,7 +82,8 @@ class ClientController extends Controller
 
         $contacts = $data['contacts'];
 
-        foreach ($contacts as $key => $contact) {
+        foreach ($contacts as $key => $contact)
+        {
             $clientContact = ClientContact::create(
                 [
                     'client_id' => $client->id,
@@ -140,7 +141,46 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+       // dd($data);
+
+        $client = $this->client::find($id);
+
+        $client->update($data);
+
+        $oldLogo = $client->logo;
+
+        if (!is_null($request->logo))
+        {
+            Storage::delete('public/' . $oldLogo);
+            $logo = $request->logo->store('img', ['disk' => 'public']);
+
+            $data['logo'] = $logo;
+            $client->update($data);
+        }
+
+        $contacts = $data['contacts'];
+
+        foreach ($contacts as $key => $contact) {
+            if(isset($contact['id']))
+            {
+                $clientContact = ClientContact::find($contact['id']);
+                if(!is_null($clientContact))
+                {
+                    $clientContact->update($contact);
+                }
+            } else {
+                $contact['client_id'] = $client->id;
+                ClientContact::create($contact);
+            }
+        }
+
+
+        Session::flash('message', __('Cliente updated successfully!'));
+        Session::flash('alert-type', 'success');
+
+        return redirect(route('admin.clients.index'));
     }
 
     /**

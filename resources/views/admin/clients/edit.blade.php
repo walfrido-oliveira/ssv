@@ -152,6 +152,7 @@
                 <div class="col-6 contact">
                     @php $index = 0; @endphp
                     @foreach ($client->contacts as $contact)
+                            <input type="hidden" name="contacts[{{$index}}][id]" value="{{ $contact->id }}">
                             <div class="card card-primary entry">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __('Contact')}}</h3>
@@ -226,7 +227,7 @@
             </div>
             <div class="row">
                 <div class="col-12 card-footer">
-                    <a href="#" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                    <a href="{{ route('admin.clients.index')}}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     <input type="submit" value="{{ __('Confirm') }}" class="btn btn-primary float-right">
                 </div>
             </div>
