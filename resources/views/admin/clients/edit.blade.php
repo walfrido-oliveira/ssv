@@ -8,8 +8,6 @@
 
 @section('content')
 
-    @include('flash::message')
-
     <form action="{{ route('admin.clients.update', ['client' => $client->id]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
@@ -155,7 +153,7 @@
                             <input type="hidden" name="contacts[{{$index}}][id]" value="{{ $contact->id }}">
                             <div class="card card-primary entry">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Contact')}}</h3>
+                                <h3 class="card-title">{{ __('Contact') }}</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">

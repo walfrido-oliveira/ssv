@@ -18,7 +18,7 @@ class Client extends Model
         'home_page', 'description', 'adress', 'adress_number',
         'adress_district', 'adress_city', 'adress_state',
         'adress_cep', 'adress_comp', 'logo',  'activity_id',
-        'client_id'
+        'client_id', 'created_at', 'updated_at', 'status'
     ];
 
 

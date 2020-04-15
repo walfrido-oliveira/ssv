@@ -79,5 +79,11 @@
     "Client Activity":"Tipo de Atividade",
     "Contact Type":"Tipo de Contato",
     "Contact deleted successfully!":"Cliente deletado com sucesso!",
-    "Cliente updated successfully!":"Cliente atualizado com sucesso!"
+    "Cliente updated successfully!":"Cliente atualizado com sucesso!",
+    "Details Customer":"Detalhes do Cliente",
+    "Created at":"Criado em",
+    "Updated at":"Atualizado em",
+    "Back":"Voltar",
+    "Active":"Ativo",
+    "Disabled":"Inativo"
 }

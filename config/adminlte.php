@@ -215,11 +215,6 @@ return [
             'icon' => ''
         ],
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
             'text' => 'account_settings',
             'icon' => '',
             'submenu' => [

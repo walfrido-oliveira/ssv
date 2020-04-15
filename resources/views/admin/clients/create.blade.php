@@ -8,8 +8,6 @@
 
 @section('content')
 
-    @include('flash::message')
-
     <form action="{{ route('admin.clients.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
