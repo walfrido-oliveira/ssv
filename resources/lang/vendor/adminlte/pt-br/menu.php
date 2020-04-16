@@ -17,9 +17,13 @@ return [
     'Warning'                       => 'Aviso',
     'Information'                   => 'Informação',
     'search'                        => 'burscar',
-    'customers'                     =>  'Clientes',
-    'comercial'                     =>  'Comercial',
-    'new'                           =>  'Novo',
-    'customer_list'                 =>  'Lista de Clientes',
-    'contacts'                      =>  'Contatos'
+    'customers'                     => 'Clientes',
+    'comercial'                     => 'Comercial',
+    'new'                           => 'Novo',
+    'customer_list'                 => 'Lista de Clientes',
+    'contacts'                      => 'Contatos',
+    "activities"                    => 'Atividades',
+    "activity_list"                 => 'Lista de Atividades',
+    "service"                       => 'Serviço',
+    "service_list"                  => 'Lista Serviços',
 ];

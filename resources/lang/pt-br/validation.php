@@ -186,6 +186,7 @@ return [
         'adress_district' => 'bairro',
         'adress_city' => 'cidade',
         'adress_cep' => 'cep',
+        'price'     => 'preço'
     ],
 
 ];

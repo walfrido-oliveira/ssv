@@ -38,10 +38,17 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $activity = $request->activity;
 
-        $clients = $this->client->paginate(10);
+        if (!is_null($activity))
+        {
+            $clients = $this->client->where('activity_id', $activity)->paginate(10);
+        } else {
+            $clients = $this->client->paginate(10);
+        }
+
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -97,8 +104,7 @@ class ClientController extends Controller
             );
         }
 
-        Session::flash('message', __('Cliente added successfully'));
-        Session::flash('alert-type', 'success');
+        flash('success', 'Customer added successfully!');
 
         return redirect(route('admin.clients.index'));
     }
@@ -178,9 +184,7 @@ class ClientController extends Controller
             }
         }
 
-
-        Session::flash('message', __('Cliente updated successfully!'));
-        Session::flash('alert-type', 'success');
+        flash('success', 'Customer updated successfully!');
 
         return redirect(route('admin.clients.index'));
     }
@@ -203,8 +207,7 @@ class ClientController extends Controller
 
         $client->delete();
 
-        Session::flash('message', __('Customer removed successfully.'));
-        Session::flash('alert-type', 'success');
+        flash('success', 'Customer removed successfully!');
 
         return redirect(route('admin.clients.index'));
     }

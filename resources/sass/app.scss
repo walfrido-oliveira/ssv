@@ -15,7 +15,6 @@
 //Select2
 @import '../../vendor/almasaeed2010/adminlte/plugins/select2/css/select2.min.css';
 @import '../../vendor/almasaeed2010/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
-
 //toastr
 @import '~toastr/toastr';
 
@@ -40,7 +39,15 @@
     width: 100px;
 }
 
-.input-group {
+.card-tools .input-group {
     width: 150px;
     margin-top:5px !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
 }

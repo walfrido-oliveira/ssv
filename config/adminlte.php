@@ -249,11 +249,45 @@ return [
                             'url' => 'admin/clients/create',
                             'icon' => 'fas fa-fw fa-plus',
                         ],
+                        [
+                            'text' => 'activities',
+                            'url' => '#',
+                            'icon' => '',
+                            'submenu' => [
+                                [
+                                    'text'  => 'activity_list',
+                                    'url'   =>  'admin/activities',
+                                    'icon'  =>  'fas fa-fw fa-list'
+                                ],
+                                [
+                                    'text' => 'new',
+                                    'url' => 'admin/activities/create',
+                                    'icon' => 'fas fa-fw fa-plus',
+                                ],
+                            ]
+                        ],
                     ]
 
                 ]
             ]
+        ],
+        [
+            'text' => 'service',
+            'icon' => '',
+            'submenu' => [
+                [
+                    'text'  => 'service_list',
+                    'url'   =>  'admin/services',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/services/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+            ]
         ]
+
 
     ],
 

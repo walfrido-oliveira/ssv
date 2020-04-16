@@ -37,6 +37,10 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('clients', 'ClientController');
 
+        Route::resource('activities', 'ActivityController');
+
+        Route::resource('services', 'ServiceController');
+
         Route::prefix('contacts')->name('contacts.')->group(function(){
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
         });

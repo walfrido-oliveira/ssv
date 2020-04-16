@@ -50,10 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException)
-        {
-            return response()->json([__('messages.exception_role_error')]);
-        }
         return parent::render($request, $exception);
     }
 }
