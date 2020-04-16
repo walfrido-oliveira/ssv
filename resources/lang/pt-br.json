@@ -79,11 +79,24 @@
     "Client Activity":"Tipo de Atividade",
     "Contact Type":"Tipo de Contato",
     "Contact deleted successfully!":"Cliente deletado com sucesso!",
-    "Cliente updated successfully!":"Cliente atualizado com sucesso!",
+    "Customer added successfully!":"Cleinte adicionado com sucesso",
+    "Customer updated successfully!":"Cliente atualizado com sucesso!",
     "Details Customer":"Detalhes do Cliente",
     "Created at":"Criado em",
     "Updated at":"Atualizado em",
     "Back":"Voltar",
     "Active":"Ativo",
-    "Disabled":"Inativo"
+    "Disabled":"Inativo",
+    "Search":"Buscar",
+    "User does not have the right permissions.":"O usuário não tem as permissões corretas.",
+    "Actions":"Ações",
+    "Add Activity":"Adicionar Atividade",
+    "Activities":"Atividades",
+    "Details Activity":"Detalhes da Atividade",
+    "Activity added successfully!":"Atividade adicionada com sucesso!",
+    "Activity updated successfully!":"Atividade atualizada com sucesso!",
+    "Activity removed successfully!":"Atividade removida com sucesso!",
+    "Activity don't remomed! There is a customer with this activity. Before the to remove, remove the especifics custome, or change this activity.":"Atividade não removida! Há um cliente com esta atividade. Antes de remover, remova o cliente específico ou altere sua atividade.",
+    "More info":"Mais informações"
+
 }

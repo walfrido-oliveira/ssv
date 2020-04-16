@@ -1,6 +1,7 @@
 <?php
 
-if (! function_exists('show_route')) {
+if (! function_exists('show_route'))
+{
     function mask($val, $mask)
     {
         $maskared = '';
@@ -19,5 +20,14 @@ if (! function_exists('show_route')) {
             }
         }
         return $maskared;
+    }
+}
+
+if (! function_exists('flash'))
+{
+    function flash($type, $message)
+    {
+        Session::flash('message', __($message));
+        Session::flash('alert-type', $type);
     }
 }

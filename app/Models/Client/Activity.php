@@ -12,6 +12,6 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'created_at', 'updated_at',
     ];
 }

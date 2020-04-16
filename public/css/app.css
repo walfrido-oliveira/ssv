@@ -47755,8 +47755,16 @@ button.toast-close-button {
   width: 100px;
 }
 
-.input-group {
+.card-tools .input-group {
   width: 150px;
   margin-top: 5px !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+.bg-info {
+  background-color: #17a2b8 !important;
 }
 
