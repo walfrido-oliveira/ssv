@@ -93,7 +93,13 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\xampp\\htdocs\\ssv\\resources\\js\\list.js'");
+$('#delete-modal').on('show.bs.modal', function (e) {
+  var id = $(e.relatedTarget).data('id');
+  var form = $('#delete-modal-form');
+  var action = form.attr('action');
+  var newAction = action.replace("#", id);
+  form.attr('action', newAction);
+});
 
 /***/ }),
 

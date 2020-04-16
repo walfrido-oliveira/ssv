@@ -21,5 +21,8 @@ return [
     'comercial'                     => 'Comercial',
     'new'                           => 'New',
     'customer_list'                 => 'Cusromer List',
-    'contacts'                      => 'Contacts'
+    'contacts'                      => 'Contacts',
+    "activities"                    => 'Activities',
+    "activity_list"                 => 'Activity List'
+
 ];

@@ -27,10 +27,12 @@
                             </p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>{{ __('Created at') }}</b> <a class="float-right">{{ $client->created_at->format('d/m/Y')  }}</a>
+                                    <b>{{ __('Created at') }}</b>
+                                    <a class="float-right">{{ !is_null($client->created_at) ? $client->created_at->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>{{ __('Updated at') }}</b> <a class="float-right">{{ $client->updated_at->format('d/m/Y')  }}</a>
+                                    <b>{{ __('Updated at') }}</b>
+                                    <a class="float-right">{{ !is_null($client->updated_at) ? $client->updated_at->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ __('Status') }}</b>

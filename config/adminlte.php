@@ -249,6 +249,23 @@ return [
                             'url' => 'admin/clients/create',
                             'icon' => 'fas fa-fw fa-plus',
                         ],
+                        [
+                            'text' => 'activities',
+                            'url' => '#',
+                            'icon' => '',
+                            'submenu' => [
+                                [
+                                    'text'  => 'activity_list',
+                                    'url'   =>  'admin/activities',
+                                    'icon'  =>  'fas fa-fw fa-list'
+                                ],
+                                [
+                                    'text' => 'new',
+                                    'url' => 'admin/activities/create',
+                                    'icon' => 'fas fa-fw fa-plus',
+                                ],
+                            ]
+                        ],
                     ]
 
                 ]
