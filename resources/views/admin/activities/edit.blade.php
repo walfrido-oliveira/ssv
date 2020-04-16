@@ -19,7 +19,7 @@
                     <div class="card card-primary">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="nome_fantasia">{{ __('Name') }}</label>
+                                <label for="name">{{ __('Name') }}</label>
                                 {!! Form::text('name', $activity->name, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
                                 {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
                             </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-12 card-footer">
-                    <a href="#" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                    <a href="{{ route('admin.activities.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     <input type="submit" value="{{ __('Confirm') }}" class="btn btn-primary float-right">
                 </div>
             </div>

@@ -56,9 +56,7 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255|unique:activities,name,' . $this->activity->id
-        ]);
+        $request->validate($this->roles($this->activity));
 
         $this->activity->create($request->all());
 
@@ -106,9 +104,7 @@ class ActivityController extends Controller
     {
         $activity = $this->activity->find($id);
 
-        $request->validate([
-            'name' => 'required|max:255|unique:activities,name,' . $activity->id
-        ]);
+        $request->validate($this->roles($activity));
 
         $activity->update($request->all());
 
@@ -131,7 +127,7 @@ class ActivityController extends Controller
 
         if ($clients->count() > 0)
         {
-            flash('error', 'Activity don\'t remomed! There is a customer with this activity. Before the to remove, remove the especifics custome, or change this activity.');
+            flash('error', 'Activity don\'t removed! There is a customer with this activity. Before the to remove, remove the especifics custome, or change this activity.');
             return redirect(route('admin.activities.index'));
         }
 
@@ -140,5 +136,19 @@ class ActivityController extends Controller
         flash('success', 'Activity removed successfully!');
 
         return redirect(route('admin.activities.index'));
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @param Activity $activity
+     * @return array
+     */
+    public function roles($activity)
+    {
+        return
+        [
+            'name' => 'required|max:255|unique:activities,name,' . $activity->id
+        ];
     }
 }

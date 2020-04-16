@@ -270,7 +270,24 @@ return [
 
                 ]
             ]
+        ],
+        [
+            'text' => 'service',
+            'icon' => '',
+            'submenu' => [
+                [
+                    'text'  => 'service_list',
+                    'url'   =>  'admin/services',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/services/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+            ]
         ]
+
 
     ],
 

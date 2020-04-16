@@ -96,7 +96,15 @@
     "Activity added successfully!":"Atividade adicionada com sucesso!",
     "Activity updated successfully!":"Atividade atualizada com sucesso!",
     "Activity removed successfully!":"Atividade removida com sucesso!",
-    "Activity don't remomed! There is a customer with this activity. Before the to remove, remove the especifics custome, or change this activity.":"Atividade não removida! Há um cliente com esta atividade. Antes de remover, remova o cliente específico ou altere sua atividade.",
-    "More info":"Mais informações"
+    "Activity don't removed! There is a customer with this activity. Before the to remove, remove the especifics custome, or change this activity.":"Atividade não removida! Há um cliente com esta atividade. Antes de remover, remova o cliente específico ou altere sua atividade.",
+    "More info":"Mais informações",
+    "Price":"Preço",
+    "$":"R$",
+    "Add Service":"Adicionar Serviço",
+    "Service added successfully!":"Serviço adicionado com sucesso!",
+    "Details Service":"Detalhes do Serviço",
+    "Service updated successfully!":"Serviço atualizado com sucesso!",
+    "Service don't removed! There is a budget with this service. Before the to remove, remove the especifics budget, or remove this service.":"Serviço não removido! Existe um orçamento com este serviço. Antes de remover, remova o orçamento específico ou remova este serviço.",
+    "Service removed successfully!":"Serviço removido com sucesso!"
 
 }

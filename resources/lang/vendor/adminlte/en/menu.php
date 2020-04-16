@@ -23,6 +23,8 @@ return [
     'customer_list'                 => 'Cusromer List',
     'contacts'                      => 'Contacts',
     "activities"                    => 'Activities',
-    "activity_list"                 => 'Activity List'
+    "activity_list"                 => 'Activity List',
+    "service"                       => 'Service',
+    "service_list"                  => 'Lista de Serviços',
 
 ];

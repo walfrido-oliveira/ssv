@@ -12,16 +12,17 @@ class Service extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'price'
     ];
 
     /**
-     * The types that belong to the service.
+     * The attributes that should be cast to native types.
+     *
+     * @var array
      */
-    public function serviceTypes()
-    {
-        return $this->belongsToMany(ServiceType::class);
-    }
+    protected $casts = [
+        'price' => 'decimal:2',
+    ];
 
 
 }

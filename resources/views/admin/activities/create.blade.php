@@ -19,7 +19,7 @@
                     <div class="card card-primary">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="nome_fantasia">{{ __('Name') }}</label>
+                                <label for="name">{{ __('Name') }}</label>
                                 {!! Form::text('name', null, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
                                 {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
                             </div>
