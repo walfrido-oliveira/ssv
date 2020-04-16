@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-12 card-footer">
-                    <a href="#" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                    <a href="{{ route('admin.activities.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     <input type="submit" value="{{ __('Confirm') }}" class="btn btn-primary float-right">
                 </div>
             </div>
