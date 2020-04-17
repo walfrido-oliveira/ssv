@@ -95,6 +95,21 @@
 
 $(document).ready(function () {
   $('.select2').select2();
+  $('.select2-with-tag').select2({
+    tags: true,
+    createTag: function createTag(params) {
+      var term = $.trim(params.term);
+
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: term,
+        text: term
+      };
+    }
+  });
 });
 $(document).ready(function () {
   $(".input-search").on("keyup", function () {

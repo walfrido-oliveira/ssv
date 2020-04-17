@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="price">{{ __('Price') }}</label>
-                                    {!! Form::text('price', null, ['class' => 'form-control ' . $errors->first('price','is-invalid'), 'id' => 'price', 'placeholder' => __("Price")]) !!}
+                                    {!! Form::number('price', null, ['class' => 'form-control ' . $errors->first('price','is-invalid'), 'id' => 'price', 'placeholder' => __("Price"), 'step'=>'any']) !!}
                                     {!! $errors->first('price','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>

@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Client\Contact\ContactType;
+use App\Models\Product\ProductCategory;
 
-class ContactTypeController extends Controller
+class ProductCategoryController extends Controller
 {
     /**
-	 * @var contactType
+	 * @var ProductCategory
 	 */
-    private $contactType;
+    private $productCategory;
 
     /**
      * create a new instance of controll
      */
-	public function __construct(ContactType $contactType)
+	public function __construct(ProductCategory $productCategory)
 	{
-        $this->contactType = $contactType;
+        $this->productCategory = $productCategory;
 
-        $this->middleware('permission:contact-type-list|contact-type-create|contact-type-edit|contact-type-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:contact-type-create', ['only' => ['create','store']]);
-        $this->middleware('permission:contact-type-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:contact-type-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:product-category-list|product-category-create|product-category-edit|product-category-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:product-category-create', ['only' => ['create','store']]);
+        $this->middleware('permission:product-category-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:product-category-delete', ['only' => ['destroy']]);
     }
 
     /**

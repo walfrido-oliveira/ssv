@@ -8,8 +8,6 @@
 
 @section('content')
 
-    @include('flash::message')
-
     <form action="{{ route('admin.profile.credentials.update', [ 'user' => $user->id ]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
