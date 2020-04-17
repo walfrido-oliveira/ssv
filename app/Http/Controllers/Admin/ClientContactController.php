@@ -31,10 +31,19 @@ class ClientContactController extends Controller
     {
         $clientContact = $this->clientContact->find($id);
 
-        $clientContact->delete();
+        if (!is_null($clientContact))
+        {
+            $clientContact->delete();
 
-        return response()->json([
-            'message' => __('Contact deleted successfully!')
-          ]);
+            return response()->json([
+                'message' => __('Contact deleted successfully!')
+            ]);
+        } else {
+            return response()->json([
+                'message' => __('Contact dont exist'),
+                500
+            ]);
+        }
+
     }
 }
