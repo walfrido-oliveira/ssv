@@ -26,7 +26,7 @@ return [
     "activity_list"                 => 'Lista de Atividades',
     "services"                      => 'Serviços',
     "service_list"                  => 'Lista Serviços',
-    "products"                      => 'Productos',
+    "products"                      => 'Produtos',
     "budgets"                       => 'Orçamentos',
     "products_list"                 => 'Lista de Produtos',
     "categories"                    => "Categorias",

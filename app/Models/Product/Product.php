@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Models\Product\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -12,7 +13,8 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'price', 'amount_in_stock'
+        'name', 'description', 'price', 'amount_in_stock', 'product_category_id',
+        'image'
     ];
 
     /**
@@ -24,4 +26,19 @@ class Product extends Model
         'price'             => 'decimal:2',
         'amount_in_stock'   => 'integer',
     ];
+
+    public function getImageLinkAttribute()
+    {
+        return !is_null($this->image) ? 'storage/' . $this->image : 'storage/img/empty.png';
+    }
+
+    /**
+     * return a single ProductCategory
+     *
+     * @return ProductCategory
+     */
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
 }

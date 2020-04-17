@@ -101,10 +101,25 @@
     "Price":"Preço",
     "$":"R$",
     "Add Service":"Adicionar Serviço",
+    "Services":"Serviços",
     "Service added successfully!":"Serviço adicionado com sucesso!",
     "Details Service":"Detalhes do Serviço",
     "Service updated successfully!":"Serviço atualizado com sucesso!",
     "Service don't removed! There is a budget with this service. Before the to remove, remove the especifics budget, or remove this service.":"Serviço não removido! Existe um orçamento com este serviço. Antes de remover, remova o orçamento específico ou remova este serviço.",
-    "Service removed successfully!":"Serviço removido com sucesso!"
+    "Service removed successfully!":"Serviço removido com sucesso!",
+    "Add Product":"Adicionar Produto",
+    "Products":"Produtos",
+    "Category":"Categoria",
+    "Initial Stock":"Estoque Inicial",
+    "Stock":"Estoque",
+    "Image":"Imagem",
+    "Product added successfully!":"Produto adicionado com sucesso!",
+    "Product updated successfully!":"Produto atualizado com sucesso!",
+    "Product removed successfully!":"Produto removido com sucesso!",
+    "Product don't removed! There is a budget with this product. Before the to remove, remove the especifics budget, or remove this product.":"Produto não removido! Existe um orçamento com este produto. Antes de remover, remova o orçamento específico ou remova este produto.",
+    "Details Product":"Detalhes do Produto",
+    "In Stoke":"Em Estoque",
+    "Out of Stoke":"Fora de Estoque",
+    "Edit Product":"Editar Produto"
 
 }

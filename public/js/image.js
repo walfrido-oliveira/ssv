@@ -81,92 +81,54 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/client.js":
-/*!********************************!*\
-  !*** ./resources/js/client.js ***!
-  \********************************/
+/***/ "./resources/js/image.js":
+/*!*******************************!*\
+  !*** ./resources/js/image.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var currentContact = null;
-$(document).on('click', ".btn-add", function (e) {
-  e.preventDefault();
-  var controlContact = $('.contact:first'),
-      currentEntry = $(this).parents('.entry:first'),
-      newEntry = $(currentEntry.clone()).appendTo('.contact:first');
-  newEntry.find('input').val('');
-  var selector = newEntry.find('input').attr('name');
-  var index_value = selector.match(/\d+/)[0];
-  var nextIndexValue = parseInt(index_value, 10) + 1;
-  newEntry.find('input,select').each(function () {
-    this.name = this.name.replace(selector.match(/\d+/)[0], nextIndexValue);
-  });
-  controlContact.find('.entry:not(:last) .btn-remove').removeAttr('disabled');
-  controlContact.find('.entry:not(:last) .btn-add').attr('disabled', 'disabled');
-  newEntry.find('.btn-remove').removeAttr('disabled');
-  newEntry.find('.btn-add').removeAttr('disabled');
-}).on('click', '.btn-remove', function (e) {
-  window.currentContact = $(this).parents('.entry:first');
-  $('#delete-modal').modal('show');
-  e.preventDefault();
+var profileImage = document.getElementById('profile_image'),
+    preview = document.getElementById('preview_image_profile'),
+    container = document.getElementById('image_profile_preview_container'),
+    label = document.getElementById('custom-file-label');
+profileImage.addEventListener('change', function () {
+  var fileName = this.value.split("\\").pop();
+  label.classList.add("selected");
+  label.innerHTML = fileName;
+  changeImageProfile(this);
 });
-$('#delete-modal').on('show.bs.modal', function (e) {
-  var id = $(e.relatedTarget).data('id');
-  var url = $(e.relatedTarget).data('url');
-  $('#btn-modal-delete-yes').attr('data-id', id).attr('data-url', url);
-});
-$(document).on('click', "#btn-modal-delete-yes", function (e) {
-  $('#delete-modal').modal('hide');
-  var id = $(this).data('id');
-  var url = $(this).data('url');
-  var token = $("meta[name='csrf-token']").attr("content");
-  $.ajax({
-    url: url,
-    type: 'DELETE',
-    data: {
-      _token: token,
-      id: id
-    },
-    success: function success(response) {
-      toastr.success(response.message);
-      var parents = $('.contact:first').find('.entry');
 
-      if (parents.length == 1) {
-        parents.eq(0).find('.btn-remove').attr('disabled', 'disabled');
-        return;
-      }
+function changeImageProfile(input) {
+  var render;
 
-      if (parents.length == 2) {
-        parents.eq(0).find('.btn-remove').attr('disabled', 'disabled');
-        parents.eq(0).find('.btn-add').removeAttr('disabled');
-      }
+  if (input.files && input.files[0]) {
+    render = new FileReader();
 
-      window.currentContact.remove();
-      window.currentContact = null;
-      var container = $("html,body");
-      var scrollTo = $('.contact').find('.entry:last');
-      $("html, body").animate({
-        scrollTop: scrollTo.offset().top
-      }, 500); //scrollTop(scrollTo.offset().top);
-    }
-  });
-});
+    render.onload = function (e) {
+      preview.setAttribute('src', e.target.result);
+    };
+
+    render.readAsDataURL(input.files[0]);
+    container.style.display = 'block';
+  }
+}
 
 /***/ }),
 
-/***/ 2:
-/*!**************************************!*\
-  !*** multi ./resources/js/client.js ***!
-  \**************************************/
+/***/ 4:
+/*!*************************************!*\
+  !*** multi ./resources/js/image.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ssv\resources\js\client.js */"./resources/js/client.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ssv\resources\js\image.js */"./resources/js/image.js");
 
 
 /***/ })

@@ -77,6 +77,8 @@ class ClientController extends Controller
     {
         $data = $request->all();
 
+        $data['activity_id'] = $this->createActivity($data['activity_id']);
+
         $client = $this->client->create($data);
 
         if (!is_null($request->logo))
@@ -151,9 +153,9 @@ class ClientController extends Controller
     {
         $data = $request->all();
 
-       // dd($data);
-
         $client = $this->client::find($id);
+
+        $data['activity_id'] = $this->createActivity($data['activity_id']);
 
         $client->update($data);
 
@@ -201,7 +203,8 @@ class ClientController extends Controller
 
         $budgets = $client->budgets;
 
-        foreach ($budgets as $budget) {
+        foreach ($budgets as $budget)
+        {
             $budget->delete();
         }
 
@@ -210,5 +213,23 @@ class ClientController extends Controller
         flash('success', 'Customer removed successfully!');
 
         return redirect(route('admin.clients.index'));
+    }
+
+    /**
+     * Create a inexistent activity
+     * @param $activity_id
+     */
+    private function createActivity($activity_id)
+    {
+        $activity = Activity::find($activity_id);
+
+        if (is_null($activity))
+        {
+            $activity = Activity::create([
+                'name' => $activity_id
+            ]);
+        }
+
+        return $activity->id;
     }
 }
