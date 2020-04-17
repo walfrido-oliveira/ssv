@@ -32,7 +32,7 @@
                                         <label for="profile_image">{{ __('Logo') }}</label>
                                     </div>
                                     <div class="col-3 p-2" id="image_profile_preview_container">
-                                        <img class="img-circle elevation-2 image-profine-preview" src="{{ asset('storage/'.$client->logo) }}" alt="" id="preview_image_profile">
+                                        <img class="img-circle elevation-2 image-profine-preview" src="{{ asset($client->image) }}" alt="" id="preview_image_profile">
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group">
@@ -79,9 +79,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="activity_id">{{ __('Client Activity') }}</label>
-                                {!! Form::select('activity_id', $activities, $client->activity, ['class' => 'form-control custom-select ' . $errors->first('activity_id','is-invalid') , 'data-placeholder' => __('Client Activity')]) !!}
-                                {!! $errors->first('activity_id','<div class="invalid-feedback">:message</div>') !!}
+                                <label>{{ __('Client Activity') }}</label>
+                                {!! Form::select('activity_id', $activities, $client->activity->id,['class' => 'select2-with-tag ' . $errors->first('roles','is-invalid') , 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
+                                {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                             <div class="form-group">
                                 <label for="home_page">{{ __('Home Page') }}</label>
@@ -251,4 +251,5 @@
 
 @section('js')
     <script src="{{ mix('js/client.js') }}"></script>
+    <script src="{{ mix('js/image.js') }}"></script>
 @stop
