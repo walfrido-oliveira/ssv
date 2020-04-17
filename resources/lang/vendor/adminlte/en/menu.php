@@ -24,7 +24,20 @@ return [
     'contacts'                      => 'Contacts',
     "activities"                    => 'Activities',
     "activity_list"                 => 'Activity List',
-    "service"                       => 'Service',
-    "service_list"                  => 'Lista de Serviços',
+    "services"                      => 'Services',
+    "service_list"                  => 'Services List',
+    "products"                      => 'Products',
+    "budgets"                       => 'Budgets',
+    "products_list"                 => 'Product List',
+    "categories"                    => 'Categories',
+    "categories_list"               => "Categories List",
+    "budgets_list"                  => "Budgets List",
+    "budget_type"                   => "Budget Type",
+    "budget_types_list"             => "Budget Types List",
+    "payment_methods"               => "Payment Methods",
+    "payment_methods_list"          => "Payment Methods List",
+    "transport_methods"             => "Transport Methods",
+    "transport_methods_list"        => "Transport Methods List",
+    "service_order"                 => "Service Order"
 
 ];

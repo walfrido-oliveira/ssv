@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'layout_topnav' => null,
+    'layout_topnav' => false,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
@@ -231,49 +231,43 @@ return [
             ]
         ],
         [
-            'text' => 'comercial',
-            'icon' => '',
+            'text' => 'customers',
+            'url' => '#',
+            'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'customers',
+                    'text'  => 'customer_list',
+                    'url'   =>  'admin/clients',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/clients/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'activities',
                     'url' => '#',
-                    'icon' => 'fas fa-fw fa-users',
+                    'icon' => '',
                     'submenu' => [
                         [
-                            'text'  => 'customer_list',
-                            'url'   =>  'admin/clients',
+                            'text'  => 'activity_list',
+                            'url'   =>  'admin/activities',
                             'icon'  =>  'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' => 'admin/clients/create',
+                            'url' => 'admin/activities/create',
                             'icon' => 'fas fa-fw fa-plus',
                         ],
-                        [
-                            'text' => 'activities',
-                            'url' => '#',
-                            'icon' => '',
-                            'submenu' => [
-                                [
-                                    'text'  => 'activity_list',
-                                    'url'   =>  'admin/activities',
-                                    'icon'  =>  'fas fa-fw fa-list'
-                                ],
-                                [
-                                    'text' => 'new',
-                                    'url' => 'admin/activities/create',
-                                    'icon' => 'fas fa-fw fa-plus',
-                                ],
-                            ]
-                        ],
                     ]
-
-                ]
+                ],
             ]
+
         ],
         [
-            'text' => 'service',
-            'icon' => '',
+            'text' => 'services',
+            'icon' => 'fas fa-fw fa-wrench',
             'submenu' => [
                 [
                     'text'  => 'service_list',
@@ -286,8 +280,123 @@ return [
                     'icon' => 'fas fa-fw fa-plus',
                 ],
             ]
-        ]
-
+        ],
+        [
+            'text' => 'products',
+            'icon' => 'fas fa-fw fa-archive',
+            'submenu' => [
+                [
+                    'text'  => 'products_list',
+                    'url'   =>  'admin/products',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/products/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'categories',
+                    'url' => '#',
+                    'icon' => '',
+                    'submenu' => [
+                        [
+                            'text'  => 'categories_list',
+                            'url'   =>  'admin/categories',
+                            'icon'  =>  'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'url' => 'admin/categories/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                        ],
+                    ]
+                ],
+            ]
+        ],
+        [
+            'text' => 'budgets',
+            'icon' => 'fas fa-fw fa-money-check-alt',
+            'submenu' => [
+                [
+                    'text'  => 'budgets_list',
+                    'url'   =>  'admin/budgets',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/budgets/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'budget_type',
+                    'url' => '#',
+                    'icon' => '',
+                    'submenu' => [
+                        [
+                            'text'  => 'budget_types_list',
+                            'url'   => 'admin/budget-types',
+                            'icon'  => 'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'url' =>  'admin/budget-types/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                        ],
+                    ]
+                ],
+                [
+                    'text' => 'payment_methods',
+                    'url' => '#',
+                    'icon' => '',
+                    'submenu' => [
+                        [
+                            'text'  => 'payment_methods_list',
+                            'url'   => 'admin/payment-methods',
+                            'icon'  => 'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'url' =>  'admin/payment-methods/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                        ],
+                    ]
+                ],
+                [
+                    'text' => 'transport_methods',
+                    'url' => '#',
+                    'icon' => '',
+                    'submenu' => [
+                        [
+                            'text'  => 'transport_methods_list',
+                            'url'   => 'admin/transport-methods',
+                            'icon'  => 'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'url' =>  'admin/transport-methods/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                        ],
+                    ]
+                ],
+            ]
+        ],
+        [
+            'text' => 'service_order',
+            'icon' => 'fas fa-fw fa-toolbox',
+            'submenu' => [
+                [
+                    'text'  => 'service_list',
+                    'url'   =>  'admin/service_orders',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+                [
+                    'text' => 'new',
+                    'url' => 'admin/service_orders/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+            ]
+        ],
 
     ],
 

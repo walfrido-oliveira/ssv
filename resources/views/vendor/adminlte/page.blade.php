@@ -83,7 +83,7 @@
                         @each('adminlte::partials.menu-item-top-nav-left', $adminlte->menu(), 'item')
                     </ul>
                 </div>
-            @else
+        @else
             <nav class="main-header navbar {{config('adminlte.classes_topnav_nav', 'navbar-expand-md')}} {{config('adminlte.classes_topnav', 'navbar-white navbar-light')}}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -95,7 +95,7 @@
                     @each('adminlte::partials.menu-item-top-nav-left', $adminlte->menu(), 'item')
                     @yield('content_top_nav_left')
                 </ul>
-            @endif
+        @endif
                 <ul class="navbar-nav ml-auto @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))order-1 order-md-3 navbar-no-expand @endif">
                     @yield('content_top_nav_right')
                     @each('adminlte::partials.menu-item-top-nav-right', $adminlte->menu(), 'item')

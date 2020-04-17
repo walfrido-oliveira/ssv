@@ -47768,3 +47768,7 @@ button.toast-close-button {
   background-color: #17a2b8 !important;
 }
 
+aside .brand-link {
+  display: block !important;
+}
+
