@@ -125,6 +125,12 @@ $(document).on('click', "#btn-modal-delete-yes", function (e) {
   var id = $(this).data('id');
   var url = $(this).data('url');
   var token = $("meta[name='csrf-token']").attr("content");
+
+  if (typeof url === 'undefined') {
+    removeContact();
+    return;
+  }
+
   $.ajax({
     url: url,
     type: 'DELETE',
@@ -134,28 +140,36 @@ $(document).on('click', "#btn-modal-delete-yes", function (e) {
     },
     success: function success(response) {
       toastr.success(response.message);
-      var parents = $('.contact:first').find('.entry');
-
-      if (parents.length == 1) {
-        parents.eq(0).find('.btn-remove').attr('disabled', 'disabled');
-        return;
-      }
-
-      if (parents.length == 2) {
-        parents.eq(0).find('.btn-remove').attr('disabled', 'disabled');
-        parents.eq(0).find('.btn-add').removeAttr('disabled');
-      }
-
-      window.currentContact.remove();
-      window.currentContact = null;
-      var container = $("html,body");
-      var scrollTo = $('.contact').find('.entry:last');
-      $("html, body").animate({
-        scrollTop: scrollTo.offset().top
-      }, 500); //scrollTop(scrollTo.offset().top);
+      removeContact();
     }
   });
 });
+
+function removeContact() {
+  window.currentContact.remove();
+  window.currentContact = null;
+  var parents = $('.contact:first').find('.entry');
+
+  for (var index = 0; index < parents.length; index++) {
+    var element = parents.eq(index);
+
+    if (index == 0 && parents.length == 1) {
+      element.find('.btn-remove').attr('disabled', 'disabled');
+      element.find('.btn-add').removeAttr('disabled');
+    } else if (index == parents.length - 1) {
+      element.find('.btn-remove').removeAttr('disabled');
+      element.find('.btn-add').removeAttr('disabled');
+    } else {
+      element.find('.btn-remove').removeAttr('disabled');
+      element.find('.btn-add').attr('disabled', 'disabled');
+    }
+  }
+
+  var scrollTo = $('.contact').find('.entry:last');
+  $("html, body").animate({
+    scrollTop: scrollTo.offset().top
+  }, 500);
+}
 
 /***/ }),
 
