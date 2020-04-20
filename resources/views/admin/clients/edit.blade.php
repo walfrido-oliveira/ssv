@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ __('Add Customer') }}</h1>
+    <h1 class="m-0 text-dark">{{ __('Edit Customer') }}</h1>
 @stop
 
 @section('content')
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Client Activity') }}</label>
-                                {!! Form::select('activity_id', $activities, $client->activity->id,['class' => 'select2-with-tag ' . $errors->first('roles','is-invalid') , 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
+                                {!! Form::select('activity_id', $activities, $client->activity->id,['class' => 'select2-with-tag ' . $errors->first('roles','is-invalid') , 'data-placeholder' => __('Select a Role')]) !!}
                                 {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                             <div class="form-group">
@@ -163,7 +163,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="contact_type_id">{{ __('Contact Type') }}</label>
-                                    {!! Form::select('contacts['.$index.'][contact_type_id]', $contactType, $contact->contactType, ['class' => 'form-control custom-select ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
+                                    {!! Form::select('contacts['.$index.'][contact_type_id]', $contactType, $contact->contactType->id, ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
                                     {!! $errors->first('contacts.*.contact_type_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="form-group">

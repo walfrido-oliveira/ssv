@@ -2,6 +2,7 @@ var currentContact = null;
 
 $(document).on('click', ".btn-add", function(e) {
     e.preventDefault();
+    $('.select2-with-tag').select2("destroy");
 
     var controlContact = $('.contact:first'),
         currentEntry   = $(this).parents('.entry:first'),
@@ -29,6 +30,8 @@ $(document).on('click', ".btn-add", function(e) {
 
     newEntry.find('.btn-add')
         .removeAttr('disabled');
+
+    addSelect2();
 
 }).on('click', '.btn-remove', function(e) {
 
@@ -102,4 +105,21 @@ function removeContact() {
     }, 500);
 }
 
+function addSelect2() {
+    $('.select2-with-tag').select2({
+        tags: true,
+        createTag: function (params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+            return null;
+            }
+
+            return {
+                id: term,
+                text: term
+            }
+        }
+    });
+}
 

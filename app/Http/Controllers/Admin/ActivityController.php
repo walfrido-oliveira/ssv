@@ -73,7 +73,7 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        $activity = Activity::find($id);
+        $activity = $this->activity->find($id);
 
         $clients = Client::where('activity_id', $id)->count();
 
@@ -88,7 +88,7 @@ class ActivityController extends Controller
      */
     public function edit($id)
     {
-        $activity = Activity::find($id);
+        $activity = $this->activity->find($id);
 
         return view('admin.activities.edit', compact('activity'));
     }

@@ -96,6 +96,7 @@
 var currentContact = null;
 $(document).on('click', ".btn-add", function (e) {
   e.preventDefault();
+  $('.select2-with-tag').select2("destroy");
   var controlContact = $('.contact:first'),
       currentEntry = $(this).parents('.entry:first'),
       newEntry = $(currentEntry.clone()).appendTo('.contact:first');
@@ -110,6 +111,7 @@ $(document).on('click', ".btn-add", function (e) {
   controlContact.find('.entry:not(:last) .btn-add').attr('disabled', 'disabled');
   newEntry.find('.btn-remove').removeAttr('disabled');
   newEntry.find('.btn-add').removeAttr('disabled');
+  addSelect2();
 }).on('click', '.btn-remove', function (e) {
   window.currentContact = $(this).parents('.entry:first');
   $('#delete-modal').modal('show');
@@ -169,6 +171,24 @@ function removeContact() {
   $("html, body").animate({
     scrollTop: scrollTo.offset().top
   }, 500);
+}
+
+function addSelect2() {
+  $('.select2-with-tag').select2({
+    tags: true,
+    createTag: function createTag(params) {
+      var term = $.trim(params.term);
+
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: term,
+        text: term
+      };
+    }
+  });
 }
 
 /***/ }),

@@ -173,6 +173,9 @@ class ClientController extends Controller
         $contacts = $data['contacts'];
 
         foreach ($contacts as $key => $contact) {
+
+            $contact['contact_type_id'] = $this->createContact($contact['contact_type_id']);
+
             if(isset($contact['id']))
             {
                 $clientContact = ClientContact::find($contact['id']);
@@ -216,7 +219,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Create a inexistent activity
+     * Create a new activity
      * @param $activity_id
      */
     private function createActivity($activity_id)
@@ -231,5 +234,23 @@ class ClientController extends Controller
         }
 
         return $activity->id;
+    }
+
+    /**
+     * Create a new contact
+     * @param $activity_id
+     */
+    private function createContact($contact_type_id)
+    {
+        $contact = ContactType::find($contact_type_id);
+
+        if (is_null($contact))
+        {
+            $contact = ContactType::create([
+                'name' => $contact_type_id
+            ]);
+        }
+
+        return $contact->id;
     }
 }

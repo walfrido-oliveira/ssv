@@ -51,7 +51,7 @@
                             <div class="row mb-3">
                                 <div class="col-sm-8">
                                     <label for="product_category_id">{{ __('Category') }}</label>
-                                    {!! Form::select('product_category_id', $categories, $product->productCategory->id, ['class' => 'select2-with-tag ' . $errors->first('product_category_id','is-invalid') , 'data-placeholder' => __('Category'), 'style' => 'width: 100%;']) !!}
+                                    {!! Form::select('product_category_id', $categories, $product->productCategory->id, ['class' => 'select2-with-tag ' . $errors->first('product_category_id','is-invalid') , 'data-placeholder' => __('Category')]) !!}
                                     {!! $errors->first('product_category_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-4">

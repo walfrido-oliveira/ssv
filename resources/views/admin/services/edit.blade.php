@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-<h1 class="m-0 text-dark">{{ __('Add service') }}</h1>
+<h1 class="m-0 text-dark">{{ __('Edit Service') }}</h1>
 @stop
 
 @section('content')

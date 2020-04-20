@@ -3,12 +3,12 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-<h1 class="m-0 text-dark">{{ __('Edit Activity') }}</h1>
+<h1 class="m-0 text-dark">{{ __('Edit Category') }}</h1>
 @stop
 
 @section('content')
 
-    <form action="{{ route('admin.activities.update', ['activity' => $activity->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.categories.update', ['category' => $category->id]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method("PUT")
@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">{{ __('Name') }}</label>
-                                {!! Form::text('name', $activity->name, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
+                                {!! Form::text('name', $category->name, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
                                 {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-12 card-footer">
-                    <a href="{{ route('admin.activities.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     <input type="submit" value="{{ __('Confirm') }}" class="btn btn-primary float-right">
                 </div>
             </div>

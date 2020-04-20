@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Models\Product\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductCategory;
 
@@ -11,19 +12,19 @@ class ProductCategoryController extends Controller
     /**
 	 * @var ProductCategory
 	 */
-    private $productCategory;
+    private $category;
 
     /**
      * create a new instance of controll
      */
-	public function __construct(ProductCategory $productCategory)
+	public function __construct(ProductCategory $category)
 	{
-        $this->productCategory = $productCategory;
+        $this->category = $category;
 
-        $this->middleware('permission:product-category-list|product-category-create|product-category-edit|product-category-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:product-category-create', ['only' => ['create','store']]);
-        $this->middleware('permission:product-category-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:product-category-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:category-list|category-create|category-edit|category-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:category-create', ['only' => ['create','store']]);
+        $this->middleware('permission:category-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:category-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -33,7 +34,8 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = $this->category->paginate(10);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -43,7 +45,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -54,7 +56,13 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->roles($this->category));
+
+        $this->category->create($request->all());
+
+        flash('success', 'Category added successfully!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -65,7 +73,9 @@ class ProductCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = $this->category->find($id);
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -76,7 +86,9 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->category->find($id);
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -88,7 +100,15 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = $this->category->find($id);
+
+        $request->validate($this->roles($category));
+
+        $category->update($request->all());
+
+        flash('success', 'Category updated successfully!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -99,6 +119,34 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = $this->category->find($id);
+
+        $products = Product::where('product_category_id', $id);
+
+        if ($products->count() > 0)
+        {
+            flash('error', 'Category don\'t removed! There is a product with this category. Before the to remove, remove the especifics custome, or change this category.');
+            return redirect(route('admin.categories.index'));
+        }
+
+        $category->delete();
+
+        flash('success', 'Category removed successfully!');
+
+        return redirect(route('admin.categories.index'));
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @param Activity $activity
+     * @return array
+     */
+    public function roles($activity)
+    {
+        return
+        [
+            'name' => 'required|max:255|unique:product_categories,name,' . $activity->id
+        ];
     }
 }

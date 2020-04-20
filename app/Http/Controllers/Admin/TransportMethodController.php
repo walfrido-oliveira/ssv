@@ -2,11 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Budget\Budget;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\TransportMethod;
 
 class TransportMethodController extends Controller
 {
+    /**
+	 * @var TransportMethod
+	 */
+    private $transportMethod;
+
+    /**
+     * create a new instance of controll
+     */
+	public function __construct(TransportMethod $transportMethod)
+	{
+        $this->transportMethod = $transportMethod;
+
+        $this->middleware('permission:transport-method-list|transport-method-create|transport-method-edit|transport-method-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:transport-method-create', ['only' => ['create','store']]);
+        $this->middleware('permission:transport-method-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:transport-method-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +34,8 @@ class TransportMethodController extends Controller
      */
     public function index()
     {
-        //
+        $transportMethods = $this->transportMethod->paginate(10);
+        return view('admin.transport-methods.index', compact('transportMethods'));
     }
 
     /**
@@ -24,7 +45,7 @@ class TransportMethodController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.transport-methods.create');
     }
 
     /**
@@ -35,7 +56,13 @@ class TransportMethodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->roles($this->transportMethod));
+
+        $this->transportMethod->create($request->all());
+
+        flash('success', 'Transport Method added successfully!');
+
+        return redirect()->route('admin.transport-methods.index');
     }
 
     /**
@@ -46,7 +73,9 @@ class TransportMethodController extends Controller
      */
     public function show($id)
     {
-        //
+        $transportMethod = $this->transportMethod->find($id);
+
+        return view('admin.transport-methods.show', compact('transportMethod'));
     }
 
     /**
@@ -57,7 +86,9 @@ class TransportMethodController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transportMethod = $this->transportMethod->find($id);
+
+        return view('admin.transport-methods.edit', compact('transportMethod'));
     }
 
     /**
@@ -69,7 +100,15 @@ class TransportMethodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $transportMethod = $this->transportMethod->find($id);
+
+        $request->validate($this->roles($transportMethod));
+
+        $transportMethod->update($request->all());
+
+        flash('success', 'Transport Method updated successfully!');
+
+        return redirect()->route('admin.transport-methods.index');
     }
 
     /**
@@ -80,6 +119,34 @@ class TransportMethodController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transportMethod = $this->transportMethod->find($id);
+
+        $clients = Budget::where('transport_method_id', $id);
+
+        if ($clients->count() > 0)
+        {
+            flash('error', 'Transport Method don\'t removed! There is a budget with this. Before the to remove, remove the especifics budget, or change this method.');
+            return redirect(route('admin.transport-methods.index'));
+        }
+
+        $transportMethod->delete();
+
+        flash('success', 'Transport Method removed successfully!');
+
+        return redirect(route('admin.transport-methods.index'));
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @param Transport Method transportMethod
+     * @return array
+     */
+    public function roles($transportMethod)
+    {
+        return
+        [
+            'name' => 'required|max:255|unique:transport_methods,name,' . $transportMethod->id
+        ];
     }
 }
