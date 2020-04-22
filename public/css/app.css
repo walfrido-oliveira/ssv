@@ -47787,7 +47787,8 @@ aside .brand-link {
   -webkit-user-select: none;
 }
 
-.select2-with-tag {
+.select2-with-tag,
+.select2-with-remote-data {
   width: 100%;
 }
 

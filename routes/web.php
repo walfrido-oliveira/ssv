@@ -37,6 +37,9 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('clients', 'ClientController');
 
+        Route::get('/client/find', 'ClientController@find');
+        Route::get('/contact/find', 'ClientContactController@find');
+
         Route::resource('activities', 'ActivityController');
 
         Route::resource('services', 'ServiceController');
@@ -50,6 +53,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('payment-methods', 'PaymentMethodController');
 
         Route::resource('transport-methods', 'TransportMethodController');
+
+        Route::resource('budgets', 'BudgetController');
 
         Route::prefix('contacts')->name('contacts.')->group(function(){
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');

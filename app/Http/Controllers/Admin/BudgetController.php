@@ -2,11 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Budget\Budget;
+use App\Models\Budget\BudgetType;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\PaymentMethod;
+use App\Models\Budget\TransportMethod;
 
 class BudgetController extends Controller
 {
+    /**
+	 * @var Budget
+	 */
+    private $budget;
+
+    /**
+     * create a new instance of controll
+     */
+	public function __construct(Budget $budget)
+	{
+        $this->budget = $budget;
+
+        $this->middleware('permission:budget-list|budget-create|budget-edit|budget-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:budget-create', ['only' => ['create','store']]);
+        $this->middleware('permission:budget-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:budget-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +36,8 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        //
+        $budgets = $this->budget->paginate(10);
+        return view('admin.budgets.index', compact('budgets'));
     }
 
     /**
@@ -24,7 +47,11 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        //
+        $budgetTypes = BudgetType::all()->pluck('name', 'id');
+        $paymentMethods = PaymentMethod::all()->pluck('name', 'id');
+        $transportMethods = TransportMethod::all()->pluck('name', 'id');
+
+        return view('admin.budgets.create', compact('budgetTypes', 'paymentMethods', 'transportMethods'));
     }
 
     /**
@@ -35,7 +62,16 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->roles($this->budget));
+
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+
+        $this->budget->create($data);
+
+        flash('success', 'Budget added successfully!');
+
+        return redirect()->route('admin.budgets.index');
     }
 
     /**
@@ -81,5 +117,23 @@ class BudgetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @param Budget $budget
+     * @return array
+     */
+    public function roles($budget)
+    {
+        return
+        [
+            'budget_type_id' => 'required',
+            'payment_method_id' => 'required',
+            'transport_method_id' => 'required',
+            'client_contact_id' => 'required',
+            'client_id' => 'required'
+        ];
     }
 }

@@ -74,7 +74,10 @@ $(document).on('click', "#btn-modal-delete-yes", function(e) {
         success: function(response){
             toastr.success(response.message);
             removeContact()
-        }
+        },
+        error: function(err){
+            toastr.error(err.responseJSON.message);
+        },
     });
 });
 
