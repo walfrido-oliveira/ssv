@@ -143,6 +143,9 @@ $(document).on('click', "#btn-modal-delete-yes", function (e) {
     success: function success(response) {
       toastr.success(response.message);
       removeContact();
+    },
+    error: function error(err) {
+      toastr.error(err.responseJSON.message);
     }
   });
 });

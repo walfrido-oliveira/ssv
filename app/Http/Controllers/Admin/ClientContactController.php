@@ -19,6 +19,12 @@ class ClientContactController extends Controller
 	public function __construct(ClientContact $clientContact)
 	{
         $this->clientContact = $clientContact;
+
+        $this->middleware('permission:client-contact-list|client-contact-create|client-contact-edit|client-contact-delete',
+                            ['only' => ['index','store','find']]);
+        $this->middleware('permission:client-contact-create', ['only' => ['create','store']]);
+        $this->middleware('permission:client-contact-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:client-contact-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -45,5 +51,40 @@ class ClientContactController extends Controller
             ]);
         }
 
+    }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+        $clientId = trim($request->client_id);
+
+        if (is_null($term))
+        {
+            $contacts = ClientContact::where('client_id', $clientId)
+                ->limit(5)->get();
+        } else {
+            $contacts = ClientContact::where('contact', 'like', '%' . $term . '%')
+                ->where('client_id', $clientId)
+                ->limit(5)->get();
+        }
+
+        $formatted_contacts = [];
+
+        foreach ($contacts as $contact) {
+            $formatted_contacts[] = ['id' => $contact->id,
+                                    'contact' => $contact->contact,
+                                    'department' => $contact->department,
+                                    'phone' => $contact->phone,
+                                    'mobile_phone' => $contact->mobile_phone,
+                                    'email' => $contact->email,
+                                   ];
+        }
+
+        return \Response::json($formatted_contacts);
     }
 }

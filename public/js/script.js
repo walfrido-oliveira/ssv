@@ -110,8 +110,6 @@ $(document).ready(function () {
       };
     }
   });
-});
-$(document).ready(function () {
   $(".input-search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $(".table-search tbody tr").filter(function () {

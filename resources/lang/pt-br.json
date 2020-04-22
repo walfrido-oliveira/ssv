@@ -154,6 +154,15 @@
     "Transport Methods":"Métodos de Transporte",
     "Add Transport Method":"Adicionar Método de Transporte",
     "Details Transport Method":"Detalhes do Método de Transporte",
-    "Edit Transport Method":"Editar Método de Transporte"
+    "Edit Transport Method":"Editar Método de Transporte",
+    "Budgets":"Orçamentos",
+    "Add Budget":"Adicionar Orçamento",
+    "Customer":"Cliente",
+    "Budget added successfully!":"Orçamento adicionado com sucesso!",
+    "Budget Type":"Tipo de Orçamento",
+    "Payment Method":"Método de Pagamento",
+    "Transport Method":"Método de Transporte",
+    "Validity":"Validade",
+    "Budget Info":"Informações do Orçamento"
 
 }

@@ -15,8 +15,8 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-6">
-                    <div class="card card-primary">
+                <div class="col-12">
+                    <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Company Info') }}</h3>
 
@@ -24,7 +24,7 @@
                               <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i></button>
                             </div>
-                          </div>
+                        </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="row align-items-center">
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Client Activity') }}</label>
-                                {!! Form::select('activity_id', $activities, null,['class' => 'select2-with-tag ' . $errors->first('roles','is-invalid') , 'data-placeholder' => __('Select a Role')]) !!}
+                                {!! Form::select('activity_id', $activities, null,['class' => 'select2-with-tag ' . $errors->first('roles','is-invalid') , 'data-placeholder' => __('Client Activity')]) !!}
                                 {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                             <div class="form-group">
@@ -95,7 +95,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-primary">
+                </div>
+                <div class="col-12">
+                    <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Adress') }}</h3>
 
@@ -147,8 +149,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 contact">
-                    <div class="card card-primary entry">
+                <div class="col-12 contact">
+                    <div class="card card-secondary entry">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Contact')}}</h3>
 
