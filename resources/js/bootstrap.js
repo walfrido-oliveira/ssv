@@ -9,13 +9,15 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.toastr = require('toastr');
 
     require('bootstrap');
     require('overlayscrollbars');
     require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
-    require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2');
+    require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2.full');
+    require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/i18n/pt-BR');
 
-    window.toastr = require('toastr');
+
 
 } catch (e) {}
 

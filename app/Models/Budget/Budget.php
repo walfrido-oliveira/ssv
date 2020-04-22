@@ -16,7 +16,9 @@ class Budget extends Model
      * @var array
      */
     protected $fillable = [
-        'amount', 'discount', 'validity', 'description'
+        'amount', 'discount', 'validity', 'description', 'budget_type_id',
+        'payment_method_id', 'transport_method_id', 'client_contact_id',
+        'client_id', 'user_id'
     ];
 
     /**

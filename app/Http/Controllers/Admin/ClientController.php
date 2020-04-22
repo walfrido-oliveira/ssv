@@ -48,7 +48,6 @@ class ClientController extends Controller
         } else {
             $clients = $this->client->paginate(10);
         }
-
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -252,5 +251,29 @@ class ClientController extends Controller
         }
 
         return $contact->id;
+    }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+
+        $clients = Client::where('nome_fantasia', 'like', '%' . $term . '%')->limit(5)->get();
+
+        $formatted_clients = [];
+
+        foreach ($clients as $client) {
+            $formatted_clients[] = ['id' => $client->id, 'text' => $client->nome_fantasia];
+        }
+
+        return \Response::json($formatted_clients);
     }
 }
