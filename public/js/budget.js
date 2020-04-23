@@ -97,7 +97,7 @@ $(document).ready(function () {
   $('select[name=client_id]').select2({
     language: "pt-BR",
     ajax: {
-      url: '/admin/client/find',
+      url: '/admin/clients/find',
       dataType: 'json',
       data: function data(params) {
         var query = {
@@ -124,7 +124,7 @@ $(document).ready(function () {
   $('select[name=client_contact_id]').select2({
     language: "pt-BR",
     ajax: {
-      url: '/admin/contact/find',
+      url: '/admin/contacts/find',
       dataType: 'json',
       data: function data(params) {
         var query = {
