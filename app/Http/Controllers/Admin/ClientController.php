@@ -92,6 +92,8 @@ class ClientController extends Controller
 
         foreach ($contacts as $key => $contact)
         {
+            $contact['contact_type_id'] = $this->createContact($contact['contact_type_id']);
+
             $clientContact = ClientContact::create(
                 [
                     'client_id' => $client->id,
