@@ -1,6 +1,6 @@
 <?php
 
-use App\Uf;
+use App\Models\Uf;
 use Illuminate\Database\Seeder;
 
 class UfSeeder extends Seeder
