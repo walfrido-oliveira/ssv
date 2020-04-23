@@ -14,9 +14,9 @@ class CreateBudgetProductTable extends Migration
     public function up()
     {
         Schema::create('budget_product', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('budget_id');
-            $table->unsignedBigInteger('product_id');
+            $table->uuid();
+            $table->uuid('budget_id');
+            $table->uuid('product_id');
 
             $table->integer('amount');
 

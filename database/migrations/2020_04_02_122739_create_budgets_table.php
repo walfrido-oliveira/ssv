@@ -14,14 +14,14 @@ class CreateBudgetsTable extends Migration
     public function up()
     {
         Schema::create('budgets', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
 
-            $table->unsignedBigInteger('budget_type_id');
-            $table->unsignedBigInteger('payment_method_id');
-            $table->unsignedBigInteger('transport_method_id');
-            $table->unsignedBigInteger('client_contact_id');
-            $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('budget_type_id');
+            $table->uuid('payment_method_id');
+            $table->uuid('transport_method_id');
+            $table->uuid('client_contact_id');
+            $table->uuid('client_id');
+            $table->uuid('user_id');
 
             $table->decimal('amount', 10, 2);
             $table->decimal('discount', 10, 2);

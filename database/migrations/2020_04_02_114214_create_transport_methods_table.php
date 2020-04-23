@@ -14,7 +14,7 @@ class CreateTransportMethodsTable extends Migration
     public function up()
     {
         Schema::create('transport_methods', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->string('name')->unique();
             $table->timestamps();
         });

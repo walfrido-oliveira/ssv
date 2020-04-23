@@ -14,7 +14,7 @@ class CreateContactTypesTable extends Migration
     public function up()
     {
         Schema::create('contact_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->string('name')->unique();
             $table->timestamps();
         });
