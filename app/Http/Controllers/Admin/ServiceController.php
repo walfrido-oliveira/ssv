@@ -68,12 +68,12 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $service = Service::find($id);
+        $service = $this->service->where('slug', $slug)->first();
 
         return view('admin.services.show', compact('service'));
     }
@@ -81,12 +81,12 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $service = Service::find($id);
+        $service = $this->service->where('slug', $slug)->first();
 
         return view('admin.services.edit', compact('service'));
     }
