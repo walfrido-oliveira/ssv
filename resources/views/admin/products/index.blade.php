@@ -37,10 +37,10 @@
                         <tbody>
                             @foreach($products as $product)
                                 <tr>
-                                    <td><a href="{{ route('admin.products.show', ['product' => $product->id]) }}">{{$product->id}}</a></td>
-                                    <td><a href="{{ route('admin.products.show', ['product' => $product->id]) }}">{{$product->name}}</a></td>
-                                    <td><a href="{{ route('admin.products.show', ['product' => $product->id]) }}">{{ alternative_money($product->price, '$', 2, ',') }}</a></td>
-                                    <td><a href="{{ route('admin.products.show', ['product' => $product->id]) }}">{{ number_format($product->amount_in_stock, 0,'', '.') }}</a></td>
+                                    <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{$product->id}}</a></td>
+                                    <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{$product->name}}</a></td>
+                                    <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ alternative_money($product->price, '$', 2, ',') }}</a></td>
+                                    <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ number_format($product->amount_in_stock, 0,'', '.') }}</a></td>
                                     <td class="project-state">
                                         <span class="badge badge-{{  $product->amount_in_stock > 0 ? 'success' : 'danger' }}">
                                             {{ $product->amount_in_stock > 0 ? __('In Stoke') : __('Out of Stoke') }}
@@ -48,12 +48,12 @@
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.products.show', ['product' => $product->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.products.show', ['product' => $product->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.products.edit', ['product' => $product->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

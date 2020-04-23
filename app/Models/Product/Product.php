@@ -2,11 +2,16 @@
 
 namespace App\Models\Product;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use App\Models\Product\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
+    use HasSlug;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,5 +45,25 @@ class Product extends Model
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

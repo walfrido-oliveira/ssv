@@ -84,12 +84,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $product = product::find($id);
+        $product = $this->product->where('slug', $slug)->first();
 
         return view('admin.products.show', compact('product'));
     }
@@ -97,14 +97,14 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $categories = ProductCategory::all()->pluck('name', 'id');
+        $product = $this->product->where('slug', $slug)->first();
 
-        $product = Product::find($id);
+        $categories = ProductCategory::all()->pluck('name', 'id');
 
         return view('admin.products.edit', compact('product', 'categories'));
     }

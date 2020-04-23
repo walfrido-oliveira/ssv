@@ -34,16 +34,16 @@
                         <tbody>
                             @foreach($categories as $category)
                                 <tr>
-                                    <td><a href="{{ route('admin.categories.show', ['category' => $category->id]) }}">{{$category->id}}</a></td>
-                                    <td><a href="{{ route('admin.categories.show', ['category' => $category->id]) }}">{{$category->name}}</a></td>
+                                    <td><a href="{{ route('admin.categories.show', ['category' => $category->slug]) }}">{{$category->id}}</a></td>
+                                    <td><a href="{{ route('admin.categories.show', ['category' => $category->slug]) }}">{{$category->name}}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.categories.show', ['category' => $category->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.categories.show', ['category' => $category->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.categories.edit', ['category' => $category->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>
