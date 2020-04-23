@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -70,5 +71,13 @@ class User extends Authenticatable
         else {
             return 'User';
         }
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function($model){
+            $model->id = (string) Str::uuid();
+        });
     }
 }
