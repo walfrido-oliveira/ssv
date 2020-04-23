@@ -2,6 +2,7 @@
 
 namespace App\Models\Client\Contact;
 
+use Illuminate\Support\Str;
 use App\Models\Client\Client;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,4 +37,5 @@ class ClientContact extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
 }

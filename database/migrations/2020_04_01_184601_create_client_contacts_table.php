@@ -14,9 +14,9 @@ class CreateClientContactsTable extends Migration
     public function up()
     {
         Schema::create('client_contacts', function (Blueprint $table) {
-            $table->uuid();
-            $table->uuid('contact_type_id');
-            $table->uuid('client_id');
+            $table->id();
+            $table->unsignedBigInteger('contact_type_id');
+            $table->unsignedBigInteger('client_id');
 
             $table->string('contact');
             $table->string('department');
