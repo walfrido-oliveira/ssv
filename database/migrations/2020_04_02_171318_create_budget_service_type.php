@@ -15,6 +15,7 @@ class CreateBudgetServiceType extends Migration
     {
         Schema::create('budget_service_type', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('budget_id');
             $table->unsignedBigInteger('service_type_id');
 

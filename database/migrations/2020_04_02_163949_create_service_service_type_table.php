@@ -15,6 +15,7 @@ class CreateServiceServiceTypeTable extends Migration
     {
         Schema::create('service_service_type', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('service_type_id');
 

@@ -72,12 +72,4 @@ class User extends Authenticatable
             return 'User';
         }
     }
-
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function($model){
-            $model->id = (string) Str::uuid();
-        });
-    }
 }

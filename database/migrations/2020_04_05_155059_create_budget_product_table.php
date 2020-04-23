@@ -15,6 +15,7 @@ class CreateBudgetProductTable extends Migration
     {
         Schema::create('budget_product', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('budget_id');
             $table->unsignedBigInteger('product_id');
 
