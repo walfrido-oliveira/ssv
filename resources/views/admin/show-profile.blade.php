@@ -33,7 +33,7 @@
                                     <label for="profile_image">{{ __('Profile Image') }}</label>
                                 </div>
                                 <div class="col-1 pl-2" id="image_profile_preview_container">
-                                    <img class="img-circle elevation-2 image-profine-preview" src="{{ asset('storage/'.$user->profile_image) }}" alt="" id="preview_image_profile">
+                                    <img class="img-circle elevation-2 image-profine-preview" src="{{ asset( $user->adminlte_image()) }}" alt="" id="preview_image_profile">
                                 </div>
                                 <div class="col-12 mt-1">
                                     <div class="input-group">
