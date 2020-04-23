@@ -68,12 +68,12 @@ class PaymentMethodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $paymentMethod = $this->paymentMethod->find($id);
+        $paymentMethod = $this->paymentMethod->where('slug', $slug)->first();
 
         return view('admin.payment-methods.show', compact('paymentMethod'));
     }
@@ -81,12 +81,12 @@ class PaymentMethodController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $paymentMethod = $this->paymentMethod->find($id);
+        $paymentMethod = $this->paymentMethod->where('slug', $slug)->first();
 
         return view('admin.payment-methods.edit', compact('paymentMethod'));
     }

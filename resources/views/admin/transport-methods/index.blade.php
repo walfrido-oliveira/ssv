@@ -34,16 +34,16 @@
                         <tbody>
                             @foreach($transportMethods as $transportMethod)
                                 <tr>
-                                    <td><a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->id]) }}">{{$transportMethod->id}}</a></td>
-                                    <td><a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->id]) }}">{{$transportMethod->name}}</a></td>
+                                    <td><a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->slug]) }}">{{$transportMethod->id}}</a></td>
+                                    <td><a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->slug]) }}">{{$transportMethod->name}}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.transport-methods.show', ['transport_method' => $transportMethod->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.transport-methods.edit', ['transport_method' => $transportMethod->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.transport-methods.edit', ['transport_method' => $transportMethod->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

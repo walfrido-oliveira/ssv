@@ -13,15 +13,15 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <h3 class="profile-username text-center">{{ $paymentMethods->name }}</h3>
+                            <h3 class="profile-username text-center">{{ $paymentMethod->name }}</h3>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>{{ __('Created at') }}</b>
-                                    <a class="float-right">{{ !is_null($paymentMethods->created_at) ? $paymentMethods->created_at->format('d/m/Y') : '' }}</a>
+                                    <a class="float-right">{{ !is_null($paymentMethod->created_at) ? $paymentMethod->created_at->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ __('Updated at') }}</b>
-                                    <a class="float-right">{{ !is_null($paymentMethods->updated_at) ? $paymentMethods->updated_at->format('d/m/Y') : '' }}</a>
+                                    <a class="float-right">{{ !is_null($paymentMethod->updated_at) ? $paymentMethod->updated_at->format('d/m/Y') : '' }}</a>
                                 </li>
                             </ul>
                         </div>

@@ -68,12 +68,12 @@ class TransportMethodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $transportMethod = $this->transportMethod->find($id);
+        $transportMethod = $this->transportMethod->where('slug', $slug)->first();
 
         return view('admin.transport-methods.show', compact('transportMethod'));
     }
@@ -81,12 +81,12 @@ class TransportMethodController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $transportMethod = $this->transportMethod->find($id);
+        $transportMethod = $this->transportMethod->where('slug', $slug)->first();
 
         return view('admin.transport-methods.edit', compact('transportMethod'));
     }

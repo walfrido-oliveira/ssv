@@ -34,16 +34,16 @@
                         <tbody>
                             @foreach($budgetTypes as $budgetType)
                                 <tr>
-                                    <td><a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->id]) }}">{{$budgetType->id}}</a></td>
-                                    <td><a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->id]) }}">{{$budgetType->name}}</a></td>
+                                    <td><a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->slug]) }}">{{$budgetType->id}}</a></td>
+                                    <td><a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->slug]) }}">{{$budgetType->name}}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.budget-types.show', ['budget_type' => $budgetType->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.budget-types.edit', ['budget_type' => $budgetType->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.budget-types.edit', ['budget_type' => $budgetType->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

@@ -5,6 +5,7 @@ namespace App\Models\Budget;
 use App\Models\Client\Client;
 use App\Models\Product\Product;
 use App\Models\Service\Service;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client\Contact\ClientContact;
 
@@ -140,4 +141,5 @@ class Budget extends Model
     {
         return $this->getServiceAmount() + $this->getProductAmount();
     }
+
 }

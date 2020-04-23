@@ -34,16 +34,16 @@
                         <tbody>
                             @foreach($paymentMethods as $paymentMethod)
                                 <tr>
-                                    <td><a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->id]) }}">{{$paymentMethod->id}}</a></td>
-                                    <td><a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->id]) }}">{{$paymentMethod->name}}</a></td>
+                                    <td><a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->slug]) }}">{{$paymentMethod->id}}</a></td>
+                                    <td><a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->slug]) }}">{{$paymentMethod->name}}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.payment-methods.show', ['payment_method' => $paymentMethod->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.payment-methods.edit', ['payment_method' => $paymentMethod->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.payment-methods.edit', ['payment_method' => $paymentMethod->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

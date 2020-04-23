@@ -68,12 +68,12 @@ class BudgetTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $budgetType = $this->budgetType->find($id);
+        $budgetType = $this->budgetType->where('slug', $slug)->first();
 
         return view('admin.budget-types.show', compact('budgetType'));
     }
@@ -81,12 +81,12 @@ class BudgetTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $budgetType = $this->budgetType->find($id);
+        $budgetType = $this->budgetType->where('slug', $slug)->first();
 
         return view('admin.budget-types.edit', compact('budgetType'));
     }
