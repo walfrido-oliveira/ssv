@@ -35,10 +35,8 @@ Route::group(['middleware' => ['auth']], function() {
             });
         });
 
+        Route::get('/clients/find', 'ClientController@find');
         Route::resource('clients', 'ClientController');
-
-        Route::get('/client/find', 'ClientController@find');
-        Route::get('/contact/find', 'ClientContactController@find');
 
         Route::resource('activities', 'ActivityController');
 
@@ -57,6 +55,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('budgets', 'BudgetController');
 
         Route::prefix('contacts')->name('contacts.')->group(function(){
+            Route::get('/find', 'ClientContactController@find');
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
         });
 

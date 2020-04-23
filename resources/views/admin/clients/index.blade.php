@@ -35,8 +35,8 @@
                         <tbody>
                             @foreach($clients as $client)
                                 <tr>
-                                    <td><a href="{{ route('admin.clients.show', ['client' => $client->id]) }}">{{$client->id}}</a></td>
-                                    <td><a href="{{ route('admin.clients.show', ['client' => $client->id]) }}">{{$client->nome_fantasia}}</a></td>
+                                    <td><a href="{{ route('admin.clients.show', ['client' => $client->slug]) }}">{{$client->id}}</a></td>
+                                    <td><a href="{{ route('admin.clients.show', ['client' => $client->slug]) }}">{{$client->nome_fantasia}}</a></td>
                                     <td class="project-state">
                                         <span class="badge badge-{{  $client->status == 'active' ? 'success' : 'secondary' }}">
                                             {{ $client->status == 'active' ? __('Active') : __('Disabled') }}
@@ -44,12 +44,12 @@
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.clients.show', ['client' => $client->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.clients.show', ['client' => $client->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.clients.edit', ['client' => $client->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

@@ -2,13 +2,17 @@
 
 namespace App\Models\Client;
 
-use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use App\Models\Budget\Budget;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client\Contact\ClientContact;
 
 class Client extends Model
 {
+
+    use HasSlug;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -52,6 +56,26 @@ class Client extends Model
     public function getImageAttribute()
     {
         return !is_null($this->logo) ? 'storage/' . $this->logo : 'storage/img/empty_user.png';
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('nome_fantasia')
+            ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
 }

@@ -115,12 +115,12 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $client = Client::find($id);
+        $client = Client::where('slug', $slug)->first();
 
         return view('admin.clients.show', compact('client'));
     }
@@ -128,12 +128,12 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $client = Client::find($id);
+        $client = Client::where('slug', $slug)->first();
 
         $ufs = Uf::all()->pluck('full_name', 'uf');
         $citys = City::all();
