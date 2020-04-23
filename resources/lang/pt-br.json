@@ -163,6 +163,10 @@
     "Payment Method":"Método de Pagamento",
     "Transport Method":"Método de Transporte",
     "Validity":"Validade",
-    "Budget Info":"Informações do Orçamento"
+    "Budget Info":"Informações do Orçamento",
+    "Amount":"Total",
+    "Choose a service and your quantity":"Escolha um servico e sua quantidade",
+    "Choose a Service":"Escolha um Serviço",
+    "Choose a Quantity":"Escolha uma Quantidade"
 
 }

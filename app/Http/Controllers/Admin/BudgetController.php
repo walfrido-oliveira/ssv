@@ -67,7 +67,11 @@ class BudgetController extends Controller
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
 
-        $this->budget->create($data);
+        $services = $data['services'];
+
+        $budget = $this->budget->create($data);
+
+        $budget->services()->sync($services);
 
         flash('success', 'Budget added successfully!');
 

@@ -152,4 +152,28 @@ class ServiceController extends Controller
             'description' => 'nullable|max:255'
         ];
     }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            $services = Service::where('id', '>', 0)->limit(5)->get();
+        } else {
+            $services = Service::where('name', 'like', '%' . $term . '%')->limit(5)->get();
+        }
+
+        $formatted_services = [];
+
+        foreach ($services as $service) {
+            $formatted_services[] = ['id' => $service->id, 'text' => $service->name];
+        }
+
+        return \Response::json($formatted_services);
+    }
 }

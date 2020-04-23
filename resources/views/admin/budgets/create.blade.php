@@ -72,11 +72,29 @@
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Services') }}</h3>
-
                             <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i></button>
                             </div>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <div class="col-12 p-2">
+                                <button  type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#service-modal">
+                                    <i class="fas fa-plus"></i> {{ __('Add Service') }}
+                                </button>
+                            </div>
+                            <table class="table table-hover table-head-fixed text-nowrap table-service">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{ __('Service') }}</th>
+                                        <th>{{ __('Amount') }}</th>
+                                        <th>{{ __('Actions') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="card card-secondary">
@@ -88,6 +106,7 @@
                                 <i class="fas fa-minus"></i></button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -99,6 +118,46 @@
             </div>
         </div>
     </form>
+    <!-- Modal -->
+    <div class="modal fade" id="service-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{ __('Choose a service and your quantity') }}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            {!! Form::select('service', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Service')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::number('service_amount', 1, ['class' => 'form-control', 'data-placeholder' => __('Choose a Quantity'), 'min' => '1']) !!}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-add-service">{{ __('Add') }}</button>
+                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to delete this item?') }}</div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-delete-service">{{ __('Yes') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('js')

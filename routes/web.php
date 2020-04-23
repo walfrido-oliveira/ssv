@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('activities', 'ActivityController');
 
+        Route::get('/services/find', 'ServiceController@find');
         Route::resource('services', 'ServiceController');
 
         Route::resource('products', 'ProductController');
