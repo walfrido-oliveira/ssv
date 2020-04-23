@@ -34,16 +34,16 @@
                         <tbody>
                             @foreach($activities as $activity)
                                 <tr>
-                                    <td><a href="{{ route('admin.activities.show', ['activity' => $activity->id]) }}">{{$activity->id}}</a></td>
-                                    <td><a href="{{ route('admin.activities.show', ['activity' => $activity->id]) }}">{{$activity->name}}</a></td>
+                                    <td><a href="{{ route('admin.activities.show', ['activity' => $activity->slug]) }}">{{$activity->id}}</a></td>
+                                    <td><a href="{{ route('admin.activities.show', ['activity' => $activity->slug]) }}">{{$activity->name}}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.activities.show', ['activity' => $activity->id]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('admin.activities.show', ['activity' => $activity->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-book"></i> {{ __('details') }}</i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                        <a href="{{ route('admin.activities.edit', ['activity' => $activity->id]) }}" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.activities.edit', ['activity' => $activity->slug]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> {{ __('edit') }}</i>
                                             </a>
                                         </div>

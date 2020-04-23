@@ -68,14 +68,14 @@ class ActivityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $activity = $this->activity->find($id);
+        $activity = $this->activity->where('slug', $slug)->first();
 
-        $clients = Client::where('activity_id', $id)->count();
+        $clients = Client::where('activity_id', $activity->id)->count();
 
         return view('admin.activities.show', compact('activity', 'clients'));
     }
@@ -83,12 +83,12 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $activity = $this->activity->find($id);
+        $activity = $this->activity->where('slug', $slug)->first();
 
         return view('admin.activities.edit', compact('activity'));
     }
