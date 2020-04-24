@@ -150,52 +150,111 @@
                     </div>
                 </div>
                 <div class="col-12 contact">
-                    <div class="card card-secondary entry">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('Contact')}}</h3>
+                    @php $index = 0; @endphp
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fas fa-minus"></i></button>
+                    @if (old('contacts'))
+                        @foreach  (old('contacts') as $contact)
+                            <input type="hidden" name="contacts[{{$index}}][id]" value="">
+                            <div class="card card-secondary entry">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ __('Contact') }}</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="contact_type_id">{{ __('Contact Type') }}</label>
+                                        {!! Form::select('contacts['.$index.'][contact_type_id]', $contactTypes, $contact['contact_type_id'], ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
+                                        {!! $errors->first('contacts.*.contact_type_id','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact">{{ __('Contact') }}</label>
+                                        {!! Form::text('contacts['.$index.'][contact]', $contact['contact'], ['class' => 'form-control ' . $errors->first('contacts.*.contact','is-invalid'), 'id' => 'contact', 'placeholder' => __("Contact")]) !!}
+                                        {!! $errors->first('contacts.*.contact','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="department">{{ __('Department') }}</label>
+                                        {!! Form::text('contacts['.$index.'][department]', $contact['department'], ['class' => 'form-control ' . $errors->first('contacts.*.department','is-invalid'), 'id' => 'department', 'placeholder' => __("Department")]) !!}
+                                        {!! $errors->first('contacts.*.department','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">{{ __('Phone') }}</label>
+                                        {!! Form::tel('contacts['.$index.'][phone]', $contact['phone'], ['class' => 'form-control ' . $errors->first('contacts.*.phone','is-invalid'), 'id' => 'phone', 'placeholder' => __("Phone")]) !!}
+                                        {!! $errors->first('contacts.*.phone','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile_phone">{{ __('Mobile Phone') }}</label>
+                                        {!! Form::tel('contacts['.$index.'][mobile_phone]', $contact['mobile_phone'], ['class' => 'form-control ' . $errors->first('contacts.*.mobile_phone','is-invalid'), 'id' => 'mobile_phone', 'placeholder' => __("Mobile Phone")]) !!}
+                                        {!! $errors->first('contacts.*.mobile_phone','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">{{ __('Email') }}</label>
+                                        {!! Form::email('contacts['.$index.'][email]', $contact['email'], ['class' => 'form-control ' . $errors->first('contacts.*.email','is-invalid'), 'id' => 'email', 'placeholder' => __("Email")]) !!}
+                                        {!! $errors->first('contacts.*.email','<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" class="btn btn-primary btn-add" {{ ($index + 1) != count(old('contacts')) ? 'disabled' : '' }}>
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-remove btn-danger" {{ count(old('contacts')) == 1 ? 'disabled' : '' }}>
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
                             </div>
-                          </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="contact_type_id">{{ __('Contact Type') }}</label>
-                                {!! Form::select('contacts[0][contact_type_id]', $contactType, null, ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
-                                {!! $errors->first('contacts.*.contact_type_id','<div class="invalid-feedback">:message</div>') !!}
+                            @php $index++; @endphp
+                        @endforeach
+                    @else
+                        <div class="card card-secondary entry">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __('Contact')}}</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i></button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contact">{{ __('Contact') }}</label>
-                                {!! Form::text('contacts[0][contact]', null, ['class' => 'form-control ' . $errors->first('contacts.*.contact','is-invalid'), 'id' => 'contact', 'placeholder' => __("Contact")]) !!}
-                                {!! $errors->first('contacts.*.contact','<div class="invalid-feedback">:message</div>') !!}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="contact_type_id">{{ __('Contact Type') }}</label>
+                                    {!! Form::select('contacts[0][contact_type_id]', $contactTypes, null, ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
+                                    {!! $errors->first('contacts.*.contact_type_id','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">{{ __('Contact') }}</label>
+                                    {!! Form::text('contacts[0][contact]', null, ['class' => 'form-control ' . $errors->first('contacts.*.contact','is-invalid'), 'id' => 'contact', 'placeholder' => __("Contact")]) !!}
+                                    {!! $errors->first('contacts.*.contact','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="department">{{ __('Department') }}</label>
+                                    {!! Form::text('contacts[0][department]', null, ['class' => 'form-control ' . $errors->first('contacts.*.department','is-invalid'), 'id' => 'department', 'placeholder' => __("Department")]) !!}
+                                    {!! $errors->first('contacts.*.department','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">{{ __('Phone') }}</label>
+                                    {!! Form::tel('contacts[0][phone]', null, ['class' => 'form-control ' . $errors->first('contacts.*.phone','is-invalid'), 'id' => 'phone', 'placeholder' => __("Phone")]) !!}
+                                    {!! $errors->first('contacts.*.phone','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile_phone">{{ __('Mobile Phone') }}</label>
+                                    {!! Form::tel('contacts[0][mobile_phone]', null, ['class' => 'form-control ' . $errors->first('contacts.*.mobile_phone','is-invalid'), 'id' => 'mobile_phone', 'placeholder' => __("Mobile Phone")]) !!}
+                                    {!! $errors->first('contacts.*.mobile_phone','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">{{ __('Email') }}</label>
+                                    {!! Form::email('contacts[0][email]', null, ['class' => 'form-control ' . $errors->first('contacts.*.email','is-invalid'), 'id' => 'email', 'placeholder' => __("Email")]) !!}
+                                    {!! $errors->first('contacts.*.email','<div class="invalid-feedback">:message</div>') !!}
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="department">{{ __('Department') }}</label>
-                                {!! Form::text('contacts[0][department]', null, ['class' => 'form-control ' . $errors->first('contacts.*.department','is-invalid'), 'id' => 'department', 'placeholder' => __("Department")]) !!}
-                                {!! $errors->first('contacts.*.department','<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">{{ __('Phone') }}</label>
-                                {!! Form::tel('contacts[0][phone]', null, ['class' => 'form-control ' . $errors->first('contacts.*.phone','is-invalid'), 'id' => 'phone', 'placeholder' => __("Phone")]) !!}
-                                {!! $errors->first('contacts.*.phone','<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                            <div class="form-group">
-                                <label for="mobile_phone">{{ __('Mobile Phone') }}</label>
-                                {!! Form::tel('contacts[0][mobile_phone]', null, ['class' => 'form-control ' . $errors->first('contacts.*.mobile_phone','is-invalid'), 'id' => 'mobile_phone', 'placeholder' => __("Mobile Phone")]) !!}
-                                {!! $errors->first('contacts.*.mobile_phone','<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                            <div class="form-group">
-                                <label for="email">{{ __('Email') }}</label>
-                                {!! Form::email('contacts[0][email]', null, ['class' => 'form-control ' . $errors->first('contacts.*.email','is-invalid'), 'id' => 'email', 'placeholder' => __("Email")]) !!}
-                                {!! $errors->first('contacts.*.email','<div class="invalid-feedback">:message</div>') !!}
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary btn-add"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn btn-primary btn-remove btn-danger" disabled><i class="fas fa-minus"></i></button>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary btn-add"><i class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-primary btn-remove btn-danger" disabled><i class="fas fa-minus"></i></button>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
             <div class="row">

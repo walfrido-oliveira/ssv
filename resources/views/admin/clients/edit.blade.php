@@ -165,7 +165,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="contact_type_id">{{ __('Contact Type') }}</label>
-                                    {!! Form::select('contacts['.$index.'][contact_type_id]', $contactType, $contact->contactType->id, ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
+                                    {!! Form::select('contacts['.$index.'][contact_type_id]', $contactTypes, $contact->contactType->id, ['class' => 'select2-with-tag ' . $errors->first('contacts.*.contact_type_id]','is-invalid') , 'data-placeholder' => __('Contact Type')]) !!}
                                     {!! $errors->first('contacts.*.contact_type_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="form-group">
@@ -195,30 +195,14 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                @if ($client->contacts->count() > 1)
-                                    @if ($index == 0)
-                                        <button type="button" class="btn btn-primary btn-add" disabled><i class="fas fa-plus"></i></button>
-                                        <button type="button" class="btn btn-primary btn-remove btn-danger"
-                                                data-url="{{ route('admin.contacts.destroy', ['contact' => $contact->id])}}"
-                                                data-id="{{ $contact->id}}" data-toggle="modal" data-target="#delete-modal">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    @else
-                                        <button type="button" class="btn btn-primary btn-add"><i class="fas fa-plus"></i></button>
-                                        <button type="button" class="btn btn-primary btn-remove btn-danger"
-                                                data-url="{{ route('admin.contacts.destroy', ['contact' => $contact->id])}}"
-                                                data-id="{{ $contact->id}}" data-toggle="modal" data-target="#delete-modal">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    @endif
-                                @else
-                                    <button type="button" class="btn btn-primary btn-add"><i class="fas fa-plus"></i></button>
-                                    <button type="button" class="btn btn-primary btn-remove btn-danger" disabled
-                                            data-url="{{ route('admin.contacts.destroy', ['contact' => $contact->id])}}"
-                                            data-id="{{ $contact->id}}" data-toggle="modal" data-target="#delete-modal">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                @endif
+                                <button type="button" class="btn btn-primary btn-add" {{ ($index + 1) != $client->contacts->count() ? 'disabled' : '' }}>
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-remove btn-danger" {{ $client->contacts->count() == 1 ? 'disabled' : '' }}
+                                    data-url="{{ route('admin.contacts.destroy', ['contact' => $contact->id])}}"
+                                    data-id="{{ $contact->id}}" data-toggle="modal" data-target="#delete-modal">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
                         </div>
                         @php $index++; @endphp

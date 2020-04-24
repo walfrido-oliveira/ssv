@@ -61,9 +61,9 @@ class ClientController extends Controller
         $ufs = Uf::all()->pluck('full_name', 'uf');
         $citys = City::all();
         $activities = Activity::all()->pluck('name', 'id');
-        $contactType = ContactType::all()->pluck('name', 'id');
+        $contactTypes = ContactType::all()->pluck('name', 'id');
 
-        return view('admin.clients.create', compact('ufs', 'citys', 'activities', 'contactType'));
+        return view('admin.clients.create', compact('ufs', 'citys', 'activities', 'contactTypes'));
     }
 
     /**
@@ -138,9 +138,9 @@ class ClientController extends Controller
         $ufs = Uf::all()->pluck('full_name', 'uf');
         $citys = City::all();
         $activities = Activity::all()->pluck('name', 'id');
-        $contactType = ContactType::all()->pluck('name', 'id');
+        $contactTypes = ContactType::all()->pluck('name', 'id');
 
-        return view('admin.clients.edit', compact('client', 'ufs', 'citys', 'activities', 'contactType'));
+        return view('admin.clients.edit', compact('client', 'ufs', 'citys', 'activities', 'contactTypes'));
     }
 
     /**

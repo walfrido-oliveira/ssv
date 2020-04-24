@@ -104,13 +104,13 @@
                                         @foreach (old('services') as $service)
                                             <tr id="row-service-{{ $index }}">
                                             <td>{{ $index+1 }}
-                                                <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ old('services')[ $index ]['service_id'] }}">
+                                                <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service['service_id'] }}">
                                             </td>
                                                 <td>{{ old('services')[ $index ]['service_name'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ old('services')[ $index ]['service_name'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
                                                 </td>
                                                 <td>{{ old('services')[ $index ]['amount'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][amount]" value="{{ old('services')[ $index ]['amount'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][amount]" value="{{ $service['amount'] }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
@@ -155,13 +155,13 @@
                                         @foreach (old('products') as $product)
                                             <tr id="row-product-{{ $index }}">
                                             <td>{{ $index+1 }}
-                                                <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ old('products')[ $index ]['product_id'] }}">
+                                                <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product['product_id'] }}">
                                             </td>
                                                 <td>{{ old('products')[ $index ]['product_name'] }}
-                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ old('products')[ $index ]['product_name'] }}">
+                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product['product_name'] }}">
                                                 </td>
                                                 <td>{{ old('products')[ $index ]['amount'] }}
-                                                    <input type="hidden" name="products[{{ $index }}][amount]" value="{{ old('products')[ $index ]['amount'] }}">
+                                                    <input type="hidden" name="products[{{ $index }}][amount]" value="{{ $product['amount'] }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">
