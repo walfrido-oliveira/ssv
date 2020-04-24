@@ -205,4 +205,28 @@ class ProductController extends Controller
 
         return $category->id;
     }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            $products = Product::where('id', '>', 0)->limit(5)->get();
+        } else {
+            $products = Product::where('name', 'like', '%' . $term . '%')->limit(5)->get();
+        }
+
+        $formatted_products = [];
+
+        foreach ($products as $product) {
+            $formatted_products[] = ['id' => $product->id, 'text' => $product->name];
+        }
+
+        return \Response::json($formatted_products);
+    }
 }

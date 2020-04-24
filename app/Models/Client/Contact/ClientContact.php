@@ -38,4 +38,12 @@ class ClientContact extends Model
         return $this->belongsTo(Client::class);
     }
 
+    /**
+     * return full description of contact
+     */
+    public function getFullDescriptionAttribute()
+    {
+        return $this->contact . ' - ' . $this->email;
+    }
+
 }

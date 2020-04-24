@@ -29,12 +29,18 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label>{{ __('Customer') }}</label>
-                                    {!! Form::select('client_id', [], null,['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
+                                    @php
+                                        $clients = App\Models\Client\Client::where('id', old('client_id'))->get()->pluck('nome_fantasia', 'id');
+                                    @endphp
+                                    {!! Form::select('client_id', $clients, old('client_id'),['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
                                     {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-4">
                                     <label>{{ __('Contact') }}</label>
-                                    {!! Form::select('client_contact_id', [], null,['class' => 'select2-with-remote-data ' . $errors->first('client_contact_id','is-invalid') , 'data-placeholder' => __('Contact')]) !!}
+                                    @php
+                                        $contacts = App\Models\Client\Contact\ClientContact::where('id', old('client_contact_id'))->get()->pluck('full_description', 'id');
+                                    @endphp
+                                    {!! Form::select('client_contact_id', $contacts, old('client_contact_id'), ['class' => 'select2-with-remote-data ' . $errors->first('client_contact_id','is-invalid') , 'data-placeholder' => __('Contact')]) !!}
                                     {!! $errors->first('client_contact_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-2">
@@ -93,6 +99,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (old('services'))
+                                        @php $index = 0; @endphp
+                                        @foreach (old('services') as $service)
+                                            <tr id="row-service-{{ $index }}">
+                                            <td>{{ $index+1 }}
+                                                <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ old('services')[ $index ]['service_id'] }}">
+                                            </td>
+                                                <td>{{ old('services')[ $index ]['service_name'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ old('services')[ $index ]['service_name'] }}">
+                                                </td>
+                                                <td>{{ old('services')[ $index ]['amount'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][amount]" value="{{ old('services')[ $index ]['amount'] }}">
+                                                </td>
+                                                <td width="15%">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @php $index++; @endphp
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -106,7 +134,47 @@
                                 <i class="fas fa-minus"></i></button>
                             </div>
                         </div>
-
+                        <div class="card-body table-responsive">
+                            <div class="col-12 p-2">
+                                <button  type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#product-modal">
+                                    <i class="fas fa-plus"></i> {{ __('Add Product') }}
+                                </button>
+                            </div>
+                            <table class="table table-hover table-head-fixed text-nowrap table-product">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{ __('Product') }}</th>
+                                        <th>{{ __('Amount') }}</th>
+                                        <th>{{ __('Actions') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (old('products'))
+                                        @php $index = 0; @endphp
+                                        @foreach (old('products') as $product)
+                                            <tr id="row-product-{{ $index }}">
+                                            <td>{{ $index+1 }}
+                                                <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ old('products')[ $index ]['product_id'] }}">
+                                            </td>
+                                                <td>{{ old('products')[ $index ]['product_name'] }}
+                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ old('products')[ $index ]['product_name'] }}">
+                                                </td>
+                                                <td>{{ old('products')[ $index ]['amount'] }}
+                                                    <input type="hidden" name="products[{{ $index }}][amount]" value="{{ old('products')[ $index ]['amount'] }}">
+                                                </td>
+                                                <td width="15%">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @php $index++; @endphp
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,6 +212,31 @@
         </div>
     </div>
     <!-- Modal -->
+    <div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{ __('Choose a product and your quantity') }}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            {!! Form::select('product', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Product')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::number('product_amount', 1, ['class' => 'form-control', 'data-placeholder' => __('Choose a Quantity'), 'min' => '1']) !!}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-add-product">{{ __('Add') }}</button>
+                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -152,7 +245,7 @@
                 </div>
                 <div class="modal-body">{{ __('Do you really want to delete this item?') }}</div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-delete-service">{{ __('Yes') }}</button>
+                    <button type="submit" class="btn btn-primary btn-delete">{{ __('Yes') }}</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
                 </div>
             </div>

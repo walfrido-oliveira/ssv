@@ -81,6 +81,31 @@ $(document).ready(function() {
         }
     });
 
+    $('select[name=product]').select2({
+        ajax: {
+            url: '/admin/products/find',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    q: $.trim(params.term),
+                    page: params.page
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        }
+    });
+
     $('.btn-add-service').on('click', function(e) {
         var tbody = $('.table-service tbody');
 
@@ -91,11 +116,11 @@ $(document).ready(function() {
         var index = tbody.find('tr').length + 1;
 
         var row = '<tr id="row-service-' + (index-1) + '">' +
-                  '<td>' + index + '</td>' +
-                  '<td>' + service.text() + '<input type="hidden" name="services[' + (index-1) + '][service_id]" value="' + service.val() + '" /></td>' +
+                  '<td>' + index + '<input type="hidden" name="services[' + (index-1) + '][service_id]" value="' + service.val() + '" /></td>' +
+                  '<td>' + service.text() + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.text() + '" /></td>' +
                   '<td>' + amount.val() + '<input type="hidden" name="services[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
                   '<td width="15%">' +
-                  '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="' + (index-1) + '">' +
+                  '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
                   '<i class="fas fa-trash-alt"></i>' +
                   '</a>' +
                   '</tr>';
@@ -109,19 +134,49 @@ $(document).ready(function() {
 
     });
 
-    $('#delete-modal').on('show.bs.modal', function(e) {
-        var row = $(e.relatedTarget).data('row');
-        $('.btn-delete-service').attr('data-row', row);
+    $('.btn-add-product').on('click', function(e) {
+        var tbody = $('.table-product tbody');
+
+        var product = $('select[name=product]').find(':selected');
+
+        var amount = $('input[name=product_amount]');
+
+        var index = tbody.find('tr').length + 1;
+
+        var row = '<tr id="row-product-' + (index-1) + '">' +
+                  '<td>' + index + '<input type="hidden" name="products[' + (index-1) + '][product_id]" value="' + product.val() + '" /></td>' +
+                  '<td>' + product.text() + '<input type="hidden" name="products[' + (index-1) + '][product_name]" value="' + product.text() + '" /></td>' +
+                  '<td>' + amount.val() + '<input type="hidden" name="products[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
+                  '<td width="15%">' +
+                  '<a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-' + (index-1) + '">' +
+                  '<i class="fas fa-trash-alt"></i>' +
+                  '</a>' +
+                  '</tr>';
+
+        tbody.append(row);
+
+        $('select[name=product]').val(null).trigger("change");
+        amount.val(1);
+
+        $('#product-modal').modal('hide');
+
     });
 
     $('.btn-cancel').on('click', function(e) {
         $('select[name=service]').val(null).trigger("change");
         $('input[name=service_amount]').val(1);
+        $('select[name=product]').val(null).trigger("change");
+        $('input[name=product_amount]').val(1);
     });
 
-    $('.btn-delete-service').on('click', function(e) {
-        var row = $(this).data('row');
-        $('#row-service-'+row).remove();
+    $('#delete-modal').on('show.bs.modal', function(e) {
+        var row = $(e.relatedTarget).data('row');
+        $('.btn-delete').attr('data-row', row);
+    });
+
+    $('.btn-delete').on('click', function(e) {
+        var row = $(this).attr('data-row');
+        $('#' + row).remove();
         $('#delete-modal').modal('hide');
     });
 });

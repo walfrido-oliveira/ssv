@@ -178,7 +178,7 @@ return [
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
         'roles'     => 'função',
-        'client_id' => 'CNPJ ou CPF',
+        'client_id' => 'identificação do cliente',
         'adress' => 'logradouro',
         'razao_social' => 'razão social',
         'nome_fantasia' => 'nome fantasia',
@@ -186,7 +186,9 @@ return [
         'adress_district' => 'bairro',
         'adress_city' => 'cidade',
         'adress_cep' => 'cep',
-        'price'     => 'preço'
+        'price'     => 'preço',
+        'client_contact_id' => 'contato',
+        "validity" => 'validade'
     ],
 
 ];

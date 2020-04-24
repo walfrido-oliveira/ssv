@@ -67,11 +67,32 @@ class BudgetController extends Controller
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
 
-        $services = $data['services'];
+        $servicesTemp = $data['services'];
+        $services = [];
+
+        $services = array_map(function($line) {
+            return
+            [
+              "service_id" => $line['service_id'],
+              "amount" => $line['amount']
+            ];
+        }, $servicesTemp);
+
+        $productsTemp = $data['products'];
+        $products = [];
+
+        $products = array_map(function($line) {
+            return
+            [
+              "product_id" => $line['product_id'],
+              "amount" => $line['amount']
+            ];
+        }, $productsTemp);
 
         $budget = $this->budget->create($data);
 
         $budget->services()->sync($services);
+        $budget->products()->sync($products);
 
         flash('success', 'Budget added successfully!');
 
@@ -137,7 +158,8 @@ class BudgetController extends Controller
             'payment_method_id' => 'required',
             'transport_method_id' => 'required',
             'client_contact_id' => 'required',
-            'client_id' => 'required'
+            'client_id' => 'required',
+            'validity' => 'required',
         ];
     }
 }

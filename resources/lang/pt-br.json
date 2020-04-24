@@ -167,6 +167,10 @@
     "Amount":"Total",
     "Choose a service and your quantity":"Escolha um servico e sua quantidade",
     "Choose a Service":"Escolha um Serviço",
-    "Choose a Quantity":"Escolha uma Quantidade"
+    "Choose a Quantity":"Escolha uma Quantidade",
+    "Service":"Serviço",
+    "Product":"Produto",
+    "Choose a product and your quantity":"Escolha um produto e sua quantidade",
+    "Choose a Product":"Escolha um produto"
 
 }
