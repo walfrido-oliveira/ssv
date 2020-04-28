@@ -171,6 +171,9 @@
     "Service":"Serviço",
     "Product":"Produto",
     "Choose a product and your quantity":"Escolha um produto e sua quantidade",
-    "Choose a Product":"Escolha um produto"
+    "Choose a Product":"Escolha um produto",
+    "TOTAL BUDGET":"TOTAL ORÇAMENTO",
+    "TOTAL SERVICES":"TOTAL SERVIÇOS",
+    "TOTAL PRODUCTS":"TOTAL PRODUTOS"
 
 }

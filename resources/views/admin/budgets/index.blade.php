@@ -28,14 +28,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('Customer') }}</th>
+                                <th>{{ __('Amount') }}</th>
                                 <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($budgets as $budget)
                                 <tr>
-                                    <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{$budget->id}}</a></td>
-                                    <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{$budget->client->razao_social}}</a></td>
+                                    <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->id }}</a></td>
+                                    <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->client->razao_social }}</a></td>
+                                    <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',') }}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
                                             <a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}" class="btn btn-secondary btn-sm">

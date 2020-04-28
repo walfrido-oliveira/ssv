@@ -105,7 +105,7 @@ class Budget extends Model
      *
      * Get amount of services types
      */
-    public function getServiceAmount()
+    public function getServiceAmountAttribute()
     {
         $amount = 0;
         $services = $this->services;
@@ -121,7 +121,7 @@ class Budget extends Model
      *
      * Get amount of products
      */
-    public function getProductAmount()
+    public function getProductAmountAttribute()
     {
         $amount = 0;
         $products = $this->products;
@@ -137,9 +137,9 @@ class Budget extends Model
      *
      * Get amount of budget
      */
-    public function getAmount()
+    public function getAmountAttribute()
     {
-        return $this->getServiceAmount() + $this->getProductAmount();
+        return $this->getServiceAmountAttribute() + $this->getProductAmountAttribute();
     }
 
 }

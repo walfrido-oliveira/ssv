@@ -15,6 +15,26 @@
 
         <div class="content">
             <div class="row">
+                <div class="col-sm-3 col-6">
+                    <div class="callout callout-info">
+                        <h5 class="description-header">R$00</h5>
+                        <span class="description-text">{{ __('TOTAL BUDGET') }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-6">
+                    <div class="callout callout-info">
+                        <h5 class="description-header">R$00</h5>
+                        <span class="description-text">{{ __('TOTAL SERVICES') }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-6">
+                    <div class="callout callout-info">
+                        <h5 class="description-header">R$00</h5>
+                        <span class="description-text">{{ __('TOTAL PRODUCTS') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-12">
                     <div class="card card-secondary">
                         <div class="card-header">
