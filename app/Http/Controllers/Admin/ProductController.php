@@ -224,7 +224,12 @@ class ProductController extends Controller
         $formatted_products = [];
 
         foreach ($products as $product) {
-            $formatted_products[] = ['id' => $product->id, 'text' => $product->name];
+            $formatted_products[] =
+            [
+                'id' => $product->id,
+                'text' => $product->name,
+                'price' => $product->price
+            ];
         }
 
         return \Response::json($formatted_products);

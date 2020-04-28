@@ -17,19 +17,40 @@
             <div class="row">
                 <div class="col-sm-3 col-6">
                     <div class="callout callout-info">
-                        <h5 class="description-header">R$00</h5>
+                        @php
+                            $totalService=0;
+                            $totalProduct=0;
+
+                            if (is_array(old('services')))
+                            {
+                                $totalService = array_map(function($line) {
+                                    return $line['total'];
+                                }, old('services'));
+                                $totalService = array_sum($totalService);
+                            }
+                            if (is_array(old('products')))
+                            {
+                                $totalProduct = array_map(function($line) {
+                                    return $line['total'];
+                                }, old('products'));
+                                $totalProduct = array_sum($totalProduct);
+                            }
+
+                            $totalBudget = $totalService + $totalProduct;
+                        @endphp
+                        <h5 class="description-header text-success total-budget">{{ alternative_money($totalBudget, '$', 2, ',') }}</h5>
                         <span class="description-text">{{ __('TOTAL BUDGET') }}</span>
                     </div>
                 </div>
                 <div class="col-sm-3 col-6">
                     <div class="callout callout-info">
-                        <h5 class="description-header">R$00</h5>
+                        <h5 class="description-header text-success total-services">{{ alternative_money($totalService, '$', 2, ',') }}</h5>
                         <span class="description-text">{{ __('TOTAL SERVICES') }}</span>
                     </div>
                 </div>
                 <div class="col-sm-3 col-6">
                     <div class="callout callout-info">
-                        <h5 class="description-header">R$00</h5>
+                        <h5 class="description-header text-success total-products">{{ alternative_money($totalProduct, '$', 2, ',') }}</h5>
                         <span class="description-text">{{ __('TOTAL PRODUCTS') }}</span>
                     </div>
                 </div>
@@ -114,7 +135,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>{{ __('Service') }}</th>
+                                        <th>{{ __('Price') }}</th>
                                         <th>{{ __('Amount') }}</th>
+                                        <th>{{ __('Total') }}</th>
                                         <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
@@ -129,8 +152,14 @@
                                                 <td>{{ old('services')[ $index ]['service_name'] }}
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
                                                 </td>
+                                                <td>{{ alternative_money((float)old('services')[ $index ]['service_price'], '$', 2, ',') }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_price]" value="{{ $service['service_price'] }}">
+                                                </td>
                                                 <td>{{ old('services')[ $index ]['amount'] }}
                                                     <input type="hidden" name="services[{{ $index }}][amount]" value="{{ $service['amount'] }}">
+                                                </td>
+                                                <td class="total-service-item">{{ alternative_money((float)old('services')[ $index ]['total'], '$', 2, ',') }}
+                                                    <input type="hidden" name="services[{{ $index }}][total]" value="{{ $service['total'] }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
@@ -165,7 +194,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>{{ __('Product') }}</th>
+                                        <th>{{ __('Price') }}</th>
                                         <th>{{ __('Amount') }}</th>
+                                        <th>{{ __('Total') }}</th>
                                         <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
@@ -174,14 +205,20 @@
                                         @php $index = 0; @endphp
                                         @foreach (old('products') as $product)
                                             <tr id="row-product-{{ $index }}">
-                                            <td>{{ $index+1 }}
-                                                <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product['product_id'] }}">
-                                            </td>
+                                                <td>{{ $index+1 }}
+                                                    <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product['product_id'] }}">
+                                                </td>
                                                 <td>{{ old('products')[ $index ]['product_name'] }}
                                                     <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product['product_name'] }}">
                                                 </td>
+                                                <td>{{ alternative_money((float)old('products')[ $index ]['product_price'], '$', 2, ',') }}
+                                                    <input type="hidden" name="products[{{ $index }}][product_price]" value="{{ $product['product_price'] }}">
+                                                </td>
                                                 <td>{{ old('products')[ $index ]['amount'] }}
                                                     <input type="hidden" name="products[{{ $index }}][amount]" value="{{ $product['amount'] }}">
+                                                </td>
+                                                <td class="total-product-item">{{ alternative_money((float)old('products')[ $index ]['total'], '$', 2, ',') }}
+                                                    <input type="hidden" name="products[{{ $index }}][total]" value="{{ $product['total'] }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">

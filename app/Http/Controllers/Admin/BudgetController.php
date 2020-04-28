@@ -62,6 +62,7 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate($this->roles($this->budget));
 
         $data = $request->all();

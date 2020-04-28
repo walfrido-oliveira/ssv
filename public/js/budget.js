@@ -160,7 +160,13 @@ $(document).ready(function () {
       processResults: function processResults(data, params) {
         params.page = params.page || 1;
         return {
-          results: data,
+          results: $.map(data, function (item) {
+            return {
+              text: item.text,
+              id: item.id,
+              price: item.price
+            };
+          }),
           pagination: {
             more: params.page * 30 < data.total_count
           }
@@ -195,10 +201,12 @@ $(document).ready(function () {
   $('.btn-add-service').on('click', function (e) {
     var tbody = $('.table-service tbody');
     var service = $('select[name=service]').find(':selected');
+    var data = $('select[name=service]').select2('data')[0];
     var amount = $('input[name=service_amount]');
     var index = tbody.find('tr').length + 1;
-    var row = '<tr id="row-service-' + (index - 1) + '">' + '<td>' + index + '<input type="hidden" name="services[' + (index - 1) + '][service_id]" value="' + service.val() + '" /></td>' + '<td>' + service.text() + '<input type="hidden" name="services[' + (index - 1) + '][service_name]" value="' + service.text() + '" /></td>' + '<td>' + amount.val() + '<input type="hidden" name="services[' + (index - 1) + '][amount]" value="' + amount.val() + '" /></td>' + '<td width="15%">' + '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index - 1) + '">' + '<i class="fas fa-trash-alt"></i>' + '</a>' + '</tr>';
+    var row = '<tr id="row-service-' + (index - 1) + '">' + '<td>' + index + '<input type="hidden" name="services[' + (index - 1) + '][service_id]" value="' + service.val() + '" /></td>' + '<td>' + service.text() + '<input type="hidden" name="services[' + (index - 1) + '][service_name]" value="' + service.text() + '" /></td>' + '<td>' + window.currencyFormatDE(data.price) + '<input type="hidden" name="services[' + (index - 1) + '][service_price]" value="' + data.price + '" /></td>' + '<td>' + amount.val() + '<input type="hidden" name="services[' + (index - 1) + '][amount]" value="' + amount.val() + '" /></td>' + '<td class="total-service-item">' + window.currencyFormatDE(amount.val() * data.price) + '<input type="hidden" name="services[' + (index - 1) + '][total]" value="' + amount.val() * data.price + '" /></td>' + '<td width="15%">' + '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index - 1) + '">' + '<i class="fas fa-trash-alt"></i>' + '</a>' + '</tr>';
     tbody.append(row);
+    calcTotalBudget();
     $('select[name=service]').val(null).trigger("change");
     amount.val(1);
     $('#service-modal').modal('hide');
@@ -206,10 +214,12 @@ $(document).ready(function () {
   $('.btn-add-product').on('click', function (e) {
     var tbody = $('.table-product tbody');
     var product = $('select[name=product]').find(':selected');
+    var data = $('select[name=product]').select2('data')[0];
     var amount = $('input[name=product_amount]');
     var index = tbody.find('tr').length + 1;
-    var row = '<tr id="row-product-' + (index - 1) + '">' + '<td>' + index + '<input type="hidden" name="products[' + (index - 1) + '][product_id]" value="' + product.val() + '" /></td>' + '<td>' + product.text() + '<input type="hidden" name="products[' + (index - 1) + '][product_name]" value="' + product.text() + '" /></td>' + '<td>' + amount.val() + '<input type="hidden" name="products[' + (index - 1) + '][amount]" value="' + amount.val() + '" /></td>' + '<td width="15%">' + '<a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-' + (index - 1) + '">' + '<i class="fas fa-trash-alt"></i>' + '</a>' + '</tr>';
+    var row = '<tr id="row-product-' + (index - 1) + '">' + '<td>' + index + '<input type="hidden" name="products[' + (index - 1) + '][product_id]" value="' + product.val() + '" /></td>' + '<td>' + product.text() + '<input type="hidden" name="products[' + (index - 1) + '][product_name]" value="' + product.text() + '" /></td>' + '<td>' + window.currencyFormatDE(data.price) + '<input type="hidden" name="products[' + (index - 1) + '][product_price]" value="' + data.price + '" /></td>' + '<td>' + amount.val() + '<input type="hidden" name="products[' + (index - 1) + '][amount]" value="' + amount.val() + '" /></td>' + '<td class="total-product-item">' + window.currencyFormatDE(amount.val() * data.price) + '<input type="hidden" name="products[' + (index - 1) + '][total]" value="' + amount.val() * data.price + '" /></td>' + '<td width="15%">' + '<a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-' + (index - 1) + '">' + '<i class="fas fa-trash-alt"></i>' + '</a>' + '</tr>';
     tbody.append(row);
+    calcTotalBudget();
     $('select[name=product]').val(null).trigger("change");
     amount.val(1);
     $('#product-modal').modal('hide');
@@ -227,6 +237,7 @@ $(document).ready(function () {
   $('.btn-delete').on('click', function (e) {
     var row = $(this).attr('data-row');
     $('#' + row).remove();
+    calcTotalBudget();
     $('#delete-modal').modal('hide');
   });
 });
@@ -251,6 +262,28 @@ function formatContactSelection(contact) {
   if (!name) name = '';
   if (!email) email = '';
   return name != '' || email != '' ? name + ' - ' + email : contact.text;
+}
+
+function calTotalService() {
+  var sum = 0;
+  $('.total-service-item input').each(function () {
+    sum += parseFloat($(this).val());
+  });
+  $('.total-services').text(window.currencyFormatDE(sum));
+  return sum;
+}
+
+function calcTotalProduct() {
+  var sum = 0;
+  $('.total-product-item input').each(function () {
+    sum += parseFloat($(this).val());
+  });
+  $('.total-products').text(window.currencyFormatDE(sum));
+  return sum;
+}
+
+function calcTotalBudget() {
+  $('.total-budget').text(window.currencyFormatDE(calTotalService() + calcTotalProduct()));
 }
 
 /***/ }),
