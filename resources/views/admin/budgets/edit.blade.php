@@ -141,7 +141,7 @@
                                         @foreach ($budget->services as $service)
                                             <tr id="row-service-{{ $index }}">
                                                 <td>{{ $index+1 }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service->service_id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service->id }}">
                                                 </td>
                                                 <td width="80%">{{ $service->name }}
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->name }}">

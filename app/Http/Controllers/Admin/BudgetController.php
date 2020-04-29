@@ -69,27 +69,32 @@ class BudgetController extends Controller
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
 
-        $servicesTemp = $data['services'];
         $services = [];
-
-        $services = array_map(function($line) {
-            return
-            [
-              "service_id" => $line['service_id'],
-              "amount" => $line['amount']
-            ];
-        }, $servicesTemp);
-
-        $productsTemp = $data['products'];
         $products = [];
 
-        $products = array_map(function($line) {
-            return
-            [
-              "product_id" => $line['product_id'],
-              "amount" => $line['amount']
-            ];
-        }, $productsTemp);
+        if (isset($data['services']))
+        {
+            $servicesTemp = $data['services'];
+            $services = array_map(function($line) {
+                return
+                [
+                "service_id" => $line['service_id'],
+                "amount" => $line['amount']
+                ];
+            }, $servicesTemp);
+        }
+
+        if (isset($data['products']))
+        {
+            $productsTemp = $data['products'];
+            $products = array_map(function($line) {
+                return
+                [
+                "product_id" => $line['product_id'],
+                "amount" => $line['amount']
+                ];
+            }, $productsTemp);
+        }
 
         $budget = $this->budget->create($data);
 
@@ -140,7 +145,50 @@ class BudgetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->roles($this->budget));
+
+        $budget = $this->budget->find($id);
+
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+
+        $services = [];
+        $products = [];
+
+        if (isset($data['services']))
+        {
+            $servicesTemp = $data['services'];
+            $services = array_map(function($line) {
+                return
+                [
+                "service_id" => $line['service_id'],
+                "amount" => $line['amount']
+                ];
+            }, $servicesTemp);
+        }
+
+        if (isset($data['products']))
+        {
+            $productsTemp = $data['products'];
+            $products = array_map(function($line) {
+                return
+                [
+                "product_id" => $line['product_id'],
+                "amount" => $line['amount']
+                ];
+            }, $productsTemp);
+        }
+
+        $budget->update($data);
+
+        $budget->services()->sync([]);
+        $budget->services()->sync($services);
+        $budget->products()->sync([]);
+        $budget->products()->sync($products);
+
+        flash('success', 'Budget updated successfully!');
+
+        return redirect()->route('admin.budgets.index');
     }
 
     /**
