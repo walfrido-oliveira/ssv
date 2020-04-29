@@ -114,7 +114,9 @@ $(document).ready(function() {
                 };
             },
             cache: true
-        }
+        },
+        templateResult: formatProduct,
+        templateSelection: formatProductSelection
     });
 
     $('.btn-add-service').on('click', function(e) {
@@ -250,6 +252,24 @@ function formatService(service) {
     return $container;
 }
 
+function formatProduct(product) {
+    if (product.loading) {
+        return product.text;
+    }
+
+    var $container = $(
+        "<div class='select2-result-product clearfix'>" +
+          "<div class='select2-result-product__meta'>" +
+            "<div class='select2-result-product__name'></div>" +
+          "</div>" +
+        "</div>"
+    );
+
+    $container.find(".select2-result-product__name").text(product.text + ' - ' + window.currencyFormatDE(product.price));
+
+    return $container;
+}
+
 function formatContactSelection(contact) {
     var name =  contact.contact;
     var email = contact.email;
@@ -262,6 +282,12 @@ function formatServiceSelection(service) {
     var name = service.text;
     var price = service.price;
     return  !isNaN(price) ? name + ' - ' + window.currencyFormatDE(price) : service.text;
+}
+
+function formatProductSelection(product) {
+    var name = product.text;
+    var price = product.price;
+    return  !isNaN(price) ? name + ' - ' + window.currencyFormatDE(price) : product.text;
 }
 
 function calTotalService() {
