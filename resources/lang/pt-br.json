@@ -157,6 +157,7 @@
     "Edit Transport Method":"Editar Método de Transporte",
     "Budgets":"Orçamentos",
     "Add Budget":"Adicionar Orçamento",
+    "Edit Budget":"Editar Orçamento",
     "Customer":"Cliente",
     "Budget added successfully!":"Orçamento adicionado com sucesso!",
     "Budget Type":"Tipo de Orçamento",
@@ -174,6 +175,7 @@
     "Choose a Product":"Escolha um produto",
     "TOTAL BUDGET":"TOTAL ORÇAMENTO",
     "TOTAL SERVICES":"TOTAL SERVIÇOS",
-    "TOTAL PRODUCTS":"TOTAL PRODUTOS"
+    "TOTAL PRODUCTS":"TOTAL PRODUTOS",
+    "Quantity":"Quantidade"
 
 }

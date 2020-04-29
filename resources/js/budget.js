@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    calcTotalBudget();
+
     $('select[name=client_id]').select2({
         ajax: {
             url: '/admin/clients/find',

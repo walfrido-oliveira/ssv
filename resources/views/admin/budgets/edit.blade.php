@@ -3,15 +3,15 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-<h1 class="m-0 text-dark">{{ __('Add Budget') }}</h1>
+<h1 class="m-0 text-dark">{{ __('Edit Budget') }}</h1>
 @stop
 
 @section('content')
 
-    <form action="{{ route('admin.budgets.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.budgets.update', ['budget' => $budget->id]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
-        @method("POST")
+        @method("PUT")
 
         <div class="content">
             <div class="row">
@@ -70,46 +70,40 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label>{{ __('Customer') }}</label>
-                                    @php
-                                        $clients = App\Models\Client\Client::where('id', old('client_id'))->get()->pluck('nome_fantasia', 'id');
-                                    @endphp
-                                    {!! Form::select('client_id', $clients, old('client_id'),['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
+                                    {!! Form::select('client_id', $clients, $budget->client_id, ['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
                                     {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-4">
                                     <label>{{ __('Contact') }}</label>
-                                    @php
-                                        $contacts = App\Models\Client\Contact\ClientContact::where('id', old('client_contact_id'))->get()->pluck('full_description', 'id');
-                                    @endphp
-                                    {!! Form::select('client_contact_id', $contacts, old('client_contact_id'), ['class' => 'select2-with-remote-data ' . $errors->first('client_contact_id','is-invalid') , 'data-placeholder' => __('Contact')]) !!}
+                                    {!! Form::select('client_contact_id', $contacts, $budget->client_contact_id, ['class' => 'select2-with-remote-data ' . $errors->first('client_contact_id','is-invalid') , 'data-placeholder' => __('Contact')]) !!}
                                     {!! $errors->first('client_contact_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-2">
                                     <label>{{ __('Validity') }}</label>
-                                    {!! Form::date('validity', null,['class' => 'form-control ' . $errors->first('validity','is-invalid') , 'data-placeholder' => __('Validity')]) !!}
+                                    {!! Form::date('validity', $budget->validity, ['class' => 'form-control ' . $errors->first('validity','is-invalid') , 'data-placeholder' => __('Validity')]) !!}
                                     {!! $errors->first('validity','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
                                     <label>{{ __('Budget Type') }}</label>
-                                    {!! Form::select('budget_type_id', $budgetTypes, null,['class' => 'select2-with-tag ' . $errors->first('budget_type_id','is-invalid') , 'data-placeholder' => __('Budget Type')]) !!}
+                                    {!! Form::select('budget_type_id', $budgetTypes, $budget->budget_type_id, ['class' => 'select2-with-tag ' . $errors->first('budget_type_id','is-invalid') , 'data-placeholder' => __('Budget Type')]) !!}
                                     {!! $errors->first('budget_type_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-4">
                                     <label>{{ __('Payment Method') }}</label>
-                                    {!! Form::select('payment_method_id', $paymentMethods, null,['class' => 'select2-with-tag ' . $errors->first('payment_method_id','is-invalid') , 'data-placeholder' => __('Payment Method')]) !!}
+                                    {!! Form::select('payment_method_id', $paymentMethods, $budget->payment_method_id, ['class' => 'select2-with-tag ' . $errors->first('payment_method_id','is-invalid') , 'data-placeholder' => __('Payment Method')]) !!}
                                     {!! $errors->first('payment_method_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="col-sm-4">
                                     <label>{{ __('Transport Method') }}</label>
-                                    {!! Form::select('transport_method_id', $transportMethods, null,['class' => 'select2-with-tag ' . $errors->first('transport_method_id','is-invalid') , 'data-placeholder' => __('Transport Method')]) !!}
+                                    {!! Form::select('transport_method_id', $transportMethods, $budget->transport_method_id, ['class' => 'select2-with-tag ' . $errors->first('transport_method_id','is-invalid') , 'data-placeholder' => __('Transport Method')]) !!}
                                     {!! $errors->first('transport_method_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="description">{{ __('Description') }}</label>
-                                {!! Form::textarea('description', null, ['class' => 'form-control ' . $errors->first('description','is-invalid'), 'rows' => 4, 'id' => 'description', 'placeholder' => __("Description")]) !!}
+                                {!! Form::textarea('description', $budget->description, ['class' => 'form-control ' . $errors->first('description','is-invalid'), 'rows' => 4, 'id' => 'description', 'placeholder' => __("Description")]) !!}
                                 {!! $errors->first('description','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
@@ -136,30 +130,30 @@
                                         <th>#</th>
                                         <th>{{ __('Service') }}</th>
                                         <th>{{ __('Price') }}</th>
+                                        <th>{{ __('Quantity') }}</th>
                                         <th>{{ __('Amount') }}</th>
-                                        <th>{{ __('Total') }}</th>
                                         <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (old('services'))
+                                    @if ($budget->services)
                                         @php $index = 0; @endphp
-                                        @foreach (old('services') as $service)
+                                        @foreach ($budget->services as $service)
                                             <tr id="row-service-{{ $index }}">
                                                 <td>{{ $index+1 }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service['service_id'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service->service_id }}">
                                                 </td>
-                                                <td width="80%">{{  $service['service_name'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
+                                                <td width="80%">{{ $service->name }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->name }}">
                                                 </td>
-                                                <td>{{ alternative_money((float)$service['service_price'], '$', 2, ',') }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_price]" value="{{ $service['service_price'] }}">
+                                                <td>{{ alternative_money((float)$service->price, '$', 2, ',') }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_price]" value="{{ $service->price }}">
                                                 </td>
-                                                <td>{{ old('services')[ $index ]['amount'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][amount]" value="{{ $service['amount'] }}">
+                                                <td>{{ $service->pivot->amount }}
+                                                    <input type="hidden" name="services[{{ $index }}][amount]" value="{{ $service->pivot->amount }}">
                                                 </td>
-                                                <td class="total-service-item">{{ alternative_money((float)$service['total'], '$', 2, ',') }}
-                                                    <input type="hidden" name="services[{{ $index }}][total]" value="{{ $service['total'] }}">
+                                                <td class="total-service-item">{{ alternative_money((float)$service->pivot->amount * $service->price, '$', 2, ',') }}
+                                                    <input type="hidden" name="services[{{ $index }}][total]" value="{{ $service->pivot->amount * $service->price }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
@@ -195,30 +189,30 @@
                                         <th>#</th>
                                         <th>{{ __('Product') }}</th>
                                         <th>{{ __('Price') }}</th>
+                                        <th>{{ __('Quantity') }}</th>
                                         <th>{{ __('Amount') }}</th>
-                                        <th>{{ __('Total') }}</th>
                                         <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (old('products'))
+                                    @if ($budget->products)
                                         @php $index = 0; @endphp
-                                        @foreach (old('products') as $product)
+                                        @foreach ($budget->products as $product)
                                             <tr id="row-product-{{ $index }}">
                                                 <td>{{ $index+1 }}
-                                                    <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product['product_id'] }}">
+                                                    <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product->id }}">
                                                 </td>
-                                                <td width="80%">{{ $product['product_name'] }}
-                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product['product_name'] }}">
+                                                <td width="80%">{{ $product->name }}
+                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product->name }}">
                                                 </td>
-                                                <td>{{ alternative_money((float)$product['product_price'], '$', 2, ',') }}
-                                                    <input type="hidden" name="products[{{ $index }}][product_price]" value="{{ $product['product_price'] }}">
+                                                <td>{{ alternative_money((float)$product->price, '$', 2, ',') }}
+                                                    <input type="hidden" name="products[{{ $index }}][product_price]" value="{{ $product->price }}">
                                                 </td>
-                                                <td>{{ $product['amount'] }}
-                                                    <input type="hidden" name="products[{{ $index }}][amount]" value="{{ $product['amount'] }}">
+                                                <td>{{ $product->pivot->amount }}
+                                                    <input type="hidden" name="products[{{ $index }}][amount]" value="{{ $product->pivot->amount }}">
                                                 </td>
-                                                <td class="total-product-item">{{ alternative_money((float)$product['total'], '$', 2, ',') }}
-                                                    <input type="hidden" name="products[{{ $index }}][total]" value="{{ $product['total'] }}">
+                                                <td class="total-product-item">{{ alternative_money((float)$product->pivot->amount * $product->price, '$', 2, ',') }}
+                                                    <input type="hidden" name="products[{{ $index }}][total]" value="{{ $product->pivot->amount * $product->price }}">
                                                 </td>
                                                 <td width="15%">
                                                     <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">

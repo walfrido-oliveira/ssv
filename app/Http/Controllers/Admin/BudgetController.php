@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
+use App\Models\Client\Client;
 use App\Models\Budget\BudgetType;
 use App\Http\Controllers\Controller;
 use App\Models\Budget\PaymentMethod;
 use App\Models\Budget\TransportMethod;
+use App\Models\Client\Contact\ClientContact;
 
 class BudgetController extends Controller
 {
@@ -62,7 +64,6 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate($this->roles($this->budget));
 
         $data = $request->all();
@@ -119,7 +120,15 @@ class BudgetController extends Controller
      */
     public function edit($id)
     {
-        //
+        $budget = Budget::Find($id);
+        $clients = Client::where('id', $budget->client_id)->get()->pluck('nome_fantasia', 'id');
+        $contacts = ClientContact::where('id', $budget->client_contact_id)->get()->pluck('full_description', 'id');
+        $budgetTypes = BudgetType::all()->pluck('name', 'id');
+        $paymentMethods = PaymentMethod::all()->pluck('name', 'id');
+        $transportMethods = TransportMethod::all()->pluck('name', 'id');
+
+        return view('admin.budgets.edit',
+        compact('budgetTypes', 'paymentMethods', 'transportMethods', 'budget', 'clients', 'contacts'));
     }
 
     /**

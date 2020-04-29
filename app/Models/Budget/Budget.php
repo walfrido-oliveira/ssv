@@ -90,7 +90,7 @@ class Budget extends Model
      */
     public function services()
     {
-        return $this->belongsToMany(Service::class);
+        return $this->belongsToMany(Service::class)->withPivot('amount');
     }
 
     /**
@@ -111,7 +111,7 @@ class Budget extends Model
         $services = $this->services;
 
         foreach ($services as $value) {
-            $amount += $value->price;
+            $amount += $value->price * $value->pivot->amount;
         }
 
         return $amount;
