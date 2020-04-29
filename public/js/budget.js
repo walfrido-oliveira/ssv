@@ -174,7 +174,9 @@ $(document).ready(function () {
         };
       },
       cache: true
-    }
+    },
+    templateResult: formatService,
+    templateSelection: formatServiceSelection
   });
   $('select[name=product]').select2({
     ajax: {
@@ -257,12 +259,28 @@ function formatContact(contact) {
   return $container;
 }
 
+function formatService(service) {
+  if (service.loading) {
+    return service.text;
+  }
+
+  var $container = $("<div class='select2-result-service clearfix'>" + "<div class='select2-result-service__meta'>" + "<div class='select2-result-service__name'></div>" + "</div>" + "</div>");
+  $container.find(".select2-result-service__name").text(service.text + ' - ' + window.currencyFormatDE(service.price));
+  return $container;
+}
+
 function formatContactSelection(contact) {
   var name = contact.contact;
   var email = contact.email;
   if (!name) name = '';
   if (!email) email = '';
   return name != '' || email != '' ? name + ' - ' + email : contact.text;
+}
+
+function formatServiceSelection(service) {
+  var name = service.text;
+  var price = service.price;
+  return !isNaN(price) ? name + ' - ' + window.currencyFormatDE(price) : service.text;
 }
 
 function calTotalService() {
