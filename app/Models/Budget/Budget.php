@@ -90,7 +90,9 @@ class Budget extends Model
      */
     public function services()
     {
-        return $this->belongsToMany(Service::class)->withPivot('amount');
+        return $this->belongsToMany(Service::class)
+            ->withPivot('amount', 'index')
+            ->orderBy('pivot_index');
     }
 
     /**
@@ -98,7 +100,9 @@ class Budget extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('amount');
+        return $this->belongsToMany(Product::class)
+            ->withPivot('amount', 'index')
+            ->orderBy('pivot_index');
     }
 
     /**

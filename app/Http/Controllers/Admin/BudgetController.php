@@ -78,8 +78,9 @@ class BudgetController extends Controller
             $services = array_map(function($line) {
                 return
                 [
-                "service_id" => $line['service_id'],
-                "amount" => $line['amount']
+                    "service_id" => $line['service_id'],
+                    "amount" => $line['amount'],
+                    "index" => $line['index']
                 ];
             }, $servicesTemp);
         }
@@ -90,8 +91,9 @@ class BudgetController extends Controller
             $products = array_map(function($line) {
                 return
                 [
-                "product_id" => $line['product_id'],
-                "amount" => $line['amount']
+                    "product_id" => $line['product_id'],
+                    "amount" => $line['amount'],
+                    "index" => $line['index']
                 ];
             }, $productsTemp);
         }
@@ -161,8 +163,9 @@ class BudgetController extends Controller
             $services = array_map(function($line) {
                 return
                 [
-                "service_id" => $line['service_id'],
-                "amount" => $line['amount']
+                    "service_id" => $line['service_id'],
+                    "amount" => $line['amount'],
+                    "index" => $line['index']
                 ];
             }, $servicesTemp);
         }
@@ -173,8 +176,9 @@ class BudgetController extends Controller
             $products = array_map(function($line) {
                 return
                 [
-                "product_id" => $line['product_id'],
-                "amount" => $line['amount']
+                    "product_id" => $line['product_id'],
+                    "amount" => $line['amount'],
+                    "index" => $line['index']
                 ];
             }, $productsTemp);
         }

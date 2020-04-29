@@ -13,7 +13,7 @@ class BudgetService extends Model
      * @var array
      */
     protected $fillable = [
-        'amount'
+        'amount', 'index'
     ];
 
     /**
@@ -23,25 +23,8 @@ class BudgetService extends Model
      */
     protected $casts = [
         'amount' => 'integer',
+        'index' => 'integer',
     ];
 
-    /**
-     * return a single Client
-     *
-     * @return Service
-     */
-    public function service()
-    {
-        return $this->belongsTo(Service::class);
-    }
 
-    /**
-     *
-     * Get amount of budget
-     */
-    public function getTotalAttribute()
-    {
-        dd('www');
-        return $this->amount * $this->service->price;
-    }
 }

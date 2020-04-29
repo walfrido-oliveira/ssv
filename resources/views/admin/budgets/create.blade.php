@@ -148,6 +148,7 @@
                                             <tr id="row-service-{{ $index }}">
                                                 <td>{{ $index+1 }}
                                                     <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service['service_id'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][index]" value="{{ $service['index'] }}">
                                                 </td>
                                                 <td width="80%">{{  $service['service_name'] }}
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
@@ -207,6 +208,7 @@
                                             <tr id="row-product-{{ $index }}">
                                                 <td>{{ $index+1 }}
                                                     <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product['product_id'] }}">
+                                                    <input type="hidden" name="products[{{ $index }}][index]" value="{{ $product['index'] }}">
                                                 </td>
                                                 <td width="80%">{{ $product['product_name'] }}
                                                     <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product['product_name'] }}">

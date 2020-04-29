@@ -12,7 +12,7 @@ class BudgetProduct extends Model
      * @var array
      */
     protected $fillable = [
-        'amount'
+        'amount', 'index'
     ];
 
     /**
@@ -22,5 +22,6 @@ class BudgetProduct extends Model
      */
     protected $casts = [
         'amount' => 'integer',
+        'index' => 'integer',
     ];
 }

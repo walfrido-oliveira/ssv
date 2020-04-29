@@ -142,6 +142,7 @@
                                             <tr id="row-service-{{ $index }}">
                                                 <td>{{ $index+1 }}
                                                     <input type="hidden" name="services[{{ $index }}][service_id]" value="{{ $service->id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][index]" value="{{ $service->pivot->index }}">
                                                 </td>
                                                 <td width="80%">{{ $service->name }}
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->name }}">
@@ -201,6 +202,7 @@
                                             <tr id="row-product-{{ $index }}">
                                                 <td>{{ $index+1 }}
                                                     <input type="hidden" name="products[{{ $index }}][product_id]" value="{{ $product->id }}">
+                                                    <input type="hidden" name="products[{{ $index }}][index]" value="{{ $product->pivot->index }}">
                                                 </td>
                                                 <td width="80%">{{ $product->name }}
                                                     <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product->name }}">

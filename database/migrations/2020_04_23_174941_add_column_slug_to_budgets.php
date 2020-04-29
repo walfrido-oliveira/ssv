@@ -35,10 +35,10 @@ class AddColumnSlugToBudgets extends Migration
             $table->dropColumn(['slug']);
         });
         Schema::table('payment_methods', function (Blueprint $table) {
-            $table->string('slug');
+            $table->dropColumn(['slug']);('slug');
         });
         Schema::table('transport_methods', function (Blueprint $table) {
-            $table->string('slug');
+            $table->dropColumn(['slug']);('slug');
         });
     }
 }

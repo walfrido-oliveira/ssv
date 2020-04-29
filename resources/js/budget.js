@@ -131,7 +131,10 @@ $(document).ready(function() {
         var index = tbody.find('tr').length + 1;
 
         var row = '<tr id="row-service-' + (index-1) + '">' +
-                  '<td>' + index + '<input type="hidden" name="services[' + (index-1) + '][service_id]" value="' + service.val() + '" /></td>' +
+                  '<td>' + index +
+                  '<input type="hidden" name="services[' + (index-1) + '][service_id]" value="' + service.val() + '" />'+
+                  '<input type="hidden" name="services[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
+                  '</td>' +
                   '<td>' + service.text() + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.text() + '" /></td>' +
                   '<td>' + window.currencyFormatDE(data.price) + '<input type="hidden" name="services[' + (index-1) + '][service_price]" value="' + data.price + '" /></td>' +
                   '<td>' + amount.val() + '<input type="hidden" name="services[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
@@ -165,7 +168,10 @@ $(document).ready(function() {
         var index = tbody.find('tr').length + 1;
 
         var row = '<tr id="row-product-' + (index-1) + '">' +
-                  '<td>' + index + '<input type="hidden" name="products[' + (index-1) + '][product_id]" value="' + product.val() + '" /></td>' +
+                  '<td>' + index +
+                  '<input type="hidden" name="products[' + (index-1) + '][product_id]" value="' + product.val() + '" />' +
+                  '<input type="hidden" name="products[' + (index-1) + '][index]" value="' + (index-1) + '" />' +
+                  '</td>' +
                   '<td>' + product.text() + '<input type="hidden" name="products[' + (index-1) + '][product_name]" value="' + product.text() + '" /></td>' +
                   '<td>' + window.currencyFormatDE(data.price) + '<input type="hidden" name="products[' + (index-1) + '][product_price]" value="' + data.price + '" /></td>' +
                   '<td>' + amount.val() + '<input type="hidden" name="products[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
