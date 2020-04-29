@@ -147,13 +147,13 @@
                                                 <td width="80%">{{ $service->name }}
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->name }}">
                                                 </td>
-                                                <td>{{ alternative_money((float)$service->price, '$', 2, ',') }}
+                                                <td>{{ alternative_money((float)$service->price, '$', 2, ',', '.') }}
                                                     <input type="hidden" name="services[{{ $index }}][service_price]" value="{{ $service->price }}">
                                                 </td>
                                                 <td>{{ $service->pivot->amount }}
                                                     <input type="hidden" name="services[{{ $index }}][amount]" value="{{ $service->pivot->amount }}">
                                                 </td>
-                                                <td class="total-service-item">{{ alternative_money((float)$service->pivot->amount * $service->price, '$', 2, ',') }}
+                                                <td class="total-service-item">{{ alternative_money((float)$service->pivot->amount * $service->price, '$', 2, ',', '.') }}
                                                     <input type="hidden" name="services[{{ $index }}][total]" value="{{ $service->pivot->amount * $service->price }}">
                                                 </td>
                                                 <td width="15%">
@@ -207,13 +207,13 @@
                                                 <td width="80%">{{ $product->name }}
                                                     <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product->name }}">
                                                 </td>
-                                                <td>{{ alternative_money((float)$product->price, '$', 2, ',') }}
+                                                <td>{{ alternative_money((float)$product->price, '$', 2, ',', '.') }}
                                                     <input type="hidden" name="products[{{ $index }}][product_price]" value="{{ $product->price }}">
                                                 </td>
                                                 <td>{{ $product->pivot->amount }}
                                                     <input type="hidden" name="products[{{ $index }}][amount]" value="{{ $product->pivot->amount }}">
                                                 </td>
-                                                <td class="total-product-item">{{ alternative_money((float)$product->pivot->amount * $product->price, '$', 2, ',') }}
+                                                <td class="total-product-item">{{ alternative_money((float)$product->pivot->amount * $product->price, '$', 2, ',', '.') }}
                                                     <input type="hidden" name="products[{{ $index }}][total]" value="{{ $product->pivot->amount * $product->price }}">
                                                 </td>
                                                 <td width="15%">
