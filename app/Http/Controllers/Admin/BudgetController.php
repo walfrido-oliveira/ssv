@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\Budget\BudgetType;
+use App\Notifications\CreateBudget;
 use App\Http\Controllers\Controller;
 use App\Models\Budget\PaymentMethod;
 use App\Models\Budget\TransportMethod;
@@ -20,6 +21,8 @@ class BudgetController extends Controller
 
     /**
      * create a new instance of controll
+     *
+     * @param Budget $budget
      */
 	public function __construct(Budget $budget)
 	{
@@ -102,6 +105,8 @@ class BudgetController extends Controller
 
         $budget->services()->sync($services);
         $budget->products()->sync($products);
+
+        $budget->notify(new CreateBudget($budget));
 
         flash('success', 'Budget added successfully!');
 

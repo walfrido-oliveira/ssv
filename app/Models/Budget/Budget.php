@@ -7,10 +7,14 @@ use App\Models\Product\Product;
 use App\Models\Service\Service;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use App\Models\Client\Contact\ClientContact;
 
 class Budget extends Model
 {
+
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -144,6 +148,17 @@ class Budget extends Model
     public function getAmountAttribute()
     {
         return $this->getServiceAmountAttribute() + $this->getProductAmountAttribute();
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return [$this->clientContact->email => $this->clientContact->name];
     }
 
 }
