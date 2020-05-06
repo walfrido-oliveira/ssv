@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware(['check_user_type:Admin'])->group( function(){
 
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('/', 'ProfileController@show')->name('show');
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     });
 
-    Route::prefix('user')->name('user.')->namespace('User')->group(function(){
+    Route::prefix('user')->name('user.')->namespace('User')->middleware(['check_user_type:User'])->group(function(){
 
         Route::prefix('budgets')->name('budgets.')->group(function(){
             Route::get('/', 'BudgetController@index')->name('index');
