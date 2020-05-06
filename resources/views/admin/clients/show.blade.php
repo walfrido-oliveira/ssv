@@ -45,6 +45,9 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="col-12 pl-0">
+                        <a href="{{ route('admin.clients.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                    </div>
                 </div>
                 <div class="col-md-9">
                     <div class="card">
@@ -124,9 +127,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <a href="{{ route('admin.clients.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
                 </div>
             </div>
         </div>

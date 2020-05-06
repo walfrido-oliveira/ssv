@@ -26,9 +26,9 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <a href="{{ route('admin.budget-types.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                    <div class="col-12 pl-0">
+                        <a href="{{ route('admin.budget-types.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                    </div>
                 </div>
             </div>
         </div>

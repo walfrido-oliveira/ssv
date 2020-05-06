@@ -26,6 +26,9 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="col-12 pl-0">
+                        <a href="{{ route('admin.activities.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
@@ -39,9 +42,6 @@
                       </div>
                       <a href="{{ route('admin.clients.index', ['activity' => $activity->id]) }}" class="small-box-footer">{{ __('More info') }} <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
-                <div class="col-12">
-                    <a href="{{ route('admin.activities.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
                 </div>
             </div>
         </div>
