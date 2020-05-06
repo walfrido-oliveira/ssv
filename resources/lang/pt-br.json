@@ -177,6 +177,8 @@
     "TOTAL SERVICES":"TOTAL SERVIÇOS",
     "TOTAL PRODUCTS":"TOTAL PRODUTOS",
     "Quantity":"Quantidade",
-    "Budget updated successfully!":"Orçamento atualizado com sucesso!"
+    "Budget updated successfully!":"Orçamento atualizado com sucesso!",
+    "Details Budget":"Detalhes do Orçamento",
+    "Type":"Tipo"
 
 }

@@ -116,7 +116,9 @@ class BudgetController extends Controller
      */
     public function show($id)
     {
-        //
+        $budget = $this->budget->find($id);
+
+        return view('admin.budgets.show', compact('budget'));
     }
 
     /**

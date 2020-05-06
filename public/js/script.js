@@ -116,6 +116,15 @@ $(document).ready(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
+  $(".show-contact-info").click(function () {
+    $('.contact-info').toggle("slow", function () {
+      if ($('.contact-info').is(":hidden")) {
+        $('.contact-info').hide();
+      } else {
+        $('.contact-info').show();
+      }
+    });
+  });
 });
 
 window.currencyFormatDE = function (num) {
