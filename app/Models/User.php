@@ -72,4 +72,9 @@ class User extends Authenticatable
             return 'User';
         }
     }
+
+    public function isAdmin()
+    {
+        return $this->getType() === 'Admin';
+    }
 }

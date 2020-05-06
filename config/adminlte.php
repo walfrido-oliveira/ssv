@@ -217,15 +217,16 @@ return [
         [
             'text' => 'account_settings',
             'icon' => '',
+            'can' => 'user-show-details',
             'submenu' => [
                 [
                     'text' => 'profile',
-                    'url' => 'admin/profile',
+                    'route' => 'profile.show',
                     'icon' => 'fas fa-fw fa-user',
                 ],
                 [
                     'text' => 'change_password',
-                    'url' => 'admin/profile/credentials',
+                    'route' => 'profile.credentials.show',
                     'icon' => 'fas fa-fw fa-lock',
                 ]
             ]
@@ -234,16 +235,18 @@ return [
             'text' => 'customers',
             'url' => '#',
             'icon' => 'fas fa-fw fa-users',
+            'can' => 'client-list',
             'submenu' => [
                 [
                     'text'  => 'customer_list',
-                    'url'   =>  'admin/clients',
+                    'route'   =>  'clients.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'url' => 'admin/clients/create',
+                    'route' => 'clients.create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'client-create',
                 ],
                 [
                     'text' => 'activities',
@@ -252,13 +255,14 @@ return [
                     'submenu' => [
                         [
                             'text'  => 'activity_list',
-                            'url'   =>  'admin/activities',
+                            'route'   =>  'activities.index',
                             'icon'  =>  'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' => 'admin/activities/create',
+                            'route' => 'activities.create',
                             'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'activity-create',
                         ],
                     ]
                 ],
@@ -268,47 +272,53 @@ return [
         [
             'text' => 'services',
             'icon' => 'fas fa-fw fa-wrench',
+            'can' => 'service-list',
             'submenu' => [
                 [
                     'text'  => 'service_list',
-                    'url'   =>  'admin/services',
+                    'route'   =>  'services.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'url' => 'admin/services/create',
+                    'route' => 'services.create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'service-create',
                 ],
             ]
         ],
         [
             'text' => 'products',
             'icon' => 'fas fa-fw fa-archive',
+            'can' => 'product-list',
             'submenu' => [
                 [
                     'text'  => 'products_list',
-                    'url'   =>  'admin/products',
+                    'route'   =>  'products.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'url' => 'admin/products/create',
+                    'route' => 'products.create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'product-create',
                 ],
                 [
                     'text' => 'categories',
                     'url' => '#',
                     'icon' => '',
+                    'can' => 'category-list',
                     'submenu' => [
                         [
                             'text'  => 'categories_list',
-                            'url'   =>  'admin/categories',
+                            'route'   =>  'categories.index',
                             'icon'  =>  'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' => 'admin/categories/create',
+                            'route' => 'categories.create',
                             'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'category-create',
                         ],
                     ]
                 ],
@@ -317,31 +327,35 @@ return [
         [
             'text' => 'budgets',
             'icon' => 'fas fa-fw fa-money-check-alt',
+            'can'  => ['budget-list', 'budget-show-details'],
             'submenu' => [
                 [
                     'text'  => 'budgets_list',
-                    'url'   =>  'admin/budgets',
+                    'route' =>  'budgets.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'url' => 'admin/budgets/create',
+                    'route' => 'budgets.create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'budget-create',
                 ],
                 [
                     'text' => 'budget_type',
                     'url' => '#',
                     'icon' => '',
+                    'can' => 'budget-type-list',
                     'submenu' => [
                         [
                             'text'  => 'budget_types_list',
-                            'url'   => 'admin/budget-types',
+                            'route'   => 'budget-types.index',
                             'icon'  => 'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' =>  'admin/budget-types/create',
+                            'route' =>  'budget-types.create',
                             'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'budget-type-create',
                         ],
                     ]
                 ],
@@ -349,16 +363,18 @@ return [
                     'text' => 'payment_methods',
                     'url' => '#',
                     'icon' => '',
+                    'can' => 'payment-method-list',
                     'submenu' => [
                         [
                             'text'  => 'payment_methods_list',
-                            'url'   => 'admin/payment-methods',
+                            'route'   => 'payment-methods.index',
                             'icon'  => 'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' =>  'admin/payment-methods/create',
+                            'route' =>  'payment-methods.create',
                             'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'payment-method-create',
                         ],
                     ]
                 ],
@@ -366,16 +382,18 @@ return [
                     'text' => 'transport_methods',
                     'url' => '#',
                     'icon' => '',
+                    'can' => 'transport-method-list',
                     'submenu' => [
                         [
                             'text'  => 'transport_methods_list',
-                            'url'   => 'admin/transport-methods',
+                            'route'   => 'transport-methods.index',
                             'icon'  => 'fas fa-fw fa-list'
                         ],
                         [
                             'text' => 'new',
-                            'url' =>  'admin/transport-methods/create',
+                            'route' =>  'transport-methods.create',
                             'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'transport-method-create',
                         ],
                     ]
                 ],
@@ -384,16 +402,18 @@ return [
         [
             'text' => 'service_order',
             'icon' => 'fas fa-fw fa-toolbox',
+            'can' => 'os-list',
             'submenu' => [
                 [
                     'text'  => 'service_list',
-                    'url'   =>  'admin/service_orders',
+                    'route'   =>  'service-orders.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'url' => 'admin/service_orders/create',
+                    'route' => 'service-orders.create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'os-create',
                 ],
             ]
         ],
@@ -413,7 +433,8 @@ return [
     */
 
     'filters' => [
-        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+        //JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+        App\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,

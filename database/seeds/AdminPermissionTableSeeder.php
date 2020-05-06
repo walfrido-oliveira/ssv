@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class PermissionTableSeeder extends Seeder
+class AdminPermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,6 +22,8 @@ class PermissionTableSeeder extends Seeder
             'user-create',
             'user-edit',
             'user-delete',
+            'user-show-details',
+            'user-profile-update',
             'client-list',
             'client-create',
             'client-edit',
@@ -47,6 +49,7 @@ class PermissionTableSeeder extends Seeder
             'product-edit',
             'product-delete',
             'budget-list',
+            'budget-show-details',
             'budget-create',
             'budget-edit',
             'budget-delete',

@@ -63,6 +63,15 @@ Route::group(['middleware' => ['auth']], function() {
 
     });
 
+    Route::prefix('user')->name('user.')->namespace('User')->group(function(){
+
+        Route::prefix('budgets')->name('budgets.')->group(function(){
+            Route::get('/', 'BudgetController@index')->name('index');
+            Route::get('/{budget}', 'BudgetController@show')->name('show');
+        });
+
+    });
+
 });
 
 
