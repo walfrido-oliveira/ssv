@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Http\Controllers\Controller;
@@ -79,8 +78,10 @@ class BudgetController extends Controller
         if ($status == 'created')
         {
             $budget->status = 'approved';
-            $budget->approved_at = Carbon::now();
+            $budget->approved_at = now();
             $budget->save();
+
+            $when = now()->addMinutes(1);
 
             $budget->notify(new ApprovedBudget($budget));
 
@@ -125,8 +126,10 @@ class BudgetController extends Controller
         if ($status == 'created')
         {
             $budget->status = 'disapproved';
-            $budget->disapproved_at = Carbon::now();
+            $budget->disapproved_at = now();
             $budget->save();
+
+            $when = now()->addMinutes(1);
 
             $budget->notify(new DisapprovedBudget($budget));
 

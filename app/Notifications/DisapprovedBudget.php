@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class DisapprovedBudget extends Notification
+class DisapprovedBudget extends Notification implements ShouldQueue
 {
     use Queueable;
 

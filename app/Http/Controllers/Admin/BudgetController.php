@@ -106,6 +106,8 @@ class BudgetController extends Controller
         $budget->services()->sync($services);
         $budget->products()->sync($products);
 
+        $when = now()->addMinutes(1);
+
         $budget->notify(new CreateBudget($budget));
 
         flash('success', 'Budget added successfully!');
