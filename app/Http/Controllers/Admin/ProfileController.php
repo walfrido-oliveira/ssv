@@ -36,29 +36,33 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\ProfileRequest  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProfileRequest $request, $id)
+    public function update(ProfileRequest $request)
     {
-
         $data = $request->all();
-        $user = User::find($id);
-        $oldImageProfile = $user->profile_image;
-        $user->update($data);
 
-        $user->syncRoles($data['roles']);
+        $user = auth()->user();
 
-        if (!is_null($request->profile_image))
+        if (!is_null($user))
         {
-            Storage::delete('public/' . $oldImageProfile);
-            $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
+            $oldImageProfile = $user->profile_image;
 
-            $data['profile_image'] = $profileImage;
             $user->update($data);
-        }
 
-        flash('success', __('Profile updated successfully.'));
+            $user->syncRoles($data['roles']);
+
+            if (!is_null($request->profile_image))
+            {
+                Storage::delete('public/' . $oldImageProfile);
+                $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
+
+                $data['profile_image'] = $profileImage;
+                $user->update($data);
+            }
+
+            flash('success', __('Profile updated successfully'));
+        }
 
         return redirect(route('admin.profile.show'));
 

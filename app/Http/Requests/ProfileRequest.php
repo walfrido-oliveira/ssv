@@ -30,7 +30,6 @@ class ProfileRequest extends FormRequest
     {
         return
         [
-            'email' => 'email|unique:users,email,'. $this->user->id,
             'profile_image' => 'image'
         ];
     }

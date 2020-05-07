@@ -31,22 +31,26 @@ class CredentialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\ProfileCredentialRequest  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CredentialRequest $request, $id)
+    public function update(CredentialRequest $request)
     {
-        $user = User::find($id);
+        $user = auth()->user();
+
         $data = $request->all();
 
-        $current_password = $user->password;
-        if (Hash::check($data['current-password'], $current_password))
+        if (!is_null($user))
         {
-            $user->password = Hash::make($data['password']);
-            $user->save();
-            flash('success', __('Password updated successfully'));
-        } else {
-            flash('error', __('Please enter correct current password'));
+            $current_password = $user->password;
+
+            if (Hash::check($data['current-password'], $current_password))
+            {
+                $user->password = Hash::make($data['password']);
+                $user->save();
+                flash('success', __('Password updated successfully'));
+            } else {
+                flash('error', __('Please enter correct current password'));
+            }
         }
 
         return redirect(route('admin.profile.credentials.show'));

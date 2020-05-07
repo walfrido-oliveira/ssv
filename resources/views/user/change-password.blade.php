@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <form action="{{ route('user.profile.credentials.update', [ 'user' => $user->id ]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('user.profile.credentials.update') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method("PUT")

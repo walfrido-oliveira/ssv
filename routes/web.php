@@ -27,11 +27,11 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('/', 'ProfileController@show')->name('show');
-            Route::put('/{user}', 'ProfileController@update')->name('update');
+            Route::put('/', 'ProfileController@update')->name('update');
 
             Route::prefix('credentials')->name('credentials.')->group(function(){
                 Route::get('/', 'CredentialController@show')->name('show');
-                Route::put('/{user}', 'CredentialController@update')->name('update');
+                Route::put('/', 'CredentialController@update')->name('update');
             });
         });
 
@@ -74,11 +74,11 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('/', 'ProfileController@show')->name('show');
-            Route::put('/{user}', 'ProfileController@update')->name('update');
+            Route::put('/', 'ProfileController@update')->name('update');
 
             Route::prefix('credentials')->name('credentials.')->group(function(){
                 Route::get('/', 'CredentialController@show')->name('show');
-                Route::put('/{user}', 'CredentialController@update')->name('update');
+                Route::put('/', 'CredentialController@update')->name('update');
             });
         });
 
