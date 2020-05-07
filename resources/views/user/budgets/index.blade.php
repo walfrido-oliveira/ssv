@@ -116,7 +116,7 @@
 @stop
 
 @section('js')
-    <script src="{{ mix('js/list.js') }}"></script>
+    <script src="{{ mix('js/budget-user.js') }}"></script>
 @stop
 
 
