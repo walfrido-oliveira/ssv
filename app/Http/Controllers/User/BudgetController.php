@@ -48,6 +48,8 @@ class BudgetController extends Controller
      */
     public function show($id)
     {
+        If (!$this->checkClient($id)) abort(404);
+
         $budget = $this->budget->find($id);
 
         return view('user.budgets.show', compact('budget'));
@@ -61,17 +63,13 @@ class BudgetController extends Controller
      */
     public function approve($id)
     {
-        $budget = $this->budget->find($id);
-
-        $clients = $this->getClientsId();
-
-        $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
-
-        if (is_null($budgets))
+        if (!$this->checkClient($id))
         {
             flash('error', 'This budget dont exist!');
             return redirect()->back();
         }
+
+        $budget = $this->budget->find($id);
 
         $status = $budget->status;
 
@@ -109,17 +107,13 @@ class BudgetController extends Controller
      */
     public function disapprove($id)
     {
-        $budget = $this->budget->find($id);
-
-        $clients = $this->getClientsId();
-
-        $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
-
-        if (is_null($budgets))
+        if (!$this->checkClient($id))
         {
             flash('error', 'This budget dont exist!');
             return redirect()->back();
         }
+
+        $budget = $this->budget->find($id);
 
         $status = $budget->status;
 
@@ -149,9 +143,31 @@ class BudgetController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Get all ids client for user
+     *
+     * @return array
+     */
     private function getClientsId()
     {
         return auth()->user()->clients()->pluck('client_user.client_id');
+    }
+
+    /**
+     * Check if client user has acess to budget
+     *
+     * @param  int  $id
+     *
+     * @return boolean
+     */
+    private function checkClient($id)
+    {
+        $clients = $this->getClientsId();
+
+        $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
+
+        return !is_null($budgets);
+
     }
 
 
