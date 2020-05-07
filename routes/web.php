@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::prefix('budgets')->name('budgets.')->group(function(){
             Route::get('/', 'BudgetController@index')->name('index');
             Route::get('/{budget}', 'BudgetController@show')->name('show');
+            Route::post('/approve/{budget}', 'BudgetController@approve')->name('approve');
+            Route::post('/disapprove/{budget}', 'BudgetController@disapprove')->name('disapprove');
         });
 
         Route::prefix('profile')->name('profile.')->group(function(){

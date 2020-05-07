@@ -29,11 +29,41 @@
                                     <b>{{ __('Validity') }}</b>
                                     <a class="float-right">{{ !is_null($budget->validity) ? $budget->validity->format('d/m/Y') : '' }}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>{{ __('Status') }}</b>
+                                    <a class="float-right">
+                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
+                                            @if($budget->status == "created")
+                                                {{ __('Created') }}
+                                            @elseif($budget->status == 'approved')
+                                                {{ __('Approved') }}
+                                            @else
+                                                {{ __('Disapproved') }}
+                                            @endif
+                                        </span>
+                                    </a>
+                                </li>
+                                @if($budget->status == 'approved')
+                                    <li class="list-group-item">
+                                        <b>{{ __('Approved at') }}</b>
+                                        <a class="float-right">{{ !is_null($budget->approved_at) ? $budget->approved_at->format('d/m/Y') : '' }}</a>
+                                    </li>
+                                @endif
+                                @if($budget->status == 'disapproved')
+                                    <li class="list-group-item">
+                                        <b>{{ __('Disapproved at') }}</b>
+                                        <a class="float-right">{{ !is_null($budget->disapproved_at) ? $budget->disapproved_at->format('d/m/Y') : '' }}</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 pl-0">
+                    <div class="col-12 pl-0 pr-0">
                         <a href="{{ route('user.budgets.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                        @if($budget->status == "created")
+                            <button type="button" class="btn btn-success approve" data-toggle="modal" data-target="#approve-modal">{{ __('Approve') }}</button>
+                            <button type="button" class="btn btn-danger disapprove" data-toggle="modal" data-target="#disapprove-modal">{{ __('Disapprove') }}</button>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -144,6 +174,50 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to approve this budget?') }}</div>
+                <div class="modal-footer">
+                    <form action="{{route('user.budgets.approve', ['budget' => $budget->id])}}" method="post" id="approve-modal-form">
+                        @csrf
+                        @method("POST")
+                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="disapprove-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to disapprove this budget?') }}</div>
+                <div class="modal-footer">
+                    <form action="{{route('user.budgets.disapprove', ['budget' => $budget->id])}}" method="post" id="disapprove-modal-form">
+                        @csrf
+                        @method("POST")
+                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('js')
+    <script src="{{ mix('js/budget-user.js') }}"></script>
 @stop
 
 

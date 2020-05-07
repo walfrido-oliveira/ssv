@@ -182,6 +182,20 @@
     "Type":"Tipo",
     "Create Budget Notification":"Notificação de Criação de Orçamento",
     "Your budget is awaiting your approval.":"Seu orçamento está aguardando sua aprovação.",
-    "Click in the button below and check your budget.":"Clique no botão abaixo e verifique seu orçamento."
+    "Click in the button below and check your budget.":"Clique no botão abaixo e verifique seu orçamento.",
+    "Approve":"Aprovar",
+    "Disapprove":"Reprovar",
+    "Created":"Criado",
+    "Approved":"Aprovado",
+    "Disapproved":"Desaprovado",
+    "Do you really want to approve this budget?":"Você deseja realmente aprovar esse orçamento?",
+    "Budget removed successfully!":"Orçamento removido com sucesso!",
+    "Budget approved successfully!":"Orçamento aprocado com sucesso!",
+    "Budget already approved!":"Orçamento já foi aprocado!",
+    "Budget was previously disapproved!":"Orçamento foi reprovado anteriormente",
+    "Approved at":"Aprovado em",
+    "Disapproved at":"Desaprovado em",
+    "Budget disapproved successfully!":"Orçamento reprovado com sucesso!",
+    "Do you really want to disapprove this budget?":"Você deseja realmente reprovar esse orçamento?"
 
 }

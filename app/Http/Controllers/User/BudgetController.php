@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Http\Controllers\Controller;
@@ -47,6 +48,72 @@ class BudgetController extends Controller
         $budget = $this->budget->find($id);
 
         return view('user.budgets.show', compact('budget'));
+    }
+
+    /**
+     * Approve a specific budget
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function approve($id)
+    {
+        $budget = $this->budget->find($id);
+
+        $status = $budget->status;
+
+        if ($status == 'created')
+        {
+            $budget->status = 'approved';
+            $budget->approved_at = Carbon::now();
+            $budget->save();
+            flash('success', 'Budget approved successfully!');
+        }
+
+        if ($status == 'approved')
+        {
+            flash('warning', 'Budget already approved!');
+        }
+
+        if ($status == 'disapproved')
+        {
+            flash('error', 'Budget was previously disapproved!');
+        }
+
+        return redirect(route('user.budgets.show', ['budget' => $budget->id]));
+    }
+
+    /**
+     * Disapprove a specific budget
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function disapprove($id)
+    {
+        $budget = $this->budget->find($id);
+
+        $status = $budget->status;
+
+        if ($status == 'created')
+        {
+            $budget->status = 'disapproved';
+            $budget->disapproved_at = Carbon::now();
+            $budget->save();
+            flash('success', 'Budget disapproved successfully!');
+        }
+
+        if ($status == 'approved')
+        {
+            flash('warning', 'Budget already approved!');
+        }
+
+        if ($status == 'disapproved')
+        {
+            flash('error', 'Budget was previously disapproved!');
+        }
+
+        return redirect(route('user.budgets.show', ['budget' => $budget->id]));
     }
 
 

@@ -23,7 +23,7 @@ class Budget extends Model
     protected $fillable = [
         'amount', 'discount', 'validity', 'description', 'budget_type_id',
         'payment_method_id', 'transport_method_id', 'client_contact_id',
-        'client_id', 'user_id'
+        'client_id', 'user_id', 'approved', 'approved_at', 'disapproved_at'
     ];
 
     /**
@@ -32,11 +32,14 @@ class Budget extends Model
      * @var array
      */
     protected $casts = [
-        'amount'     => 'decimal:2',
-        'discount'   => 'decimal:2',
-        'validity'   => 'date:d-m-Y',
-        'created_at' => 'date:d-m-Y',
-        'updated_at' => 'date:d-m-Y',
+        'amount'           => 'decimal:2',
+        'discount'         => 'decimal:2',
+        'validity'         => 'date:d-m-Y',
+        'created_at'       => 'date:d-m-Y',
+        'updated_at'       => 'date:d-m-Y',
+        'approved'         => 'boolean',
+        'approved_at'      => 'date:d-m-Y',
+        'disapproved_at'   => 'date:d-m-Y',
     ];
 
     /**
