@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use App\Models\Client\Client;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -76,5 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin()
     {
         return $this->getType() === 'Admin';
+    }
+
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class);
     }
 }

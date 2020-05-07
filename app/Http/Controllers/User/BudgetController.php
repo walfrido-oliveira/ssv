@@ -35,7 +35,10 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = $this->budget->paginate(10);
+        $clients = auth()->user()->clients()->pluck('client_user.client_id');
+
+        $budgets = $this->budget->whereIn('client_id', $clients)->paginate(10);
+
         return view('user.budgets.index', compact('budgets'));
     }
 
