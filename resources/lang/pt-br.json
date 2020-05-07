@@ -196,6 +196,8 @@
     "Approved at":"Aprovado em",
     "Disapproved at":"Desaprovado em",
     "Budget disapproved successfully!":"Orçamento reprovado com sucesso!",
-    "Do you really want to disapprove this budget?":"Você deseja realmente reprovar esse orçamento?"
+    "Do you really want to disapprove this budget?":"Você deseja realmente reprovar esse orçamento?",
+    "approve":"aprovar",
+    "disapprove":"reprovar"
 
 }

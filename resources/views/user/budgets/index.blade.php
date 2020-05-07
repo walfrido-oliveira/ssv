@@ -28,6 +28,8 @@
                                 <th>#</th>
                                 <th>{{ __('Customer') }}</th>
                                 <th>{{ __('Amount') }}</th>
+                                <th>Status</th>
+                                <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,11 +38,76 @@
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->id }}</a></td>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->client->razao_social }}</a></td>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
+                                    <td class="project-state">
+                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
+                                            @if($budget->status == "created")
+                                                {{ __('Created') }}
+                                            @elseif($budget->status == 'approved')
+                                                {{ __('Approved') }}
+                                            @else
+                                                {{ __('Disapproved') }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td width="15%">
+                                        @if($budget->status == "created")
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-success btn-sm approve" data-toggle="modal" data-target="#approve-modal" data-id={{ $budget->id }}>
+                                                    <i class="fas fa-check"></i> {{ __('approve') }}</i>
+                                                </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-danger btn-sm disapprove" data-toggle="modal" data-target="#disapprove-modal" data-id={{ $budget->id }}>
+                                                    <i class="fas fa-ban"></i> {{ __('disapprove') }}</i>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     {{ $budgets->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to approve this budget?') }}</div>
+                <div class="modal-footer">
+                    <form action="{{route('user.budgets.approve', ['budget' => '#'])}}" method="post" id="approve-modal-form">
+                        @csrf
+                        @method("POST")
+                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="disapprove-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to disapprove this budget?') }}</div>
+                <div class="modal-footer">
+                    <form action="{{route('user.budgets.disapprove', ['budget' => '#'])}}" method="post" id="disapprove-modal-form">
+                        @csrf
+                        @method("POST")
+                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
                 </div>
             </div>
         </div>

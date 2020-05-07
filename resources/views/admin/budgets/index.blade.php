@@ -29,6 +29,7 @@
                                 <th>#</th>
                                 <th>{{ __('Customer') }}</th>
                                 <th>{{ __('Amount') }}</th>
+                                <th>Status</th>
                                 <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
@@ -38,6 +39,17 @@
                                     <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->id }}</a></td>
                                     <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->client->razao_social }}</a></td>
                                     <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
+                                    <td class="project-state">
+                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
+                                            @if($budget->status == "created")
+                                                {{ __('Created') }}
+                                            @elseif($budget->status == 'approved')
+                                                {{ __('Approved') }}
+                                            @else
+                                                {{ __('Disapproved') }}
+                                            @endif
+                                        </span>
+                                    </td>
                                     <td width="15%">
                                         <div class="btn-group">
                                             <a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}" class="btn btn-secondary btn-sm">

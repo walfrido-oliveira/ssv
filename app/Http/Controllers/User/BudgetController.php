@@ -80,7 +80,7 @@ class BudgetController extends Controller
             flash('error', 'Budget was previously disapproved!');
         }
 
-        return redirect(route('user.budgets.show', ['budget' => $budget->id]));
+        return redirect()->back();
     }
 
     /**
@@ -113,7 +113,7 @@ class BudgetController extends Controller
             flash('error', 'Budget was previously disapproved!');
         }
 
-        return redirect(route('user.budgets.show', ['budget' => $budget->id]));
+        return redirect()->back();
     }
 
 
