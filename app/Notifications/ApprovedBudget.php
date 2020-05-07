@@ -48,7 +48,7 @@ class ApprovedBudget extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url(route('user.budgets.show', ['budget' => $this->budget->id]) );
+        $url = url(route('admin.budgets.show', ['budget' => $this->budget->id]) );
 
         return (new MailMessage)
                     ->subject(__('Approved Budget Notification') . ' - ' . config('app.name'))
