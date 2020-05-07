@@ -198,6 +198,12 @@
     "Budget disapproved successfully!":"Orçamento reprovado com sucesso!",
     "Do you really want to disapprove this budget?":"Você deseja realmente reprovar esse orçamento?",
     "approve":"aprovar",
-    "disapprove":"reprovar"
+    "disapprove":"reprovar",
+    "Attention the budget of number #:number has been disapproved.":"Atenção, o orçamento de numero #:number foi reprovado.",
+    "Attention the budget of number #:number has been approved.":"Atenção, o orçamento de numero #:number foi aprovado.",
+    "Click in the button below and check the budget.":"Clique no botão abaixo e verifique o orçamento.",
+    "Check":"Verificar",
+    "Approved Budget Notification":"Notificação de aprovação de Orçamento",
+    "Disapproved Budget Notification":"Notificação de reprovação de Orçamento"
 
 }
