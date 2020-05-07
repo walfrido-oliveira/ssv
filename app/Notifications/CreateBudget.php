@@ -48,11 +48,13 @@ class CreateBudget extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url(route('user.budgets.show', ['budget' => $this->budget->id]) );
+
         return (new MailMessage)
                     ->subject(__('Create Budget Notification') . ' - ' . config('app.name'))
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line(__('Your budget is awaiting your approval.'))
+                    ->line(__('Click in the button below and check your budget.'))
+                    ->action('Notification Action', $url);
     }
 
     /**

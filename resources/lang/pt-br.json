@@ -180,6 +180,8 @@
     "Budget updated successfully!":"Orçamento atualizado com sucesso!",
     "Details Budget":"Detalhes do Orçamento",
     "Type":"Tipo",
-    "Create Budget Notification":"Notificação de Criação de Orçamento"
+    "Create Budget Notification":"Notificação de Criação de Orçamento",
+    "Your budget is awaiting your approval.":"Seu orçamento está aguardando sua aprovação.",
+    "Click in the button below and check your budget.":"Clique no botão abaixo e verifique seu orçamento."
 
 }
