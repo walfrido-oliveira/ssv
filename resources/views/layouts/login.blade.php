@@ -21,12 +21,8 @@
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <div class="row py-5">
-            <div class="col-md-12 col-md-offset-5">
-                @yield('content')
-            </div>
-        </div>
+    <div class="py-5" id="app">
+        @yield('content')
     </div>
 </body>
 </html>
