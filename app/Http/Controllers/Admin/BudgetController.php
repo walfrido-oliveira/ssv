@@ -210,7 +210,13 @@ class BudgetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $budget = $this->budget->find($id);
+
+        $budget->delete();
+
+        flash('success', 'Budget removed successfully!');
+
+        return redirect(route('admin.budgets.index'));
     }
 
     /**
