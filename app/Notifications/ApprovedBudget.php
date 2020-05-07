@@ -2,10 +2,11 @@
 
 namespace App\Notifications;
 
+use App\Models\Budget\Budget;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class ApprovedBudget extends Notification
 {
@@ -51,7 +52,7 @@ class ApprovedBudget extends Notification
 
         return (new MailMessage)
                     ->subject(__('Approved Budget Notification') . ' - ' . config('app.name'))
-                    ->line(__('Attention the budget of number #:number has been approved.', ['number' => $budget->id] ))
+                    ->line(__('Attention the budget of number #:number has been approved.', ['number' => $this->budget->id] ))
                     ->line(__('Click in the button below and check the budget.'))
                     ->action(__('Check'), $url);
     }

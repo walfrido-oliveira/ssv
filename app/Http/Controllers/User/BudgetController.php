@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Http\Controllers\Controller;
+use App\Notifications\ApprovedBudget;
+use App\Notifications\DisapprovedBudget;
 
 class BudgetController extends Controller
 {
@@ -67,6 +69,9 @@ class BudgetController extends Controller
             $budget->status = 'approved';
             $budget->approved_at = Carbon::now();
             $budget->save();
+
+            $budget->notify(new ApprovedBudget($budget));
+
             flash('success', 'Budget approved successfully!');
         }
 
@@ -100,6 +105,9 @@ class BudgetController extends Controller
             $budget->status = 'disapproved';
             $budget->disapproved_at = Carbon::now();
             $budget->save();
+
+            $budget->notify(new DisapprovedBudget($budget));
+
             flash('success', 'Budget disapproved successfully!');
         }
 
