@@ -2,13 +2,12 @@
 
 namespace App\Notifications;
 
-use App\Models\Budget\Budget;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class CreateBudget extends Notification
+class ApprovedBudget extends Notification
 {
     use Queueable;
 
@@ -51,9 +50,9 @@ class CreateBudget extends Notification
         $url = url(route('user.budgets.show', ['budget' => $this->budget->id]) );
 
         return (new MailMessage)
-                    ->subject(__('Create Budget Notification') . ' - ' . config('app.name'))
-                    ->line(__('Your budget is awaiting your approval.'))
-                    ->line(__('Click in the button below and check your budget.'))
+                    ->subject(__('Approved Budget Notification') . ' - ' . config('app.name'))
+                    ->line(__('Attention the budget of number #:number has been approved.', ['number' => $budget->id] ))
+                    ->line(__('Click in the button below and check the budget.'))
                     ->action(__('Check'), $url);
     }
 
