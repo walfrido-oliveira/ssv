@@ -35,8 +35,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $clients = auth()->user()->clients()->pluck('client_user.client_id');
-
+        $clients = $this->getClientsId();
         $budgets = $this->budget->whereIn('client_id', $clients)->paginate(10);
 
         return view('user.budgets.index', compact('budgets'));
@@ -64,6 +63,16 @@ class BudgetController extends Controller
     public function approve($id)
     {
         $budget = $this->budget->find($id);
+
+        $clients = $this->getClientsId();
+
+        $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
+
+        if (is_null($budgets))
+        {
+            flash('error', 'This budget dont exist!');
+            return redirect()->back();
+        }
 
         $status = $budget->status;
 
@@ -101,6 +110,16 @@ class BudgetController extends Controller
     {
         $budget = $this->budget->find($id);
 
+        $clients = $this->getClientsId();
+
+        $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
+
+        if (is_null($budgets))
+        {
+            flash('error', 'This budget dont exist!');
+            return redirect()->back();
+        }
+
         $status = $budget->status;
 
         if ($status == 'created')
@@ -125,6 +144,11 @@ class BudgetController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    private function getClientsId()
+    {
+        return auth()->user()->clients()->pluck('client_user.client_id');
     }
 
 
