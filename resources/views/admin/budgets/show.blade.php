@@ -29,6 +29,32 @@
                                     <b>{{ __('Validity') }}</b>
                                     <a class="float-right">{{ !is_null($budget->validity) ? $budget->validity->format('d/m/Y') : '' }}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>{{ __('Status') }}</b>
+                                    <a class="float-right">
+                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
+                                            @if($budget->status == "created")
+                                                {{ __('Created') }}
+                                            @elseif($budget->status == 'approved')
+                                                {{ __('Approved') }}
+                                            @else
+                                                {{ __('Disapproved') }}
+                                            @endif
+                                        </span>
+                                    </a>
+                                </li>
+                                @if($budget->status == 'approved')
+                                    <li class="list-group-item">
+                                        <b>{{ __('Approved at') }}</b>
+                                        <a class="float-right">{{ !is_null($budget->approved_at) ? $budget->approved_at->format('d/m/Y') : '' }}</a>
+                                    </li>
+                                @endif
+                                @if($budget->status == 'disapproved')
+                                    <li class="list-group-item">
+                                        <b>{{ __('Disapproved at') }}</b>
+                                        <a class="float-right">{{ !is_null($budget->disapproved_at) ? $budget->disapproved_at->format('d/m/Y') : '' }}</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
