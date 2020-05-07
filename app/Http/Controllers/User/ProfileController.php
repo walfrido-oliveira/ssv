@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -20,13 +20,9 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $roles = Role::pluck('name', 'name')->all();
-
-        $userRole = $user->roles->pluck('name', 'name')->all();
-
         if (!is_null($user))
         {
-            return view('admin.show-profile', compact('user', 'roles', 'userRole'));
+            return view('user.show-profile', compact('user'));
         } else {
             abort(404);
         }
@@ -41,13 +37,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, $id)
     {
-
         $data = $request->all();
-        $user = User::find($id);
-        $oldImageProfile = $user->profile_image;
-        $user->update($data);
 
-        $user->syncRoles($data['roles']);
+        $user = User::find($id);
+
+        $oldImageProfile = $user->profile_image;
 
         if (!is_null($request->profile_image))
         {
@@ -55,12 +49,20 @@ class ProfileController extends Controller
             $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
 
             $data['profile_image'] = $profileImage;
-            $user->update($data);
+
+        } else {
+            $data['profile_image'] = $oldImageProfile;
         }
+
+        $user->update(
+            [
+                'profile_image' => $data['profile_image'],
+            ]
+        );
 
         flash('success', __('Profile updated successfully.'));
 
-        return redirect(route('admin.profile.show'));
+        return redirect(route('user.profile.show'));
 
     }
 

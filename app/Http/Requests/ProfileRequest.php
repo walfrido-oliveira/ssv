@@ -30,9 +30,8 @@ class ProfileRequest extends FormRequest
     {
         return
         [
-            'name'  => 'required',
-            'email' => 'required|email|unique:users,email,'. $this->user->id,
-            'roles' => 'required'
+            'email' => 'email|unique:users,email,'. $this->user->id,
+            'profile_image' => 'image'
         ];
     }
 }

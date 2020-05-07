@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class CredentialController extends Controller
 
         if (!is_null($user))
         {
-            return view('admin.change-password', compact('user'));
+            return view('user.change-password', compact('user'));
         } else {
             abort(404);
         }
@@ -37,6 +37,7 @@ class CredentialController extends Controller
     public function update(CredentialRequest $request, $id)
     {
         $user = User::find($id);
+
         $data = $request->all();
 
         $current_password = $user->password;
@@ -49,7 +50,7 @@ class CredentialController extends Controller
             flash('error', __('Please enter correct current password'));
         }
 
-        return redirect(route('admin.profile.credentials.show'));
+        return redirect(route('user.profile.credentials.show'));
 
     }
 }
