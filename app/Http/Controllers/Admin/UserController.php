@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -88,7 +90,11 @@ class UserController extends Controller
     {
         $user = $this->user->where('slug', $slug)->first();
 
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::pluck('name', 'name')->all();
+
+        $userRole = $user->roles->pluck('name', 'name')->all();
+
+        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -100,15 +106,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->only(['roles', 'profile_image']);
+
         $user = $this->user->find($id);
 
-        $request->validate($this->roles($user));
+        $oldImageProfile = $user->profile_image;
 
-        $user->update($request->all());
+        $user->update($data);
 
-        flash('success', 'User updated successfully!');
+        $user->syncRoles($data['roles']);
 
-        return redirect()->route('admin.users.index');
+        if (!is_null($request->profile_image))
+        {
+            Storage::delete('public/' . $oldImageProfile);
+            $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
+
+            $data['profile_image'] = $profileImage;
+            $user->update($data);
+        }
+
+        flash('success', __('Profile updated successfully'));
+
+        return redirect(route('admin.profile.show'));
     }
 
     /**
