@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -47,7 +49,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::pluck('name', 'name')->all();
+
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -58,9 +62,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->roles());
+
         $data = $request->all();
 
-        $user = $user->create($data);
+        $data['password'] = Hash::make(Str::random(8));
+
+        $user = $this->user->create($data);
 
         $user->syncRoles($data['roles']);
 
@@ -160,14 +168,15 @@ class UserController extends Controller
     /**
      * Get rules of validation
      *
-     * @param Transport Method user
      * @return array
      */
-    public function roles($user)
+    public function roles()
     {
         return
         [
-            'name' => 'required|max:255|unique:users,name,' . $user->id
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'roles' => 'required'
         ];
     }
 }
