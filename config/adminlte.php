@@ -232,6 +232,18 @@ return [
             ]
         ],
         [
+            'text' => 'users',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'os-list',
+            'submenu' => [
+                [
+                    'text'  => 'user_list',
+                    'route'   =>  'users.index',
+                    'icon'  =>  'fas fa-fw fa-list'
+                ],
+            ]
+        ],
+        [
             'text' => 'customers',
             'url' => '#',
             'icon' => 'fas fa-fw fa-users',
