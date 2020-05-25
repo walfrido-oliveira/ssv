@@ -84,7 +84,7 @@
                 <div class="modal-footer">
                     <form action="{{route('user.budgets.approve', ['budget' => '#'])}}" method="post" id="approve-modal-form">
                         @csrf
-                        @method("POST")
+                        @method("PUT")
                         <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
@@ -104,7 +104,7 @@
                 <div class="modal-footer">
                     <form action="{{route('user.budgets.disapprove', ['budget' => '#'])}}" method="post" id="disapprove-modal-form">
                         @csrf
-                        @method("POST")
+                        @method("PUT")
                         <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
