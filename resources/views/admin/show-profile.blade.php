@@ -37,13 +37,11 @@
                         </div>
                         <div class="form-group">
                             <label for="name">{{ __('Name') }}</label>
-                            {!! Form::text('name', old('name', $user->name), ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
-                            {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
+                            {!! Form::text('name', old('name', $user->name), ['class' => 'form-control', 'id' => 'name', 'placeholder' => __("Name"), 'readonly' ]) !!}
                         </div>
                         <div class="form-group">
                             <label for="email">{{ __("Email") }}</label>
-                            {!! Form::text('email', old('email', $user->email), ['class' => 'form-control ' . $errors->first('email','is-invalid'), 'id' => 'email', 'placeholder' => __("Email")]) !!}
-                            {!! $errors->first('email','<div class="invalid-feedback">:message</div>') !!}
+                            {!! Form::text('email', old('email', $user->email), ['class' => 'form-control', 'id' => 'email', 'placeholder' => __("Email"), 'readonly' ]) !!}
                         </div>
                         <div class="form-group">
                             <label>{{ __('Role') }}</label>
