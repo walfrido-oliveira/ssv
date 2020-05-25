@@ -35,6 +35,8 @@ class CredentialController extends Controller
      */
     public function update(CredentialRequest $request)
     {
+        $request->validate($this->roles());
+
         $user = auth()->user();
 
         $data = $request->all();
@@ -55,5 +57,18 @@ class CredentialController extends Controller
 
         return redirect(route('admin.profile.credentials.show'));
 
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @return array
+     */
+    public function roles()
+    {
+        return
+        [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
     }
 }
