@@ -5,8 +5,6 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Http\Controllers\Controller;
-use App\Notifications\ApprovedBudget;
-use App\Notifications\DisapprovedBudget;
 
 class BudgetController extends Controller
 {
@@ -79,9 +77,7 @@ class BudgetController extends Controller
             $budget->approved_at = now();
             $budget->save();
 
-            $when = now()->addMinutes(1);
-
-            $budget->notify(new ApprovedBudget($budget));
+            $budget->sendApprovedBudget();
 
             flash('success', 'Budget approved successfully!');
         }
@@ -123,9 +119,7 @@ class BudgetController extends Controller
             $budget->disapproved_at = now();
             $budget->save();
 
-            $when = now()->addMinutes(1);
-
-            $budget->notify(new DisapprovedBudget($budget));
+            $budget->sendDisapprovedBudget();
 
             flash('success', 'Budget disapproved successfully!');
         }
