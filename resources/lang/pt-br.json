@@ -215,6 +215,8 @@
     "User added successfully!":"Usuário adicionado com sucesso!",
     "User updated successfully!":"Usuário atualizado com sucesso!",
     "User removed successfully!":"Usuário removido com sucesso!",
-    "Users":"Usuários"
+    "Users":"Usuários",
+    "Welcome to :system":"Bem-vindo ao :system",
+    "Please, to reset your password before started.":"Por favor, redefina sua senha antes de começar."
 
 }
