@@ -62,9 +62,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
         });
 
-        Route::prefix('/users')->name('users.')->group(function(){
-            Route::get('/', 'UserController@index')->name('index');
-        });
+        Route::resource('users', 'UserController');
+
 
     });
 
@@ -73,8 +72,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::prefix('budgets')->name('budgets.')->group(function(){
             Route::get('/', 'BudgetController@index')->name('index');
             Route::get('/{budget}', 'BudgetController@show')->name('show');
-            Route::post('/approve/{budget}', 'BudgetController@approve')->name('approve');
-            Route::post('/disapprove/{budget}', 'BudgetController@disapprove')->name('disapprove');
+            Route::put('/approve/{budget}', 'BudgetController@approve')->name('approve');
+            Route::put('/disapprove/{budget}', 'BudgetController@disapprove')->name('disapprove');
         });
 
         Route::prefix('profile')->name('profile.')->group(function(){

@@ -33,8 +33,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->transportMethod->paginate(10);
-        return view('admin.user.index', compact('users'));
+        $users = $this->user->paginate(10);
+        return view('admin.users.index', compact('users'));
     }
 
 
