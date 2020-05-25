@@ -38,6 +38,8 @@ return [
     "payment_methods_list"          => "Payment Methods List",
     "transport_methods"             => "Transport Methods",
     "transport_methods_list"        => "Transport Methods List",
-    "service_order"                 => "Service Order"
+    "service_order"                 => "Service Order",
+    "users"                         => 'Users',
+    "user_list"                     => "User List",
 
 ];

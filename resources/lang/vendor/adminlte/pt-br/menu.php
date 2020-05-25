@@ -38,5 +38,7 @@ return [
     "payment_methods_list"          => "Lista",
     "transport_methods"             => "Formas de Transporte",
     "transport_methods_list"        => "Lista",
-    "service_order"                 => "Ordem de Serviços"
+    "service_order"                 => "Ordem de Serviços",
+    "users"                         => "Usuários",
+    "user_list"                     => "Lista de Usuários"
 ];
