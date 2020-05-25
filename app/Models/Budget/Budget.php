@@ -6,7 +6,9 @@ use App\Models\Client\Client;
 use App\Models\Product\Product;
 use App\Models\Service\Service;
 use Spatie\Sluggable\SlugOptions;
+use App\Notifications\ApprovedBudget;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\DisapprovedBudget;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Client\Contact\ClientContact;
 
@@ -162,6 +164,16 @@ class Budget extends Model
     public function routeNotificationForMail($notification)
     {
         return [$this->clientContact->email => $this->clientContact->name];
+    }
+
+    public function sendDisapprovedBudget()
+    {
+        $this->notify(new DisapprovedBudget($this));
+    }
+
+    public function sendApprovedBudget()
+    {
+        $this->notify(new ApprovedBudget($this));
     }
 
 }

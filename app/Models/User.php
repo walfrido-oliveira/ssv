@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use App\Models\Client\Client;
 use Spatie\Sluggable\HasSlug;
+use App\Notifications\Welcome;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -106,4 +108,22 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return 'slug';
     }
+
+    public function sendWelcomeEmail(){
+
+        $token = app('auth.password.broker')->createToken($this);;
+
+        DB::table(config('auth.passwords.users.table'))->insert([
+            'email' => $this->email,
+            'token' => $token
+        ]);
+
+        $url = url(config('app.url').route('password.reset', [
+            'token' => $token,
+            'email' =>  $this->email,
+        ], false));
+
+        $this->notify(new Welcome($this, $url));
+
+      }
 }
