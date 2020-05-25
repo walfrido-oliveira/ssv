@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Activity') }}</i></a>
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add User') }}</i></a>
                     <div class="card-tools">
                       <div class="input-group input-group-sm">
                         <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
