@@ -62,6 +62,10 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
         });
 
+        Route::prefix('/users')->name('users.')->group(function(){
+            Route::get('/', 'UserController@index')->name('index');
+        });
+
     });
 
     Route::prefix('user')->name('user.')->namespace('User')->middleware(['check_user_type:User'])->group(function(){
