@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use App\Models\Client\Client;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasRole;
+    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -82,5 +85,25 @@ class User extends Authenticatable implements MustVerifyEmail
     public function clients()
     {
         return $this->belongsToMany(Client::class);
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
