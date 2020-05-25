@@ -208,6 +208,12 @@
     "Verify Email Address":"Verifique seu email",
     "Please click the button below to verify your email address.":"Por favor clique no botão a seguir para verificar seu email.",
     "If you did not create an account, no further action is required.":"Se você não criou essa conta não é necessário nenhuma ação.",
-    "This budget dont exist!":"Esse orçamento não existe!"
+    "This budget dont exist!":"Esse orçamento não existe!",
+    "Add User":"Adicionar Usuário",
+    "User added successfully!":"Usuário adicionado com sucesso!",
+    "Details User":"Detalhes do Usuário",
+    "Edit User":"Editar Usuário",
+    "User updated successfully!":"Usuário atualizado com sucesso!",
+    "User removed successfully!":"Usuário removido com sucesso!"
 
 }
