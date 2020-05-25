@@ -58,13 +58,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->roles($this->user));
+        $data = $request->all();
 
-        $this->user->create($request->all());
+        $user = $user->create($data);
 
-        flash('success', 'User added successfully!');
+        $user->syncRoles($data['roles']);
 
-        return redirect()->route('admin.users.index');
+        if (!is_null($request->profile_image))
+        {
+            $profileImage = $request->profile_image->store('img', ['disk' => 'public']);
+
+            $data['profile_image'] = $profileImage;
+            $user->update($data);
+        }
+
+        flash('success', __('User added successfully!'));
+
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -125,9 +135,9 @@ class UserController extends Controller
             $user->update($data);
         }
 
-        flash('success', __('Profile updated successfully'));
+        flash('success', __('User updated successfully!'));
 
-        return redirect(route('admin.profile.show'));
+        return redirect(route('admin.users.index'));
     }
 
     /**
