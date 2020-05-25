@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <label>{{ __('Validity') }}</label>
-                                    {!! Form::date('validity', null,['class' => 'form-control ' . $errors->first('validity','is-invalid') , 'data-placeholder' => __('Validity')]) !!}
+                                    {!! Form::date('validity', old('validity'),['class' => 'form-control ' . $errors->first('validity','is-invalid') , 'data-placeholder' => __('Validity')]) !!}
                                     {!! $errors->first('validity','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
