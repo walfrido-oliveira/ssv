@@ -80,6 +80,8 @@ class UserController extends Controller
             $user->update($data);
         }
 
+        $user->sendWelcomeEmail();
+
         flash('success', __('User added successfully!'));
 
         return redirect(route('admin.users.index'));
