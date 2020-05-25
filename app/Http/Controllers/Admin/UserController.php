@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -56,29 +56,39 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->roles($this->user));
+
+        $this->user->create($request->all());
+
+        flash('success', 'User added successfully!');
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $user = $this->user->where('slug', $slug)->first();
+
+        return view('admin.users.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $user = $this->user->where('slug', $slug)->first();
+
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -90,7 +100,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = $this->user->find($id);
+
+        $request->validate($this->roles($user));
+
+        $user->update($request->all());
+
+        flash('success', 'User updated successfully!');
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -101,6 +119,26 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = $this->user->find($id);
+
+        $user->delete();
+
+        flash('success', 'User removed successfully!');
+
+        return redirect(route('admin.users.index'));
+    }
+
+    /**
+     * Get rules of validation
+     *
+     * @param Transport Method user
+     * @return array
+     */
+    public function roles($user)
+    {
+        return
+        [
+            'name' => 'required|max:255|unique:users,name,' . $user->id
+        ];
     }
 }
