@@ -28,14 +28,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('Name') }}</th>
+                                <th>{{ __('Role') }}</th>
                                 <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td><a href="{{ route('admin.users.show', ['user' => $user->slug]) }}">{{$user->id}}</a></td>
-                                    <td><a href="{{ route('admin.users.show', ['user' => $user->slug]) }}">{{$user->name}}</a></td>
+                                    <td><a href="{{ route('admin.users.show', ['user' => $user->slug]) }}">{{ $user->id }}</a></td>
+                                    <td><a href="{{ route('admin.users.show', ['user' => $user->slug]) }}">{{ $user->name }}</a></td>
+                                    <td><a href="{{ route('admin.users.show', ['user' => $user->slug]) }}">{{ implode(', ', $user->roles->pluck('name')->all()) }}</a></td>
                                     <td width="15%">
                                         <div class="btn-group">
                                             <a href="{{ route('admin.users.show', ['user' => $user->slug]) }}" class="btn btn-secondary btn-sm">
