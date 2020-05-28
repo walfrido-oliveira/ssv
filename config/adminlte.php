@@ -241,6 +241,12 @@ return [
                     'route'   =>  'users.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
+                [
+                    'text' => 'new',
+                    'route' => 'users.create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'user-create',
+                ],
             ]
         ],
         [
