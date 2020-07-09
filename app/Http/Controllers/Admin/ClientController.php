@@ -75,7 +75,7 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
-        $data = $request->all();
+        $data = $this->sanitize($request->all());
 
         $data['activity_id'] = $this->createActivity($data['activity_id']);
 
@@ -153,7 +153,7 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, $id)
     {
-        $data = $request->all();
+        $data = $this->sanitize($request->all());
 
         $client = $this->client::find($id);
 
@@ -278,5 +278,20 @@ class ClientController extends Controller
         }
 
         return \Response::json($formatted_clients);
+    }
+
+    /**
+     * Sanitize all fields of cliente resource
+     *
+     * @param Array $data
+     *
+     * @return Array
+     */
+    private function sanitize($data)
+    {
+        $data['client_id'] = filter_var($data['client_id'], FILTER_SANITIZE_NUMBER_INT);
+        $data['adress_cep'] = filter_var($data['adress_cep'], FILTER_SANITIZE_NUMBER_INT);
+
+        return $data;
     }
 }
