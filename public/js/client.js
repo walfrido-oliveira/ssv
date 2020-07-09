@@ -1,1 +1,211 @@
-!function(t){var e={};function n(r){if(e[r])return e[r].exports;var a=e[r]={i:r,l:!1,exports:{}};return t[r].call(a.exports,a,a.exports,n),a.l=!0,a.exports}n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var a in t)n.d(r,a,function(e){return t[e]}.bind(null,a));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=48)}({48:function(t,e,n){t.exports=n(49)},49:function(t,e){function n(){window.currentContact.remove(),window.currentContact=null;for(var t=$(".contact:first").find(".entry"),e=0;e<t.length;e++){var n=t.eq(e);0==e&&1==t.length?(n.find(".btn-remove").attr("disabled","disabled"),n.find(".btn-add").removeAttr("disabled")):e==t.length-1?(n.find(".btn-remove").removeAttr("disabled"),n.find(".btn-add").removeAttr("disabled")):(n.find(".btn-remove").removeAttr("disabled"),n.find(".btn-add").attr("disabled","disabled"))}var r=$(".contact").find(".entry:last");$("html, body").animate({scrollTop:r.offset().top},500)}$(document).on("click",".btn-add",(function(t){t.preventDefault(),$(".select2-with-tag").select2("destroy");var e=$(".contact:first"),n=$(this).parents(".entry:first"),r=$(n.clone()).appendTo(".contact:first");r.find("input").val("");var a=r.find("input").attr("name"),o=a.match(/\d+/)[0],d=parseInt(o,10)+1;r.find("input,select").each((function(){this.name=this.name.replace(a.match(/\d+/)[0],d)})),e.find(".entry:not(:last) .btn-remove").removeAttr("disabled"),e.find(".entry:not(:last) .btn-add").attr("disabled","disabled"),r.find(".btn-remove").removeAttr("disabled"),r.find(".btn-add").removeAttr("disabled"),$(".select2-with-tag").select2({tags:!0,createTag:function(t){var e=$.trim(t.term);return""===e?null:{id:e,text:e}}})})).on("click",".btn-remove",(function(t){window.currentContact=$(this).parents(".entry:first"),$("#delete-modal").modal("show"),t.preventDefault()})),$("#delete-modal").on("show.bs.modal",(function(t){var e=$(t.relatedTarget).data("id"),n=$(t.relatedTarget).data("url");$("#btn-modal-delete-yes").attr("data-id",e).attr("data-url",n)})),$(document).on("click","#btn-modal-delete-yes",(function(t){$("#delete-modal").modal("hide");var e=$(this).data("id"),r=$(this).data("url"),a=$("meta[name='csrf-token']").attr("content");void 0!==r?$.ajax({url:r,type:"DELETE",data:{_token:a,id:e},success:function(t){toastr.success(t.message),n()},error:function(t){toastr.error(t.responseJSON.message)}}):n()}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/client.js":
+/*!********************************!*\
+  !*** ./resources/js/client.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var currentContact = null;
+$(document).on('click', ".btn-add", function (e) {
+  e.preventDefault();
+  $('.select2-with-tag').select2("destroy");
+  var controlContact = $('.contact:first'),
+      currentEntry = $(this).parents('.entry:first'),
+      newEntry = $(currentEntry.clone()).appendTo('.contact:first');
+  newEntry.find('input').val('');
+  var selector = newEntry.find('input').attr('name');
+  var index_value = selector.match(/\d+/)[0];
+  var nextIndexValue = parseInt(index_value, 10) + 1;
+  newEntry.find('input,select').each(function () {
+    this.name = this.name.replace(selector.match(/\d+/)[0], nextIndexValue);
+  });
+  controlContact.find('.entry:not(:last) .btn-remove').removeAttr('disabled');
+  controlContact.find('.entry:not(:last) .btn-add').attr('disabled', 'disabled');
+  newEntry.find('.btn-remove').removeAttr('disabled');
+  newEntry.find('.btn-add').removeAttr('disabled');
+  addSelect2();
+}).on('click', '.btn-remove', function (e) {
+  window.currentContact = $(this).parents('.entry:first');
+  $('#delete-modal').modal('show');
+  e.preventDefault();
+});
+$('#delete-modal').on('show.bs.modal', function (e) {
+  var id = $(e.relatedTarget).data('id');
+  var url = $(e.relatedTarget).data('url');
+  $('#btn-modal-delete-yes').attr('data-id', id).attr('data-url', url);
+});
+$(document).on('click', "#btn-modal-delete-yes", function (e) {
+  $('#delete-modal').modal('hide');
+  var id = $(this).data('id');
+  var url = $(this).data('url');
+  var token = $("meta[name='csrf-token']").attr("content");
+
+  if (typeof url === 'undefined') {
+    removeContact();
+    return;
+  }
+
+  $.ajax({
+    url: url,
+    type: 'DELETE',
+    data: {
+      _token: token,
+      id: id
+    },
+    success: function success(response) {
+      toastr.success(response.message);
+      removeContact();
+    },
+    error: function error(err) {
+      toastr.error(err.responseJSON.message);
+    }
+  });
+});
+
+function removeContact() {
+  window.currentContact.remove();
+  window.currentContact = null;
+  var parents = $('.contact:first').find('.entry');
+
+  for (var index = 0; index < parents.length; index++) {
+    var element = parents.eq(index);
+
+    if (index == 0 && parents.length == 1) {
+      element.find('.btn-remove').attr('disabled', 'disabled');
+      element.find('.btn-add').removeAttr('disabled');
+    } else if (index == parents.length - 1) {
+      element.find('.btn-remove').removeAttr('disabled');
+      element.find('.btn-add').removeAttr('disabled');
+    } else {
+      element.find('.btn-remove').removeAttr('disabled');
+      element.find('.btn-add').attr('disabled', 'disabled');
+    }
+  }
+
+  var scrollTo = $('.contact').find('.entry:last');
+  $("html, body").animate({
+    scrollTop: scrollTo.offset().top
+  }, 500);
+}
+
+function addSelect2() {
+  $('.select2-with-tag').select2({
+    tags: true,
+    createTag: function createTag(params) {
+      var term = $.trim(params.term);
+
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: term,
+        text: term
+      };
+    }
+  });
+}
+
+/***/ }),
+
+/***/ 2:
+/*!**************************************!*\
+  !*** multi ./resources/js/client.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ssv\resources\js\client.js */"./resources/js/client.js");
+
+
+/***/ })
+
+/******/ });

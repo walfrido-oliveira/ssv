@@ -13,6 +13,7 @@ try {
 
     require('bootstrap');
     require('overlayscrollbars');
+    require('jquery-mask-plugin');
     require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
     require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2.full');
     require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/i18n/pt-BR');
