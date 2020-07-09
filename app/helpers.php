@@ -39,3 +39,15 @@ if (! function_exists('alternative_money'))
         return __($symbol) . ' '. number_format($val, $r, $dec_point, $thousands_sep);
     }
 }
+
+if (! function_exists('sanitize_var'))
+{
+    function sanitize_var($var, $filter = FILTER_DEFAULT, $options = null)
+    {
+        if ($filter == FILTER_SANITIZE_NUMBER_INT)
+        {
+            return str_replace(['-', '+'], '', filter_var($var, $filter, $options));
+        }
+        return filter_var($var, $filter, $options);
+    }
+}

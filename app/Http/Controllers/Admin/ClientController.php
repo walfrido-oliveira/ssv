@@ -289,8 +289,13 @@ class ClientController extends Controller
      */
     private function sanitize($data)
     {
-        $data['client_id'] = filter_var($data['client_id'], FILTER_SANITIZE_NUMBER_INT);
-        $data['adress_cep'] = filter_var($data['adress_cep'], FILTER_SANITIZE_NUMBER_INT);
+        $data['client_id'] = sanitize_var($data['client_id'], FILTER_SANITIZE_NUMBER_INT);
+        $data['adress_cep'] = sanitize_var($data['adress_cep'], FILTER_SANITIZE_NUMBER_INT);
+
+        foreach ($data['contacts'] as $key => $value) {
+            $value['phone'] = sanitize_var($value['phone'], FILTER_SANITIZE_NUMBER_INT);
+            $value['mobile_phone'] = sanitize_var($value['mobile_phone'], FILTER_SANITIZE_NUMBER_INT);
+        }
 
         return $data;
     }

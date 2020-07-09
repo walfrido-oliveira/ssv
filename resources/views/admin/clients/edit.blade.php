@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="client_id">{{ __('Customer ID') }}</label>
-                                {!! Form::text('client_id', $client->client_id, ['class' => 'form-control ' . $errors->first('client_id','is-invalid'), 'id' => 'client_id', 'placeholder' => __("Customer ID (only numbers)")]) !!}
+                                {!! Form::text('client_id', $client->client_id, ['class' => 'cnpj-cpf form-control ' . $errors->first('client_id','is-invalid'), 'id' => 'client_id', 'placeholder' => __("Customer ID (only numbers)")]) !!}
                                 {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                             <div class="row mb-3">
@@ -143,7 +143,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="adress_cep">{{ __('Zip code') }}</label>
-                                {!! Form::text('adress_cep', $client->adress_cep, ['class' => 'form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
+                                {!! Form::text('adress_cep', $client->adress_cep, ['class' => 'cep form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
                                 {!! $errors->first('adress_cep','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
@@ -180,12 +180,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">{{ __('Phone') }}</label>
-                                    {!! Form::tel('contacts['.$index.'][phone]', $contact->phone, ['class' => 'form-control ' . $errors->first('contacts.*.phone','is-invalid'), 'id' => 'phone', 'placeholder' => __("Phone")]) !!}
+                                    {!! Form::tel('contacts['.$index.'][phone]', $contact->phone, ['class' => 'phone-with-ddd form-control ' . $errors->first('contacts.*.phone','is-invalid'), 'id' => 'phone', 'placeholder' => __("Phone")]) !!}
                                     {!! $errors->first('contacts.*.phone','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="mobile_phone">{{ __('Mobile Phone') }}</label>
-                                    {!! Form::tel('contacts['.$index.'][mobile_phone]', $contact->mobile_phone, ['class' => 'form-control ' . $errors->first('contacts.*.mobile_phone','is-invalid'), 'id' => 'mobile_phone', 'placeholder' => __("Mobile Phone")]) !!}
+                                    {!! Form::tel('contacts['.$index.'][mobile_phone]', $contact->mobile_phone, ['class' => 'mobile-phone-with-ddd form-control ' . $errors->first('contacts.*.mobile_phone','is-invalid'), 'id' => 'mobile_phone', 'placeholder' => __("Mobile Phone")]) !!}
                                     {!! $errors->first('contacts.*.mobile_phone','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                                 <div class="form-group">
@@ -285,4 +285,5 @@
 @section('js')
     <script src="{{ mix('js/client.js') }}"></script>
     <script src="{{ mix('js/image.js') }}"></script>
+    <script src="{{ mix('js/mask.js') }}"></script>
 @stop

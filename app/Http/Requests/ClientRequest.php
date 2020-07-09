@@ -38,7 +38,7 @@ class ClientRequest extends FormRequest
             'adress_number' => 'required|max:255',
             'adress_district' => 'required|max:255',
             'adress_city' => 'required|max:255',
-            'adress_cep' => 'required|max:8',
+            'adress_cep' => 'required|max:9',
             'adress_state' => 'required',
             'logo' => 'image'
         ];

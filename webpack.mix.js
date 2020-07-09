@@ -18,5 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/image.js', 'public/js')
    .js('resources/js/budget.js', 'public/js')
    .js('resources/js/budget-user.js', 'public/js')
+   .js('resources/js/mask.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/login.scss', 'public/css');

@@ -7,5 +7,6 @@
     "/js/client.js": "/js/client.js",
     "/js/image.js": "/js/image.js",
     "/js/list.js": "/js/list.js",
+    "/js/mask.js": "/js/mask.js",
     "/js/script.js": "/js/script.js"
 }
