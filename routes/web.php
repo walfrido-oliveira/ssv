@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 
 
-Route::group(['middleware' => ['auth', 'verified']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/', function () {
         return redirect('/home');
