@@ -150,8 +150,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="adress_cep">{{ __('Zip code') }}</label>
-                                {!! Form::text('adress_cep', $client->adress_cep, ['class' => 'cep form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
-                                {!! $errors->first('adress_cep','<div class="invalid-feedback">:message</div>') !!}
+                                <div class="input-group">
+                                    {!! Form::text('adress_cep', $client->adress_cep, ['class' => 'cep form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
+                                    {!! $errors->first('adress_cep','<div class="invalid-feedback">:message</div>') !!}<div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="search-cep-button">
+                                            <i class="fas fa-search"></i> {{ __('Search') }}</i>
+                                            <span class="spinner-border spinner-border-sm" role="status" arial-hidden="true" style="display: none"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

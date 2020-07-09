@@ -137,19 +137,18 @@ $("#search-client-button").click(function() {
         data:{'cnpj':input},
         success:function(data) {
             var result = data.result;
-            console.log(data);
             if (result.status === 'OK') {
 
                 setFieldsSearchClientModal(true);
 
-                setValueSearchClientModal('nome', data.result.nome);
-                setValueSearchClientModal('telefone', data.result.telefone);
-                setValueSearchClientModal('logradouro', data.result.logradouro);
-                setValueSearchClientModal('bairro', data.result.bairro);
-                setValueSearchClientModal('municipio', data.result.municipio);
-                setValueSearchClientModal('uf', data.result.uf);
-                setValueSearchClientModal('numero', data.result.numero);
-                setValueSearchClientModal('cep', data.result.cep);
+                setValueSearchClientModal('nome', result.nome);
+                setValueSearchClientModal('telefone', result.telefone);
+                setValueSearchClientModal('logradouro', result.logradouro);
+                setValueSearchClientModal('bairro', result.bairro);
+                setValueSearchClientModal('municipio', result.municipio);
+                setValueSearchClientModal('uf', result.uf);
+                setValueSearchClientModal('numero', result.numero);
+                setValueSearchClientModal('cep', result.cep);
 
             } else {
                 alert('Um erro ocorreu ao gerar sua solicitação.')
@@ -185,4 +184,30 @@ $("#search-client .import").click(function() {
     ('#adress_state').val(getValueSearchClientModal('uf'));
     ('#adress_number').val(getValueSearchClientModal('numero'));
     ('#adress_cep').val(getValueSearchClientModal('cep'));
+});
+
+$('#search-cep-button').click(function() {
+    $(this).find('span').show();
+    $(this).find('i').hide();
+
+    input = $('#adress_cep').val().replace(/[^0-9]/g,'');
+
+    $.ajax({
+        type : 'get',
+        url : '/admin/clients/cep',
+        data:{'cep':input},
+        success:function(data) {
+            var result = data.result;
+            console.log(data);
+            if (result.status === 'OK') {
+
+
+            } else {
+                alert('Um erro ocorreu ao gerar sua solicitação.')
+            }
+        },
+        fail:function(data) {
+            alert(data.message);
+        }
+    });
 });
