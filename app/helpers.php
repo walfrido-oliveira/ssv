@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('show_route'))
+if (! function_exists('mask'))
 {
     function mask($val, $mask)
     {
