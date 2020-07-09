@@ -126,10 +126,10 @@ function addSelect2() {
     });
 }
 
-$("#search-client-button").click(function(event) {
+$("#search-client-button").click(function() {
     input = $('#client_id').val().replace(/[^0-9]/g,'');
 
-    setFieldsSearchClienteModal(false);
+    setFieldsSearchClientModal(false);
 
     $.ajax({
         type : 'get',
@@ -140,16 +140,17 @@ $("#search-client-button").click(function(event) {
             console.log(data);
             if (result.status === 'OK') {
 
-                setFieldsSearchClienteModal(true);
+                setFieldsSearchClientModal(true);
 
-                $('#fieldset-client-modal #nome').text(data.result.nome);
-                $('#fieldset-client-modal #telefone').text(data.result.telefone);
-                $('#fieldset-client-modal #logradouro').text(data.result.logradouro);
-                $('#fieldset-client-modal #bairro').text(data.result.bairro);
-                $('#fieldset-client-modal #municipio').text(data.result.municipio);
-                $('#fieldset-client-modal #uf').text(data.result.uf);
-                $('#fieldset-client-modal #numero').text(data.result.numero);
-                $('#fieldset-client-modal #cep').text(data.result.cep);
+                setValueSearchClientModal('nome', data.result.nome);
+                setValueSearchClientModal('telefone', data.result.telefone);
+                setValueSearchClientModal('logradouro', data.result.logradouro);
+                setValueSearchClientModal('bairro', data.result.bairro);
+                setValueSearchClientModal('municipio', data.result.municipio);
+                setValueSearchClientModal('uf', data.result.uf);
+                setValueSearchClientModal('numero', data.result.numero);
+                setValueSearchClientModal('cep', data.result.cep);
+
             } else {
                 alert('Um erro ocorreu ao gerar sua solicitação.')
             }
@@ -160,10 +161,28 @@ $("#search-client-button").click(function(event) {
     });
 });
 
-function setFieldsSearchClienteModal( show ) {
+function setFieldsSearchClientModal( show ) {
     show ? $('#search-client .result').show() : $('#search-client .result').hide();
     show ? $('#search-client .spinner').hide() : $('#search-client .spinner').show()
     $('#search-client .modal-dialog').css('opacity', show ? '1' : '0.9');
     $('#search-client .import').attr('disabled', show ? '' : 'disabled');
 }
 
+function getValueSearchClientModal(key) {
+    return $('#fieldset-client-modal #' + key).text();
+}
+
+function setValueSearchClientModal(key, value) {
+    return $('#fieldset-client-modal #' + key).text(value);
+}
+
+$("#search-client .import").click(function() {
+    ('#razao_social').val(getValueSearchClientModal('nome'));
+    ('#phone').val(getValueSearchClientModal('telefone'));
+    ('#adress').val(getValueSearchClientModal('logradouro'));
+    ('#adress_district').val(getValueSearchClientModal('bairro'));
+    ('#adress_city').val(getValueSearchClientModal('municipio'));
+    ('#adress_state').val(getValueSearchClientModal('uf'));
+    ('#adress_number').val(getValueSearchClientModal('numero'));
+    ('#adress_cep').val(getValueSearchClientModal('cep'));
+});
