@@ -10,6 +10,7 @@ use App\Models\Client\Activity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Client\Contact\ContactType;
 use App\Models\Client\Contact\ClientContact;
 
