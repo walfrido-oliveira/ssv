@@ -126,3 +126,44 @@ function addSelect2() {
     });
 }
 
+$("#search-client-button").click(function(event) {
+    input = $('#client_id').val().replace(/[^0-9]/g,'');
+
+    setFieldsSearchClienteModal(false);
+
+    $.ajax({
+        type : 'get',
+        url : '/admin/clients/cnpj',
+        data:{'cnpj':input},
+        success:function(data) {
+            var result = data.result;
+            console.log(data);
+            if (result.status === 'OK') {
+
+                setFieldsSearchClienteModal(true);
+
+                $('#fieldset-client-modal #nome').text(data.result.nome);
+                $('#fieldset-client-modal #telefone').text(data.result.telefone);
+                $('#fieldset-client-modal #logradouro').text(data.result.logradouro);
+                $('#fieldset-client-modal #bairro').text(data.result.bairro);
+                $('#fieldset-client-modal #municipio').text(data.result.municipio);
+                $('#fieldset-client-modal #uf').text(data.result.uf);
+                $('#fieldset-client-modal #numero').text(data.result.numero);
+                $('#fieldset-client-modal #cep').text(data.result.cep);
+            } else {
+                alert('Um erro ocorreu ao gerar sua solicitação.')
+            }
+        },
+        fail:function(data) {
+            alert(data.message);
+        }
+    });
+});
+
+function setFieldsSearchClienteModal( show ) {
+    show ? $('#search-client .result').show() : $('#search-client .result').hide();
+    show ? $('#search-client .spinner').hide() : $('#search-client .spinner').show()
+    $('#search-client .modal-dialog').css('opacity', show ? '1' : '0.9');
+    $('#search-client .import').attr('disabled', show ? '' : 'disabled');
+}
+

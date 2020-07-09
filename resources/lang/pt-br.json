@@ -217,6 +217,9 @@
     "User removed successfully!":"Usuário removido com sucesso!",
     "Users":"Usuários",
     "Welcome to :system":"Bem-vindo ao :system",
-    "Please, to reset your password before started.":"Por favor, redefina sua senha antes de começar."
+    "Please, to reset your password before started.":"Por favor, redefina sua senha antes de começar.",
+    "Close":"Fechar",
+    "Search Customer":"Buscar Cliente",
+    "Import":"Importar"
 
 }

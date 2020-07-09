@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
         });
 
         Route::get('/clients/find', 'ClientController@find');
+        Route::get('/clients/cep','\App\Http\Controllers\JSON\JSONController@getAdressInformations')->middleware('auth');
+        Route::get('/clients/cnpj','\App\Http\Controllers\JSON\JSONController@getCustomerInformations')->middleware('auth');
         Route::resource('clients', 'ClientController');
 
         Route::resource('activities', 'ActivityController');
