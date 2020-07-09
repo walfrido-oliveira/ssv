@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="adress_number">{{ __('Adress Number') }}</label>
-                                    {!! Form::text('adress_number', $client->adress_number, ['class' => 'form-control ' . $errors->first('adress_number','is-invalid'), 'id' => 'razao_social', 'placeholder' => __("If there is no number set 0")]) !!}
+                                    {!! Form::text('adress_number', $client->adress_number, ['class' => 'form-control ' . $errors->first('adress_number','is-invalid'), 'id' => 'adress_number', 'placeholder' => __("If there is no number set 0")]) !!}
                                     {!! $errors->first('adress_number','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
