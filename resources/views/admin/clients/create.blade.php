@@ -63,8 +63,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="client_id">{{ __('Customer ID') }}</label>
-                                {!! Form::text('client_id', null, ['class' => 'cnpj-cpf form-control ' . $errors->first('client_id','is-invalid'), 'id' => 'client_id', 'placeholder' => __("Customer ID (only numbers)")]) !!}
-                                {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
+                                <div class="input-group">
+                                    {!! Form::text('client_id', null, ['class' => 'cnpj-cpf form-control ' . $errors->first('client_id','is-invalid'), 'id' => 'client_id', 'placeholder' => __("Customer ID (only numbers)")]) !!}
+                                    {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="search-client-button" data-toggle="modal" data-target="#search-client">
+                                            <i class="fas fa-search"></i> {{ __('Search') }}</i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
@@ -137,14 +144,21 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="adress_state">{{ __('State') }}</label>
-                                    {!! Form::select('adress_state', $ufs, null, ['class' => 'form-control custom-select ' . $errors->first('adress_state','is-invalid') , 'data-placeholder' => __('State')]) !!}
+                                    {!! Form::select('adress_state', $ufs, null, ['class' => 'form-control custom-select ' . $errors->first('adress_state','is-invalid') , 'id' => 'adress_state', 'data-placeholder' => __('State')]) !!}
                                     {!! $errors->first('adress_state','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="adress_cep">{{ __('Zip code') }}</label>
-                                {!! Form::text('adress_cep', null, ['class' => 'cep form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
-                                {!! $errors->first('adress_cep','<div class="invalid-feedback">:message</div>') !!}
+                                <div class="input-group">
+                                    {!! Form::text('adress_cep', null, ['class' => 'cep form-control ' . $errors->first('adress_cep','is-invalid'), 'id' => 'adress_cep', 'placeholder' => __("Only numbers")]) !!}
+                                    {!! $errors->first('adress_cep','<div class="invalid-feedback">:message</div>') !!}<div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="search-cep-button">
+                                            <i class="fas fa-search"></i> {{ __('Search') }}</i>
+                                            <span class="spinner-border spinner-border-sm" role="status" arial-hidden="true" style="display: none"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -280,6 +294,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.clients.search-cliente-modal')
 @stop
 
 @section('js')
