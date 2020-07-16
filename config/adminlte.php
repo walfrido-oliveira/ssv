@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Painel</b> SSV',
-    'logo_img' => 'vendor/adminlte/dist/img/VISOMES_LOGO.jpg',
+    'logo_img' => 'img/logo.jpg',
     'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
