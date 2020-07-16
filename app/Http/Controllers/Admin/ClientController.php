@@ -266,10 +266,10 @@ class ClientController extends Controller
         $term = trim($request->q);
 
         if (empty($term)) {
-            return \Response::json([]);
+            $clients = Client::where('status', 'active')->limit(5)->get();
+        } else {
+            $clients = Client::where('nome_fantasia', 'like', '%' . $term . '%')->limit(5)->get();
         }
-
-        $clients = Client::where('nome_fantasia', 'like', '%' . $term . '%')->limit(5)->get();
 
         $formatted_clients = [];
 

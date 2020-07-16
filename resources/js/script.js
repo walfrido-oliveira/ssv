@@ -1,6 +1,9 @@
 $(document).ready(function() {
-    $('.select2').select2();
+    $('.select2').select2({
+        language: "pt-BR"
+    });
     $('.select2-with-tag').select2({
+        language: "pt-BR",
         tags: true,
         createTag: function (params) {
             var term = $.trim(params.term);

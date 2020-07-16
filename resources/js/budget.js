@@ -3,6 +3,7 @@ $(document).ready(function() {
     calcTotalBudget();
 
     $('select[name=client_id]').select2({
+        language: "pt-BR",
         ajax: {
             url: '/admin/clients/find',
             dataType: 'json',
@@ -32,6 +33,7 @@ $(document).ready(function() {
     });
 
     $('select[name=client_contact_id]').select2({
+        language: "pt-BR",
         ajax: {
             url: '/admin/contacts/find',
             dataType: 'json',
@@ -60,6 +62,7 @@ $(document).ready(function() {
     });
 
     $('select[name=service]').select2({
+        language: "pt-BR",
         ajax: {
             url: '/admin/services/find',
             dataType: 'json',
@@ -93,6 +96,7 @@ $(document).ready(function() {
     });
 
     $('select[name=product]').select2({
+        language: "pt-BR",
         ajax: {
             url: '/admin/products/find',
             dataType: 'json',

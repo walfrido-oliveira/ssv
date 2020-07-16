@@ -63,11 +63,11 @@ class ClientContactController extends Controller
         $term = trim($request->q);
         $clientId = trim($request->client_id);
 
-        if (is_null($term))
+        if (!is_null($clientId))
         {
             $contacts = ClientContact::where('client_id', $clientId)
                 ->limit(5)->get();
-        } else {
+        } else if(!is_null($term)) {
             $contacts = ClientContact::where('contact', 'like', '%' . $term . '%')
                 ->where('client_id', $clientId)
                 ->limit(5)->get();
