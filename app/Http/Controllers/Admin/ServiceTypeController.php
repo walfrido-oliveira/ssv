@@ -150,4 +150,28 @@ class ServiceTypeController extends Controller
             'name' => 'required|max:255|unique:service_types,name,' . $serviceType->id
         ];
     }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            $services = ServiceType::limit(5)->get();
+        } else {
+            $services = ServiceType::where('name', 'like', '%' . $term . '%')->limit(5)->get();
+        }
+
+        $formatted_services = [];
+
+        foreach ($services as $service) {
+            $formatted_services[] = ['id' => $service->id, 'text' => $service->name];
+        }
+
+        return \Response::json($formatted_services);
+    }
 }
