@@ -17,7 +17,6 @@ class CreateServiceTypesTable extends Migration
             $table->id();
 
             $table->string('name')->unique();
-            $table->decimal('price', 10, 2);
             $table->text('description')->nullable();
 
             $table->timestamps();

@@ -14,7 +14,7 @@ class AddColumnToBudgets extends Migration
     public function up()
     {
         Schema::table('budgets', function (Blueprint $table) {
-            $table->enum('status', ['created', 'approved', 'disapproved'])->default('created');
+            $table->enum('status', ['created', 'approved', 'disapproved', 'inactived'])->default('created');
         });
     }
 
