@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <form action="{{ route('admin.service-types.update', ['transport_method' => $transportMethod->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.service-types.update', ['service_type' => $serviceType->id]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method("PUT")
@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">{{ __('Name') }}</label>
-                                {!! Form::text('name', $transportMethod->name, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
+                                {!! Form::text('name', $serviceType->name, ['class' => 'form-control ' . $errors->first('name','is-invalid'), 'id' => 'name', 'placeholder' => __("Name")]) !!}
                                 {!! $errors->first('name','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
