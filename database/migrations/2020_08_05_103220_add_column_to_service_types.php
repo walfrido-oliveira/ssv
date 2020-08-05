@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToBudgets extends Migration
+class AddColumnToServiceTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnToBudgets extends Migration
      */
     public function up()
     {
-        Schema::table('budgets', function (Blueprint $table) {
-            $table->enum('status', ['created', 'approved', 'disapproved', 'inactived'])->default('created');
+        Schema::table('service_types', function (Blueprint $table) {
+            $table->string('slug');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnToBudgets extends Migration
      */
     public function down()
     {
-        Schema::table('budgets', function (Blueprint $table) {
-            $table->dropColumn(['status']);
+        Schema::table('service_types', function (Blueprint $table) {
+            //
         });
     }
 }

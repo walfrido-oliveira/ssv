@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
+use App\Models\Service\Service;
 use App\Models\Budget\BudgetType;
 use App\Notifications\CreateBudget;
 use App\Http\Controllers\Controller;
+use App\Models\Budget\BudgetService;
 use App\Models\Budget\PaymentMethod;
 use App\Models\Budget\TransportMethod;
 use App\Models\Client\Contact\ClientContact;
@@ -105,8 +107,6 @@ class BudgetController extends Controller
 
         $budget->services()->sync($services);
         $budget->products()->sync($products);
-
-        $when = now()->addMinutes(1);
 
         $budget->notify(new CreateBudget($budget));
 
@@ -238,5 +238,60 @@ class BudgetController extends Controller
             'client_id' => 'required',
             'validity' => 'required',
         ];
+    }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function find(Request $request)
+    {
+        $term = trim($request->q);
+        $clientId = $request->client_id;
+
+        if (empty($term)) {
+            $budgets = Budget::where('status', '<>', 'inactived')->where('client_id', $clientId)->limit(5)->get();
+        } else {
+            $budgets = Budget::where('id', 'like', '%' . $term . '%')->where('client_id', $clientId)->limit(5)->get();
+        }
+
+        $formatted_budgets = [];
+
+        foreach ($budgets as $budget) {
+            $formatted_budgets[] = ['id' => $budget->id, 'text' => '#' . $budget->id . ' - ' . $budget->client->nome_fantasia];
+        }
+
+        return \Response::json($formatted_budgets);
+    }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function findService(Request $request)
+    {
+        $term = trim($request->q);
+        $budgetId = $request->budget_id;
+
+        if (empty($term)) {
+            $services = BudgetService::where('budget_id', $budgetId)->limit(5)->get();
+        } else {
+            $ids = Service::where('name', 'like', '%' . $term . '%')->get()->pluck('id');
+            $services = Budget::where('budget_id', $budgetId)->whereIn('service_id', $ids)->get();
+        }
+
+        $formatted_services = [];
+
+        foreach ($services as $service) {
+            $formatted_services[] = [
+                'id' => $service->id,
+                'text' => $service->service->name,
+                'name' => $service->service->name
+            ];
+        }
+
+        return \Response::json($formatted_services);
     }
 }

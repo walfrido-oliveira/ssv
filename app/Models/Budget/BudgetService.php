@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BudgetService extends Model
 {
+
+    protected $table = "budget_service";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +28,16 @@ class BudgetService extends Model
         'amount' => 'integer',
         'index' => 'integer',
     ];
+
+    /**
+     * return a single Service
+     *
+     * @return Service
+     */
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 
 
 }

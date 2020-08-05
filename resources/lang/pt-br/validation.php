@@ -188,7 +188,8 @@ return [
         'adress_cep' => 'cep',
         'price'     => 'preço',
         'client_contact_id' => 'contato',
-        "validity" => 'validade'
+        "validity" => 'validade',
+        "budget_id" => "número de orçamento"
     ],
 
 ];
