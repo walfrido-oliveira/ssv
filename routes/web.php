@@ -59,8 +59,8 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('transport-methods', 'TransportMethodController');
 
-        Route::resource('budgets', 'BudgetController');
         Route::get('/budgets/find', 'BudgetController@find');
+        Route::resource('budgets', 'BudgetController');
 
         Route::resource('orders', 'OrderController');
 
