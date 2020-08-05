@@ -236,6 +236,10 @@
     "Budget Number":"Número do Orçamento",
     "Observation":"Observações",
     "Order added successfully!":"Order de Serviço adicionada com sucesso!",
-    "Order Info":"Informações da Ordem de Serviço"
+    "Order Info":"Informações da Ordem de Serviço",
+    "Executed at":"Data de Execução",
+    "Equipament ID":"Identificação do equipamento",
+    "Responsible":"Responsável",
+    "Choose a Type Service":"Escolha um Tipo de Serviço"
 
 }
