@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/services/find', 'ServiceController@find');
         Route::resource('services', 'ServiceController');
 
+        Route::resource('service-types', 'ServiceTypeController');
+
         Route::get('/products/find', 'ProductController@find');
         Route::resource('products', 'ProductController');
 
@@ -65,7 +67,6 @@ Route::group(['middleware' => ['auth']], function() {
         });
 
         Route::resource('users', 'UserController');
-
 
     });
 
