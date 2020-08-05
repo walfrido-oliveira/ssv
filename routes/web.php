@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/services/find', 'ServiceController@find');
         Route::resource('services', 'ServiceController');
 
+        Route::get('/service-types/find', 'ServiceTypeController@find');
+        Route::resource('service-types', 'ServiceTypeController');
+
         Route::get('/products/find', 'ProductController@find');
         Route::resource('products', 'ProductController');
 
@@ -57,7 +60,11 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('transport-methods', 'TransportMethodController');
 
+        Route::get('/budgets/find', 'BudgetController@find');
+        Route::get('/budgets/find-service', 'BudgetController@findService');
         Route::resource('budgets', 'BudgetController');
+
+        Route::resource('orders', 'OrderController');
 
         Route::prefix('contacts')->name('contacts.')->group(function(){
             Route::get('/find', 'ClientContactController@find');
@@ -65,7 +72,6 @@ Route::group(['middleware' => ['auth']], function() {
         });
 
         Route::resource('users', 'UserController');
-
 
     });
 

@@ -303,7 +303,24 @@ return [
                     'icon' => 'fas fa-fw fa-plus',
                     'can' => 'service-create',
                 ],
-            ]
+                [
+                    'text' => 'service-types',
+                    'icon' => 'fas fa-fw fa-wrench',
+                    'submenu' => [
+                        [
+                            'text'  => 'service_type_list',
+                            'route'   =>  'service-types.index',
+                            'icon'  =>  'fas fa-fw fa-list'
+                        ],
+                        [
+                            'text' => 'new',
+                            'route' => 'service-types.create',
+                            'icon' => 'fas fa-fw fa-plus',
+                            'can' => 'service-type-create',
+                        ],
+                    ]
+                ]
+            ],
         ],
         [
             'text' => 'products',
@@ -424,12 +441,12 @@ return [
             'submenu' => [
                 [
                     'text'  => 'service_list',
-                    'route'   =>  'service-orders.index',
+                    'route'   =>  'orders.index',
                     'icon'  =>  'fas fa-fw fa-list'
                 ],
                 [
                     'text' => 'new',
-                    'route' => 'service-orders.create',
+                    'route' => 'orders.create',
                     'icon' => 'fas fa-fw fa-plus',
                     'can' => 'os-create',
                 ],

@@ -41,5 +41,6 @@ return [
     "service_order"                 => "Service Order",
     "users"                         => 'Users',
     "user_list"                     => "User List",
-
+    "service-types"                 => "Service Types",
+    "service_type_list"             => "Service Types List"
 ];

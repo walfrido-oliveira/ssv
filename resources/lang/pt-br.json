@@ -220,6 +220,26 @@
     "Please, to reset your password before started.":"Por favor, redefina sua senha antes de começar.",
     "Close":"Fechar",
     "Search Customer":"Buscar Cliente",
-    "Import":"Importar"
+    "Import":"Importar",
+    "Add Service Type":"Adicionar Tipo de Serviço",
+    "Edit Service Type":"Editar Tipo de Serviço",
+    "Service Types":"Tipo de Serviço",
+    "Details Service Type":"Detalhes do Tipo de Serviço",
+    "Service Type added successfully!":"Tipo de Serviço adicionado com sucesso!",
+    "Service Type updated successfully!":"Tipo de Serviço atualizado com sucesso!",
+    "Service Type don't removed! There is a order with this. Before the to remove, remove the especifics order, or change this method.":"Tipo de serviço não removido! Há uma ordem de servilo com ele. Antes de remover, remova a ordem de serviço específica ou altere este ele.",
+    "Service Type removed successfully!":"Tipo de Serviço removido com sucesso",
+    "Add Order":"Adicionar Ordem de Serviço",
+    "Orders":"Ordem de Serviço",
+    "Add Order Method":"Adicionar Ordem de Serviço",
+    "Budget":"Orçamento",
+    "Budget Number":"Número do Orçamento",
+    "Observation":"Observações",
+    "Order added successfully!":"Order de Serviço adicionada com sucesso!",
+    "Order Info":"Informações da Ordem de Serviço",
+    "Executed at":"Data de Execução",
+    "Equipament ID":"Identificação do equipamento",
+    "Responsible":"Responsável",
+    "Choose a Type Service":"Escolha um Tipo de Serviço"
 
 }

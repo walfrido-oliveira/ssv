@@ -40,5 +40,7 @@ return [
     "transport_methods_list"        => "Lista",
     "service_order"                 => "Ordem de Serviços",
     "users"                         => "Usuários",
-    "user_list"                     => "Lista de Usuários"
+    "user_list"                     => "Lista de Usuários",
+    "service-types"                 => "Tipos de Serviço",
+    "service_type_list"             => "Lista de Tipo de Serviços"
 ];
