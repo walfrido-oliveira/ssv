@@ -64,8 +64,63 @@
                                 <i class="fas fa-minus"></i></button>
                             </div>
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body table-responsive">
+                            <div class="col-12 p-2">
+                                <button  type="button" class="btn btn-sm btn-primary add-service" data-toggle="modal" data-target="#service-modal">
+                                    <i class="fas fa-plus"></i> {{ __('Add Service') }}
+                                </button>
+                            </div>
+                            <table class="table table-hover table-head-fixed text-nowrap table-service">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{ __('Service') }}</th>
+                                        <th>{{ __('Executed at') }}</th>
+                                        <th>{{ __('Equipament ID') }}</th>
+                                        <th>{{ __('Type') }}</th>
+                                        <th>{{ __('Description') }}</th>
+                                        <th>{{ __('Responsible') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (old('services'))
+                                        @php $index = 0; @endphp
+                                        @foreach (old('services') as $service)
+                                            <tr id="row-service-{{ $index }}">
+                                                <td>{{ $index+1 }}
+                                                    <input type="hidden" name="services[{{ $index }}][budget_service_id]" value="{{ $service['budget_service_id'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][service_type_id]" value="{{ $service['service_type_id'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][index]" value="{{ $service['index'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['service_name'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['executed_at'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][executed_at]" value="{{ $service['executed_at'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['equipment_id'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][equipment_id]" value="{{ $service['equipment_id'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['service_type_name'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_type_name]" value="{{ $service['service_type_name'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['description'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][description]" value="{{ $service['description'] }}">
+                                                </td>
+                                                <td width="80%">{{ $service['user_name'] }}
+                                                    <input type="hidden" name="services[{{ $index }}][user_name]" value="{{ $service['user_name'] }}">
+                                                </td>
+                                                <td width="15%">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @php $index++; @endphp
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -78,6 +133,44 @@
             </div>
         </div>
     </form>
+
+     <!-- Modal -->
+     <div class="modal fade" id="service-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{ __('Add Service') }}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            {!! Form::select('service', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Service')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::select('service_type', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Type Service')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::text('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
+                            'placeholder' => __('Executed at'), 'onfocus' => '(this.type="date")']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::text('equipment_id', old('equipment_id'),['class' => 'form-control ' . $errors->first('equipment_id','is-invalid') ,
+                            'placeholder' => __('Equipament ID')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::textarea('description', old('description'),['class' => 'form-control ' . $errors->first('description','is-invalid') ,
+                            'placeholder' => __('Description')]) !!}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-add-service">{{ __('Add') }}</button>
+                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('js')
