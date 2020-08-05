@@ -69,10 +69,10 @@ class AdminPermissionTableSeeder extends Seeder
             'transport-method-create',
             'transport-method-edit',
             'transport-method-delete',
-            'os-list',
-            'os-create',
-            'os-edit',
-            'os-delete',
+            'order-list',
+            'order-create',
+            'order-edit',
+            'order-delete',
         ];
 
         foreach ($permissions as $permission) {
