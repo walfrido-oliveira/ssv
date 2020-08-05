@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('budgets', 'BudgetController');
 
+        Route::resource('orders', 'OrderController');
+
         Route::prefix('contacts')->name('contacts.')->group(function(){
             Route::get('/find', 'ClientContactController@find');
             Route::delete('/{contact}', 'ClientContactController@destroy')->name('destroy');
