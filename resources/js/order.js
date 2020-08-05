@@ -53,7 +53,7 @@ $(document).ready(function() {
     });
 
     $("select[name='client_id'").on('change', function() {
-
+        $("select[name=budget_id]").empty().trigger('change')
     });
 
 });
