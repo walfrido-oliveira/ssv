@@ -285,7 +285,11 @@ class BudgetController extends Controller
         $formatted_services = [];
 
         foreach ($services as $service) {
-            $formatted_services[] = ['id' => $service->id, 'text' => $service->service->name];
+            $formatted_services[] = [
+                'id' => $service->id,
+                'text' => $service->service->name,
+                'name' => $service->service->name
+            ];
         }
 
         return \Response::json($formatted_services);

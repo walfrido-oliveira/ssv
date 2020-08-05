@@ -169,7 +169,11 @@ class ServiceTypeController extends Controller
         $formatted_services = [];
 
         foreach ($services as $service) {
-            $formatted_services[] = ['id' => $service->id, 'text' => $service->name];
+            $formatted_services[] = [
+                'id' => $service->id,
+                'text' => $service->name,
+                'name' => $service->name
+            ];
         }
 
         return \Response::json($formatted_services);
