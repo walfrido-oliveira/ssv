@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('budgets', 'BudgetController');
 
         Route::resource('orders', 'OrderController');
+        Route::get('/orders/find', 'OrderController@find');
 
         Route::prefix('contacts')->name('contacts.')->group(function(){
             Route::get('/find', 'ClientContactController@find');
