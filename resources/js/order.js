@@ -186,7 +186,7 @@ $(document).ready(function() {
 
             $executedAt.val(executedAt);
             $executedAtParent = $executedAt.parent();
-            $executedAtParent.text('').append($executedAt).append(executedAt);
+            $executedAtParent.text('').append($executedAt).append(dateToDMY(executedAt));
 
             $equipmentId.val(equipmentId);
             $equipmentIdParent = $equipmentId.parent();
@@ -269,7 +269,7 @@ $(document).ready(function() {
 
         $service.append(serviceOption).trigger('change');
         $serviceType.append(serviceTypeOption).trigger('change');
-        $executedAt.val(dateToDMY(new Date(executedAt)));
+        $executedAt.val(executedAt);
         $equipmentId.val(equipmentId);
         $description.val(description);
     }
@@ -277,9 +277,7 @@ $(document).ready(function() {
     function clearServiceModal() {
         $("select[name=service]").empty().trigger('change');
         $("select[name=service_type]").empty().trigger('change');
-        let $executeAt = $('input[name=executed_at]');
-        $executeAt.val('');
-        $executeAt.attr('type', 'text');
+        $('input[name=executed_at]').val('');
         $('input[name=equipment_id]').val('');
         $('textarea[name=description]').val('');
     }
