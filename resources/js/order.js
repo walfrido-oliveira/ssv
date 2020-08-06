@@ -161,6 +161,17 @@ $(document).ready(function() {
         clearServiceModal();
     });
 
+    $('#delete-modal').on('show.bs.modal', function(e) {
+        var row = $(e.relatedTarget).data('row');
+        $('.btn-delete').attr('data-row', row);
+    });
+
+    $('.btn-delete').on('click', function(e) {
+        var row = $(this).attr('data-row');
+        $('#' + row).remove();
+        $('#delete-modal').modal('hide');
+    });
+
     function ceckServiceValues() {
         let service = $('select[name=service]').select2('data')[0];
         let serviceType = $('select[name=service_type]').select2('data')[0];
