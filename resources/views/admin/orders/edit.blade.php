@@ -93,7 +93,7 @@
                                                     <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->service->name }}">
                                                 </td>
                                                 <td width="80%">{{ date_format($service->executed_at, 'd/m/Y') }}
-                                                    <input type="hidden" name="services[{{ $index }}][executed_at]" value="{{ $service->executed_at }}">
+                                                    <input type="hidden" name="services[{{ $index }}][executed_at]" value="{{ date_format($service->executed_at, 'Y-m-d') }}">
                                                 </td>
                                                 <td width="80%">{{ $service->equipment_id }}
                                                     <input type="hidden" name="services[{{ $index }}][equipment_id]" value="{{ $service->equipment_id }}">
@@ -149,23 +149,28 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
+                            <label for="service">{{ __('Service') }}</label>
                             {!! Form::select('service', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Service')]) !!}
                         <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
+                            <label for="service_type">{{ __('Service Type') }}</label>
                             {!! Form::select('service_type', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Type Service')]) !!}
                             <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
-                            {!! Form::text('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
-                            'placeholder' => __('Executed at'), 'onfocus' => '(this.type="date")']) !!}
+                            <label for="executed_at">{{ __('Executed at') }}</label>
+                            {!! Form::date('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
+                            'placeholder' => __('Executed at')]) !!}
                             <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
+                            <label for="equipment_id">{{ __('Equipament ID') }}</label>
                             {!! Form::text('equipment_id', old('equipment_id'),['class' => 'form-control ' . $errors->first('equipment_id','is-invalid') ,
                             'placeholder' => __('Equipament ID')]) !!}
                         </div>
                         <div class="form-group">
+                            <label for="description">{{ __('Description') }}</label>
                             {!! Form::textarea('description', old('description'),['class' => 'form-control ' . $errors->first('description','is-invalid') ,
                             'placeholder' => __('Description')]) !!}
                         </div>
@@ -178,6 +183,7 @@
             </div>
         </div>
     </div>
+
     <!-- delete-modal -->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">

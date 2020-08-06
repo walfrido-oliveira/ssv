@@ -153,23 +153,28 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
+                            <label for="service">{{ __('Service') }}</label>
                             {!! Form::select('service', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Service')]) !!}
                         <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
+                            <label for="service">{{ __('Service Type') }}</label>
                             {!! Form::select('service_type', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Type Service')]) !!}
                             <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
-                            {!! Form::text('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
-                            'placeholder' => __('Executed at'), 'onfocus' => '(this.type="date")']) !!}
+                            <label for="service">{{ __('Executed at') }}</label>
+                            {!! Form::date('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
+                            'placeholder' => __('Executed at')]) !!}
                             <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
+                            <label for="service">{{ __('Equipament ID') }}</label>
                             {!! Form::text('equipment_id', old('equipment_id'),['class' => 'form-control ' . $errors->first('equipment_id','is-invalid') ,
                             'placeholder' => __('Equipament ID')]) !!}
                         </div>
                         <div class="form-group">
+                            <label for="service">{{ __('Description') }}</label>
                             {!! Form::textarea('description', old('description'),['class' => 'form-control ' . $errors->first('description','is-invalid') ,
                             'placeholder' => __('Description')]) !!}
                         </div>
@@ -182,6 +187,7 @@
             </div>
         </div>
     </div>
+
     <!-- delete-modal -->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
