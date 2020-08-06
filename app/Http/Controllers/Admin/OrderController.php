@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
+use App\Models\Order\OrderService;
 use App\Http\Controllers\Controller;
+use App\Models\Budget\BudgetService;
 
 class OrderController extends Controller
 {
@@ -47,10 +49,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //$budgetTypes = BudgetType::all()->pluck('name', 'id');
-       // $paymentMethods = PaymentMethod::all()->pluck('name', 'id');
-        //$transportMethods = TransportMethod::all()->pluck('name', 'id');
-
         return view('admin.orders.create');
     }
 
@@ -63,13 +61,31 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->roles($this->order));
-
+        $userId = auth()->user()->id;
         $data = $request->all();
 
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = $userId;
         $data['client_id'] = Budget::find($data['budget_id'])->client->id;
 
         $order = $this->order->create($data);
+
+        if (isset($data['services']))
+        {
+            foreach ($data['services'] as $key => $service) {
+                $service = OrderService::create(
+                    [
+                        'order_id' => $order->id,
+                        'budget_service_id' => $service['budget_service_id'],
+                        'service_id' => BudgetService::find($service['budget_service_id'])->service->id,
+                        'user_id' => $userId,
+                        'service_type_id' => $service['service_type_id'],
+                        'executed_at' => $service['executed_at'],
+                        'equipment_id' => $service['equipment_id'],
+                        'description' => $service['description'],
+                    ]
+                );
+            }
+        }
 
         //$order->notify(new CreateOrder($order));
 
