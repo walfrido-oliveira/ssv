@@ -49,9 +49,11 @@ window.currencyFormatDE = function(num) {
 }
 
 window.dateToDMY = function(date) {
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var y = date.getFullYear();
+    let parts = date.split('-');
+    let dateResult = new Date(parts[0], parts[1] - 1, parts[2]);
+    var d = dateResult.getDate();
+    var m = dateResult.getMonth() + 1;
+    var y = dateResult.getFullYear();
     return '' + (d <= 9 ? '0' + d : d) + '/' + (m<=9 ? '0' + m : m) + '/' + y;
 }
 
