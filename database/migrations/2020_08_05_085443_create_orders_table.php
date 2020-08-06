@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('budget_id');
             $table->unsignedBigInteger('client_id');
 
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->enum('status', ['created', 'finished', 'inactived'])->default('created');
 
             $table->timestamps();
