@@ -8,10 +8,10 @@
 
 @section('content')
 
-    <form action="{{ route('admin.orders.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.orders.update', ['order' => $order->id]) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
-        @method("POST")
+        @method("PUT")
 
         <div class="content">
             <div class="row">
@@ -29,26 +29,20 @@
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <label for="budget_id">{{ __('Budget') }}</label>
-                                    @php
-                                        $budgets = App\Models\Budget\Budget::where('id', old('budget_id'))->get()->pluck('id', 'id');
-                                    @endphp
                                     <div class="input-group">
-                                        {!! Form::select('budget_id', $budgets, old('budget_id'), ['class' => 'select2-with-remote-data ' . $errors->first('budget_id','is-invalid') , 'data-placeholder' => __('Budget')]) !!}
+                                        {!! Form::select('budget_id', $budgets, $order->budget_id, ['class' => 'select2-with-remote-data ' . $errors->first('budget_id','is-invalid') , 'data-placeholder' => __('Budget')]) !!}
                                         {!! $errors->first('budget_id','<div class="invalid-feedback">:message</div>') !!}
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label for="client">{{ __('Customer') }}</label>
-                                    @php
-                                        $clients = App\Models\Client\Client::where('id', old('client_id'))->get()->pluck('nome_fantasia', 'id');
-                                    @endphp
-                                    {!! Form::select('client_id', $clients, old('client_id'), ['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
+                                    {!! Form::select('client_id', $clients, $order->client_id, ['class' => 'select2-with-remote-data ' . $errors->first('client_id','is-invalid') , 'data-placeholder' => __('Customer')]) !!}
                                     {!! $errors->first('client_id','<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="observation">{{ __('Observation') }}</label>
-                                {!! Form::textarea('observation', null, ['class' => 'form-control ' . $errors->first('observation','is-invalid'), 'rows' => 4, 'id' => 'observation', 'placeholder' => __("Observation")]) !!}
+                                {!! Form::textarea('observation', $order->observation, ['class' => 'form-control ' . $errors->first('observation','is-invalid'), 'rows' => 4, 'id' => 'observation', 'placeholder' => __("Observation")]) !!}
                                 {!! $errors->first('observation','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
@@ -84,32 +78,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (old('services'))
+                                    @if ($order->services)
                                         @php $index = 0; @endphp
-                                        @foreach (old('services') as $service)
+                                        @foreach ($order->services as $service)
                                             <tr id="row-service-{{ $index }}" data-row="{{ $index }}">
                                                 <td>{{ $index+1 }}
-                                                    <input type="hidden" name="services[{{ $index }}][budget_service_id]" value="{{ $service['budget_service_id'] }}">
-                                                    <input type="hidden" name="services[{{ $index }}][service_type_id]" value="{{ $service['service_type_id'] }}">
-                                                    <input type="hidden" name="services[{{ $index }}][index]" value="{{ $service['index'] }}">
+                                                    <input type="hidden" name="services[{{ $index }}][id]" value="{{ $service->id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][budget_id]" value="{{ $service->budget_id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][budget_service_id]" value="{{ $service->budget_service_id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][service_type_id]" value="{{ $service->service_type_id }}">
+                                                    <input type="hidden" name="services[{{ $index }}][index]" value="{{ $service->index }}">
                                                 </td>
-                                                <td width="80%">{{ $service['service_name'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service['service_name'] }}">
+                                                <td width="80%">{{ $service->service->name}}
+                                                    <input type="hidden" name="services[{{ $index }}][service_name]" value="{{ $service->service->name }}">
                                                 </td>
-                                                <td width="80%">{{ $service['executed_at'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][executed_at]" value="{{ $service['executed_at'] }}">
+                                                <td width="80%">{{ date_format($service->executed_at, 'd/m/Y') }}
+                                                    <input type="hidden" name="services[{{ $index }}][executed_at]" value="{{ $service->executed_at }}">
                                                 </td>
-                                                <td width="80%">{{ $service['equipment_id'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][equipment_id]" value="{{ $service['equipment_id'] }}">
+                                                <td width="80%">{{ $service->equipment_id }}
+                                                    <input type="hidden" name="services[{{ $index }}][equipment_id]" value="{{ $service->equipment_id }}">
                                                 </td>
-                                                <td width="80%">{{ $service['service_type_name'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][service_type_name]" value="{{ $service['service_type_name'] }}">
+                                                <td width="80%">{{ $service->serviceType->name }}
+                                                    <input type="hidden" name="services[{{ $index }}][service_type_name]" value="{{ $service->serviceType->name }}">
                                                 </td>
-                                                <td width="80%" class="cell-wrap">{{ $service['description'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][description]" value="{{ $service['description'] }}">
+                                                <td width="80%" class="cell-wrap">{{ $service->description }}
+                                                    <input type="hidden" name="services[{{ $index }}][description]" value="{{ $service->description }}">
                                                 </td>
-                                                <td width="80%">{{ $service['user_name'] }}
-                                                    <input type="hidden" name="services[{{ $index }}][user_name]" value="{{ $service['user_name'] }}">
+                                                <td width="80%">{{ $service->user->name  }}
+                                                    <input type="hidden" name="services[{{ $index }}][user_name]" value="{{ $service->user->name }}">
                                                 </td>
                                                 <td width="15%">
                                                     <div class="btn-group">
