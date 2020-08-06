@@ -80,6 +80,7 @@
                                         <th>{{ __('Type') }}</th>
                                         <th>{{ __('Description') }}</th>
                                         <th>{{ __('Responsible') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,13 +147,16 @@
                     <form>
                         <div class="form-group">
                             {!! Form::select('service', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Service')]) !!}
+                        <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
                             {!! Form::select('service_type', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Type Service')]) !!}
+                            <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
                             {!! Form::text('executed_at', old('executed_at'),['class' => 'form-control ' . $errors->first('executed_at','is-invalid') ,
                             'placeholder' => __('Executed at'), 'onfocus' => '(this.type="date")']) !!}
+                            <div class="invalid-feedback">{{ __('This field is empty') }}</div>
                         </div>
                         <div class="form-group">
                             {!! Form::text('equipment_id', old('equipment_id'),['class' => 'form-control ' . $errors->first('equipment_id','is-invalid') ,
@@ -174,5 +178,6 @@
 @stop
 
 @section('js')
+    <script> var CURRENT_USER = '{{ auth()->user()->name }}'; </script>
     <script src="{{ mix('js/order.js') }}"></script>
 @stop
