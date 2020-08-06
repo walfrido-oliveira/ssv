@@ -135,7 +135,7 @@
         </div>
     </form>
 
-     <!-- Modal -->
+     <!-- service-modal -->
      <div class="modal fade" id="service-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -171,6 +171,21 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-add-service">{{ __('Add') }}</button>
                     <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- delete-modal -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">{{ __('Do you really want to delete this item?') }}</div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-delete">{{ __('Yes') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
                 </div>
             </div>
         </div>
