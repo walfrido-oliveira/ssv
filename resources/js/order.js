@@ -117,43 +117,88 @@ $(document).ready(function() {
     $('.btn-add-service').on('click', function(e) {
         if (!ceckServiceValues()) return;
 
-        var tbody = $('.table-service tbody');
+        let dataRow = $(this).attr('data-row');
 
-        var service = $('select[name=service]').select2('data')[0];
-        var serviceType = $('select[name=service_type]').select2('data')[0];
-        var executedAt = $('input[name=executed_at]').val();
-        var equipmentId = $('input[name=equipment_id]').val();
-        var description = $('textarea[name=description]').val();
+        let tbody = $('.table-service tbody');
 
-        var index = tbody.find('tr').length + 1;
+        let service = $('select[name=service]').select2('data')[0];
+        let serviceType = $('select[name=service_type]').select2('data')[0];
+        let executedAt = $('input[name=executed_at]').val();
+        let equipmentId = $('input[name=equipment_id]').val();
+        let description = $('textarea[name=description]').val();
 
-        var row = '<tr id="row-service-' + (index-1) + '">' +
-                  '<td>' + index +
-                  '<input type="hidden" name="services[' + (index-1) + '][budget_service_id]" value="' + service.id + '" />'+
-                  '<input type="hidden" name="services[' + (index-1) + '][service_type_id]" value="' + serviceType.id + '" />'+
-                  '<input type="hidden" name="services[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
-                  '</td>' +
-                  '<td>' + service.name + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.name + '" /></td>' +
-                  '<td>' + dateToDMY(new Date(executedAt)) + '<input type="hidden" name="services[' + (index-1) + '][executed_at]" value="' + executedAt + '" /></td>' +
-                  '<td>' + equipmentId + '<input type="hidden" name="services[' + (index-1) + '][equipment_id]" value="' + equipmentId + '" /></td>' +
-                  '<td>' + serviceType.name + '<input type="hidden" name="services[' + (index-1) + '][service_type_name]" value="' + serviceType.name + '" /></td>' +
-                  '<td>' + description + '<input type="hidden" name="services[' + (index-1) + '][description]" value="' + description + '" /></td>' +
-                  '<td>' + CURRENT_USER + '</td>' +
-                  '<td width="15%">' +
-                  '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
-                  '<i class="fas fa-trash-alt"></i>' +
-                  '</a>' +
-                  '</td>'
-                  '</tr>';
+        let index = tbody.find('tr').length;
 
-        tbody.append(row);
+        if (!dataRow) {
+            index++;
+
+            let row = '<tr id="row-service-' + (index-1) + '" data-row="' + (index-1) + '">' +
+            '<td>' + index +
+            '<input type="hidden" name="services[' + (index-1) + '][budget_service_id]" value="' + service.id + '" />'+
+            '<input type="hidden" name="services[' + (index-1) + '][service_type_id]" value="' + serviceType.id + '" />'+
+            '<input type="hidden" name="services[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
+            '</td>' +
+            '<td>' + service.name + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.name + '" /></td>' +
+            '<td>' + dateToDMY(new Date(executedAt)) + '<input type="hidden" name="services[' + (index-1) + '][executed_at]" value="' + executedAt + '" /></td>' +
+            '<td>' + equipmentId + '<input type="hidden" name="services[' + (index-1) + '][equipment_id]" value="' + equipmentId + '" /></td>' +
+            '<td>' + serviceType.name + '<input type="hidden" name="services[' + (index-1) + '][service_type_name]" value="' + serviceType.name + '" /></td>' +
+            '<td>' + description + '<input type="hidden" name="services[' + (index-1) + '][description]" value="' + description + '" /></td>' +
+            '<td>' + CURRENT_USER + '</td>' +
+            '<td width="15%">' +
+            '<div class="btn-group">' +
+            '<a href="#" class="btn-secondary btn-sm btn-edit-service" data-toggle="modal" data-target="#service-modal" data-row="row-service-' + (index-1) + '">' +
+            '<i class="fas fa-pencil-alt"></i>' +
+            '</a>' +
+            '</div>&nbsp;' +
+            '<div class="btn-group">' +
+            '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
+            '<i class="fas fa-trash-alt"></i>' +
+            '</a>' +
+            '</div>' +
+            '</td>' +
+            '</tr>';
+            tbody.append(row);
+        } else {
+            let $row = $('#' + dataRow);
+            index = $row.index();
+
+            let $serviceId = $("input[name='services[" + index + "][budget_service_id]']");
+            let $serviceName = $("input[name='services[" + index + "][service_name]']");
+
+            let $serviceTypeId = $("input[name='services[" + index + "][service_type_id]']");
+            let $serviceTypeName = $("input[name='services[" + index + "][service_type_name]']");
+
+            let $executedAt = $("input[name='services[" + index + "][executed_at]']");
+            let $equipmentId = $("input[name='services[" + index + "][equipment_id]']");
+            let $description = $("input[name='services[" + index + "][description]']");
+
+            $serviceId.val(service.id);
+
+            $serviceName.val(service.text);
+            $serviceNameParent = $serviceName.parent();
+            $serviceNameParent.text('').append($serviceName).append(service.text);
+
+            $serviceTypeId.val(serviceType.id);
+
+            $serviceTypeName.val(serviceType.text);
+            $serviceTypeNameParent = $serviceTypeName.parent();
+            $serviceTypeNameParent.text('').append($serviceTypeName).append(serviceType.text);
+
+            $executedAt.val(executedAt);
+            $executedAtParent = $executedAt.parent();
+            $executedAtParent.text('').append($executedAt).append(executedAt);
+
+            $equipmentId.val(equipmentId);
+            $equipmentIdParent = $equipmentId.parent();
+            $equipmentIdParent.text('').append($equipmentId).append(equipmentId);
+
+            $description.val(description);
+            $descriptionParent = $description.parent();
+            $descriptionParent.text('').append($description).append(description);
+        }
 
         $('select[name=service]').val(null).trigger("change");
         $('#service-modal').modal('hide');
-
-    });
-
-    $('input[name=executed_at]').on('change', function() {
 
     });
 
@@ -161,13 +206,21 @@ $(document).ready(function() {
         clearServiceModal();
     });
 
+    $('#service-modal').on('show.bs.modal', function(e) {
+        let row = $(e.relatedTarget).data('row');
+        if (row) {
+            setFildsServiceModal(row);
+            $('.btn-add-service').attr('data-row', row);
+        }
+    });
+
     $('#delete-modal').on('show.bs.modal', function(e) {
-        var row = $(e.relatedTarget).data('row');
+        let row = $(e.relatedTarget).data('row');
         $('.btn-delete').attr('data-row', row);
     });
 
     $('.btn-delete').on('click', function(e) {
-        var row = $(this).attr('data-row');
+        let row = $(this).attr('data-row');
         $('#' + row).remove();
         $('#delete-modal').modal('hide');
     });
@@ -186,6 +239,39 @@ $(document).ready(function() {
         (!executedAt || executedAt == '') ? $executedAt.addClass('is-invalid') : $executedAt.removeClass('is-invalid');
 
         return service && serviceType && executedAt;
+    }
+
+    function setFildsServiceModal(row) {
+        clearServiceModal();
+
+        let $row = $('#' + row);
+        let index = $row.attr('data-row');
+
+        let serviceId = $("input[name='services[" + index + "][budget_service_id]']").val();
+        let serviceName = $("input[name='services[" + index + "][service_name]']").val();
+
+        let serviceTypeId = $("input[name='services[" + index + "][service_type_id]']").val();
+        let serviceTypeName = $("input[name='services[" + index + "][service_type_name]']").val();
+
+        let executedAt = $("input[name='services[" + index + "][executed_at]']").val();
+        let equipmentId = $("input[name='services[" + index + "][equipment_id]']").val();
+        let description = $("input[name='services[" + index + "][description]']").val();
+
+
+        let $service = $('select[name=service]');
+        let $serviceType = $('select[name=service_type]');
+        let $executedAt = $('input[name=executed_at]');
+        let $equipmentId = $('input[name=equipment_id]');
+        let $description = $('textarea[name=description]');
+
+        var serviceOption = new Option(serviceName, serviceId, false, false);
+        var serviceTypeOption = new Option(serviceTypeName, serviceTypeId, false, false);
+
+        $service.append(serviceOption).trigger('change');
+        $serviceType.append(serviceTypeOption).trigger('change');
+        $executedAt.val(dateToDMY(new Date(executedAt)));
+        $equipmentId.val(equipmentId);
+        $description.val(description);
     }
 
     function clearServiceModal() {
