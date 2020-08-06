@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
+use App\Models\Client\Client;
 use App\Models\Order\OrderService;
 use App\Http\Controllers\Controller;
 use App\Models\Budget\BudgetService;
@@ -72,18 +73,11 @@ class OrderController extends Controller
         if (isset($data['services']))
         {
             foreach ($data['services'] as $key => $service) {
-                $service = OrderService::create(
-                    [
-                        'order_id' => $order->id,
-                        'budget_service_id' => $service['budget_service_id'],
-                        'service_id' => BudgetService::find($service['budget_service_id'])->service->id,
-                        'user_id' => $userId,
-                        'service_type_id' => $service['service_type_id'],
-                        'executed_at' => $service['executed_at'],
-                        'equipment_id' => $service['equipment_id'],
-                        'description' => $service['description'],
-                    ]
-                );
+                $service['service_id'] =  BudgetService::find($service['budget_service_id'])->service->id;
+                $service['user_id'] = $userId;
+                $service['order_id'] = $order->id;
+
+                $service = OrderService::create($service);
             }
         }
 
@@ -114,7 +108,11 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        $clients = Client::where('id', $order->client_id)->get()->pluck('nome_fantasia', 'id');
+        $budgets = Budget::where('id', $order->budget_id)->get()->pluck('name', 'id');
+
+        return view('admin.orders.edit', compact('order', 'clients', 'budgets'));
     }
 
     /**
@@ -126,7 +124,48 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->roles($this->order));
+        $userId = auth()->user()->id;
+        $order = $this->order->find($id);
+
+        $data = $request->all();
+        $data['user_id'] = $userId;
+
+        $order->update($data);
+
+        $servicesIds = $order->services->pluck('id');
+
+        if (!isset($data['services'])) $data['services'] = [];
+
+        foreach ($servicesIds as $key => $id)
+        {
+            if(array_search($id, array_column($data['services'], 'id')) === false)
+            {
+                $service = OrderService::find($id);
+                $service->delete();
+            }
+        }
+
+
+        foreach ($data['services'] as $key => $service)
+        {
+
+            $service['service_id'] = BudgetService::find($service['budget_service_id'])->service->id;
+
+            if(isset($service['id']))
+            {
+                $orderService = OrderService::find($service['id']);
+
+                if(!is_null($orderService))
+                {
+                    $orderService->update($service);
+                }
+            } else {
+                $service['user_id'] = $userId;
+                $service['order_id'] = $order->id;
+                $service = OrderService::create($service);
+            }
+        }
     }
 
     /**
