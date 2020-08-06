@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     $('select[name=client_id]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/clients/find',
             dataType: 'json',
@@ -28,6 +29,7 @@ $(document).ready(function() {
 
     $('select[name=budget_id]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/budgets/find',
             dataType: 'json',
@@ -55,6 +57,7 @@ $(document).ready(function() {
 
     $('select[name=service]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/budgets/find-service',
             dataType: 'json',
@@ -82,6 +85,7 @@ $(document).ready(function() {
 
     $('select[name=service_type]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/service-types/find',
             dataType: 'json',
@@ -111,6 +115,8 @@ $(document).ready(function() {
     });
 
     $('.btn-add-service').on('click', function(e) {
+        if (!ceckServiceValues()) return;
+
         var tbody = $('.table-service tbody');
 
         var service = $('select[name=service]').select2('data')[0];
@@ -124,7 +130,7 @@ $(document).ready(function() {
         var row = '<tr id="row-service-' + (index-1) + '">' +
                   '<td>' + index +
                   '<input type="hidden" name="services[' + (index-1) + '][budget_service_id]" value="' + service.id + '" />'+
-                  '<input type="hidden" name="services[' + (index-1) + '][service_type_id]" value="' + (index-1) + '" />'+
+                  '<input type="hidden" name="services[' + (index-1) + '][service_type_id]" value="' + serviceType.id + '" />'+
                   '<input type="hidden" name="services[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
                   '</td>' +
                   '<td>' + service.name + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.name + '" /></td>' +
@@ -132,10 +138,12 @@ $(document).ready(function() {
                   '<td>' + equipmentId + '<input type="hidden" name="services[' + (index-1) + '][equipment_id]" value="' + equipmentId + '" /></td>' +
                   '<td>' + serviceType.name + '<input type="hidden" name="services[' + (index-1) + '][service_type_name]" value="' + serviceType.name + '" /></td>' +
                   '<td>' + description + '<input type="hidden" name="services[' + (index-1) + '][description]" value="' + description + '" /></td>' +
+                  '<td>' + CURRENT_USER + '</td>' +
                   '<td width="15%">' +
                   '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
                   '<i class="fas fa-trash-alt"></i>' +
                   '</a>' +
+                  '</td>'
                   '</tr>';
 
         tbody.append(row);
@@ -152,6 +160,22 @@ $(document).ready(function() {
     $('.add-service').on('click', function() {
         clearServiceModal();
     });
+
+    function ceckServiceValues() {
+        let service = $('select[name=service]').select2('data')[0];
+        let serviceType = $('select[name=service_type]').select2('data')[0];
+        let executedAt = $('input[name=executed_at]').val();
+
+        let $service = $('select[name=service]');
+        let $serviceType = $('select[name=service_type]');
+        let $executedAt = $('input[name=executed_at]');
+
+        !service ? $service.addClass('is-invalid') : $service.removeClass('is-invalid');
+        !serviceType ? $serviceType.addClass('is-invalid') : $serviceType.removeClass('is-invalid');
+        (!executedAt || executedAt == '') ? $executedAt.addClass('is-invalid') : $executedAt.removeClass('is-invalid');
+
+        return service && serviceType && executedAt;
+    }
 
     function clearServiceModal() {
         $("select[name=service]").empty().trigger('change');

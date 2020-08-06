@@ -1,9 +1,11 @@
 $(document).ready(function() {
     $('.select2').select2({
-        language: "pt-BR"
+        language: "pt-BR",
+        theme: 'bootstrap4',
     });
     $('.select2-with-tag').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         tags: true,
         createTag: function (params) {
             var term = $.trim(params.term);
