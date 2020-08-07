@@ -97,7 +97,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = $this->order->find($id);
+
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
