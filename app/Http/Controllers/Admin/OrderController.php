@@ -148,7 +148,6 @@ class OrderController extends Controller
             }
         }
 
-
         foreach ($data['services'] as $key => $service)
         {
 
@@ -168,6 +167,10 @@ class OrderController extends Controller
                 $service = OrderService::create($service);
             }
         }
+
+        flash('success', 'Order updated successfully!');
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
