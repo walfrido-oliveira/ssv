@@ -251,7 +251,7 @@ class BudgetController extends Controller
         $clientId = $request->client_id;
 
         if (empty($term)) {
-            $budgets = Budget::where('status', '<>', 'inactived')->where('client_id', $clientId)->limit(5)->get();
+            $budgets = Budget::whereNotIn('status', ['inactived', 'disapproved'])->where('client_id', $clientId)->limit(5)->get();
         } else {
             $budgets = Budget::where('id', 'like', '%' . $term . '%')->where('client_id', $clientId)->limit(5)->get();
         }
