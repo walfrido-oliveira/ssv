@@ -48,7 +48,7 @@ class CreateOrder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(__('Create Order Notification') . ' - #' . $this->order->id . ' - ' . config('app.name'))
+                    ->subject(__('Create Order Notification') . ' - #' . $this->order->formattedId . ' - ' . config('app.name'))
                     ->line(__('Your Order was been created.'))
                     ->line(__('A technician will  take care of your process.'));
     }

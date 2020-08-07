@@ -13,7 +13,7 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <h2 class="profile-username text-center">#{{ $order->id }}</h2>
+                            <h2 class="profile-username text-center">#{{ $order->formattedId }}</h2>
                             <h3 class="profile-username text-center">{{ $order->client->nome_fantasia }}</h3>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">

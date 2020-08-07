@@ -52,7 +52,7 @@ class DisapprovedBudget extends Notification implements ShouldQueue
 
         return (new MailMessage)
                     ->subject(__('Disapproved Budget Notification') . ' - ' . config('app.name'))
-                    ->line(__('Attention the budget of number #:number has been disapproved.', ['number' => $this->budget->id] ))
+                    ->line(__('Attention the budget of number #:number has been disapproved.', ['number' => $this->budget->formattedId] ))
                     ->line(__('Click in the button below and check the budget.'))
                     ->action(__('Check'), $url);
     }

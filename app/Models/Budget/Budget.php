@@ -165,6 +165,14 @@ class Budget extends Model
     }
 
     /**
+     * Get formatted id
+     */
+    public function getFormattedIdAttribute()
+    {
+        return sprintf("%05d", $this->id);
+    }
+
+    /**
      * Route notifications for the mail channel.
      *
      * @param  \Illuminate\Notifications\Notification  $notification

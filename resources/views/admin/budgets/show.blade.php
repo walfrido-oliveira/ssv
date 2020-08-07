@@ -13,7 +13,7 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <h2 class="profile-username text-center">#{{ $budget->id }}</h2>
+                            <h2 class="profile-username text-center">#{{ $budget->formattedId }}</h2>
                             <h3 class="profile-username text-center">{{ $budget->client->nome_fantasia }}</h3>
                             <p class="text-muted text-center">{{ alternative_money($budget->amount) }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
