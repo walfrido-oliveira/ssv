@@ -51,7 +51,7 @@ class CreateBudget extends Notification implements ShouldQueue
         $url = url(route('user.budgets.show', ['budget' => $this->budget->id]) );
 
         return (new MailMessage)
-                    ->subject(__('Create Budget Notification') . ' - ' . config('app.name'))
+                    ->subject(__('Create Budget Notification') . ' - #' . $this->budget->formattedId . ' - ' . config('app.name'))
                     ->line(__('Your budget is awaiting your approval.'))
                     ->line(__('Click in the button below and check your budget.'))
                     ->action(__('Check'), $url);

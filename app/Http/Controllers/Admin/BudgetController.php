@@ -108,7 +108,7 @@ class BudgetController extends Controller
         $budget->services()->sync($services);
         $budget->products()->sync($products);
 
-        $budget->notify(new CreateBudget($budget));
+        $budget->sendCreatdBudget();
 
         flash('success', 'Budget added successfully!');
 

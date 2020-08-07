@@ -2,31 +2,30 @@
 
 namespace App\Notifications;
 
-use App\Models\Budget\Budget;
+use App\Models\Order\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class DisapprovedBudget extends Notification implements ShouldQueue
+class CreateOrder extends Notification
 {
     use Queueable;
 
     /**
-	 * @var Budget
-	 */
-    private $budget;
+     * @var Order
+     */
+    private $order;
 
     /**
      * Create a new notification instance.
      *
-     * @param Budget $budget
-     *
+     * @param Order $order
      * @return void
      */
-    public function __construct(Budget $budget)
+    public function __construct(Order $order)
     {
-        $this->budget = $budget;
+        $this->order = $order;
     }
 
     /**
@@ -48,13 +47,10 @@ class DisapprovedBudget extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url(route('admin.budgets.show', ['budget' => $this->budget->id]) );
-
         return (new MailMessage)
-                    ->subject(__('Disapproved Budget Notification') . ' - ' . config('app.name'))
-                    ->line(__('Attention the budget of number #:number has been disapproved.', ['number' => $this->budget->formattedId] ))
-                    ->line(__('Click in the button below and check the budget.'))
-                    ->action(__('Check'), $url);
+                    ->subject(__('Create Order Notification') . ' - #' . $this->order->formattedId . ' - ' . config('app.name'))
+                    ->line(__('Your Order was been created.'))
+                    ->line(__('A technician will  take care of your process.'));
     }
 
     /**

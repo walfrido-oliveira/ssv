@@ -81,7 +81,7 @@ class OrderController extends Controller
             }
         }
 
-        //$order->notify(new CreateOrder($order));
+        $order->sendCreateOrder();
 
         flash('success', 'Order added successfully!');
 
@@ -97,7 +97,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = $this->order->find($id);
+
+        return view('admin.orders.show', compact('order'));
     }
 
     /**

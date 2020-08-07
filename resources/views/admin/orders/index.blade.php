@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach($orders as $order)
                                 <tr>
-                                    <td><a href="{{ route('admin.orders.show', ['order' => $order->id]) }}">{{ $order->id }}</a></td>
+                                    <td><a href="{{ route('admin.orders.show', ['order' => $order->id]) }}">{{ $order->formattedId }}</a></td>
                                     <td><a href="{{ route('admin.orders.show', ['order' => $order->id]) }}">{{ $order->client->razao_social }}</a></td>
                                     <td class="project-state">
                                         <span class="badge @if($order->status == "created") badge-primary @elseif($order->status == 'approved') badge-success @else badge-danger @endif">

@@ -13,7 +13,7 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <h2 class="profile-username text-center">#{{ $budget->id }}</h2>
+                            <h2 class="profile-username text-center">#{{ $budget->formattedId }}</h2>
                             <h3 class="profile-username text-center">{{ $budget->client->nome_fantasia }}</h3>
                             <p class="text-muted text-center">{{ alternative_money($budget->amount) }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
@@ -66,7 +66,7 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#budget-info" data-toggle="tab">{{ __('Budget Info') }}</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#budget-info" data-toggle="tab">{{ __('Info') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#services" data-toggle="tab">{{ __('Services') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#products" data-toggle="tab">{{ __('Products') }}</a></li>
                             </ul>
@@ -111,7 +111,7 @@
                                         <dd>{{ $budget->description }}</dd>
                                     </dl>
                                 </div>
-                                <div class="tab-pane" id="services">
+                                <div class="tab-pane table-responsive" id="services">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
@@ -137,7 +137,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane" id="products">
+                                <div class="tab-pane table-responsive" id="products">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
