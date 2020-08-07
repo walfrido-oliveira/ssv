@@ -46,8 +46,15 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Role') }}</label>
-                                {!! Form::select('roles[]', $roles, $userRole,['class' => 'select2 ' . $errors->first('roles','is-invalid') , 'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
+                                {!! Form::select('roles[]', $roles, $userRole, ['class' => 'select2 ' . $errors->first('roles','is-invalid') ,
+                                'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
                                 {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Customers') }}</label>
+                                {!! Form::select('clients[]', $clients, $userClient, ['class' => 'select2 ' . $errors->first('clients','is-invalid') ,
+                                'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
+                                {!! $errors->first('clients','<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>
                     </div>
