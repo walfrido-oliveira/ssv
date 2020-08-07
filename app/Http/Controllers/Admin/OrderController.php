@@ -81,7 +81,7 @@ class OrderController extends Controller
             }
         }
 
-        //$order->notify(new CreateOrder($order));
+        $order->sendCreateOrder();
 
         flash('success', 'Order added successfully!');
 

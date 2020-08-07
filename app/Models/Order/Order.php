@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\Order\OrderService;
+use App\Notifications\CreateOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -58,5 +59,21 @@ class Order extends Model
     public function services()
     {
         return $this->hasMany(OrderService::class);
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return [$this->budget->clientContact->email => $this->budget->clientContact->name];
+    }
+
+    public function sendCreateOrder()
+    {
+        $this->notify(new CreateOrder($this));
     }
 }

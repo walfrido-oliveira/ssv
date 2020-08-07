@@ -2,31 +2,30 @@
 
 namespace App\Notifications;
 
-use App\Models\Budget\Budget;
+use App\Models\Order\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CreateBudget extends Notification implements ShouldQueue
+class CreateOrder extends Notification
 {
     use Queueable;
 
     /**
-	 * @var Budget
-	 */
-    private $budget;
+     * @var Order
+     */
+    private $order;
 
     /**
      * Create a new notification instance.
      *
-     * @param Budget $budget
-     *
+     * @param Order $order
      * @return void
      */
-    public function __construct(Budget $budget)
+    public function __construct(Order $order)
     {
-        $this->budget = $budget;
+        $this->order = $order;
     }
 
     /**
@@ -48,13 +47,10 @@ class CreateBudget extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url(route('user.budgets.show', ['budget' => $this->budget->id]) );
-
         return (new MailMessage)
-                    ->subject(__('Create Budget Notification') . ' - #' . $this->budget->id . ' - ' . config('app.name'))
-                    ->line(__('Your budget is awaiting your approval.'))
-                    ->line(__('Click in the button below and check your budget.'))
-                    ->action(__('Check'), $url);
+                    ->subject(__('Create Order Notification') . ' - #' . $this->order->id . ' - ' . config('app.name'))
+                    ->line(__('Your Order was been created.'))
+                    ->line(__('A technician will  take care of your process.'));
     }
 
     /**
