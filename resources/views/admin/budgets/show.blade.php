@@ -66,7 +66,7 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#budget-info" data-toggle="tab">{{ __('Budget Info') }}</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#budget-info" data-toggle="tab">{{ __('Info') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#services" data-toggle="tab">{{ __('Services') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#products" data-toggle="tab">{{ __('Products') }}</a></li>
                             </ul>
@@ -111,7 +111,7 @@
                                         <dd>{{ $budget->description }}</dd>
                                     </dl>
                                 </div>
-                                <div class="tab-pane" id="services">
+                                <div class="tab-pane table-responsive" id="services">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
@@ -137,7 +137,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane" id="products">
+                                <div class="tab-pane table-responsive" id="products">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>

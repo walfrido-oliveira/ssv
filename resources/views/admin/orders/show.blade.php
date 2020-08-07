@@ -53,7 +53,7 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#order-info" data-toggle="tab">{{ __('Order Info') }}</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#order-info" data-toggle="tab">{{ __('Info') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#services" data-toggle="tab">{{ __('Services') }}</a></li>
                             </ul>
                         </div>
