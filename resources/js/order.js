@@ -139,7 +139,7 @@ $(document).ready(function() {
             '<input type="hidden" name="services[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
             '</td>' +
             '<td>' + service.name + '<input type="hidden" name="services[' + (index-1) + '][service_name]" value="' + service.name + '" /></td>' +
-            '<td>' + dateToDMY(new Date(executedAt)) + '<input type="hidden" name="services[' + (index-1) + '][executed_at]" value="' + executedAt + '" /></td>' +
+            '<td>' + dateToDMY(executedAt) + '<input type="hidden" name="services[' + (index-1) + '][executed_at]" value="' + executedAt + '" /></td>' +
             '<td>' + equipmentId + '<input type="hidden" name="services[' + (index-1) + '][equipment_id]" value="' + equipmentId + '" /></td>' +
             '<td>' + serviceType.name + '<input type="hidden" name="services[' + (index-1) + '][service_type_name]" value="' + serviceType.name + '" /></td>' +
             '<td>' + description + '<input type="hidden" name="services[' + (index-1) + '][description]" value="' + description + '" /></td>' +

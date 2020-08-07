@@ -49,6 +49,7 @@ window.currencyFormatDE = function(num) {
 }
 
 window.dateToDMY = function(date) {
+    console.log(date);
     let parts = date.split('-');
     let dateResult = new Date(parts[0], parts[1] - 1, parts[2]);
     var d = dateResult.getDate();
