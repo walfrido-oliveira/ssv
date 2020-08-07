@@ -140,8 +140,13 @@ class UserController extends Controller
         $user->update($data);
 
         $user->syncRoles($data['roles']);
+
         $user->clients()->sync([]);
-        $user->clients()->sync($data['clients']);
+
+        if (isset($data['clients']))
+        {
+            $user->clients()->sync($data['clients']);
+        }
 
         if (!is_null($request->profile_image))
         {
