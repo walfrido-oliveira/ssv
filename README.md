@@ -1,6 +1,6 @@
 # ssv
 
-[![version](https://img.shields.io/badge/version-1.0.22-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.0.23-yellow.svg)](https://semver.org)
 
 A system for service prevent
 
