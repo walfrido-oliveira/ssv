@@ -259,7 +259,7 @@ class BudgetController extends Controller
         $formatted_budgets = [];
 
         foreach ($budgets as $budget) {
-            $formatted_budgets[] = ['id' => $budget->id, 'text' => '#' . $budget->id . ' - ' . $budget->client->nome_fantasia];
+            $formatted_budgets[] = ['id' => $budget->id, 'text' => $budget->name];
         }
 
         return \Response::json($formatted_budgets);

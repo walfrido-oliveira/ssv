@@ -245,7 +245,7 @@
             </div>
         </div>
     </form>
-    <!-- Modal -->
+    <!-- service-modal -->
     <div class="modal fade" id="service-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -270,7 +270,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- product-modal -->
     <div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -295,7 +295,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- delete-modal -->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

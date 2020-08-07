@@ -5,6 +5,7 @@ namespace App\Models\Order;
 use App\Models\User;
 use App\Models\Order\Order;
 use App\Models\Service\Service;
+use App\Models\Service\ServiceType;
 use App\Models\Budget\BudgetService;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class OrderService extends Model
      */
     protected $fillable = [
         'order_id', 'budget_service_id', 'service_id', 'user_id', 'service_type_id',
-        'executed_at', 'equipment_id', 'description'
+        'executed_at', 'equipment_id', 'description', 'index'
     ];
 
     /**

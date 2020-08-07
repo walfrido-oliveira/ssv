@@ -53,6 +53,9 @@ class Client extends Model
         return $this->hasMany(ClientContact::class);
     }
 
+    /**
+     * Get image profile
+     */
     public function getImageAttribute()
     {
         return !is_null($this->logo) ? 'storage/' . $this->logo : 'storage/img/empty_user.png';

@@ -1,9 +1,11 @@
 $(document).ready(function() {
     $('.select2').select2({
-        language: "pt-BR"
+        language: "pt-BR",
+        theme: 'bootstrap4',
     });
     $('.select2-with-tag').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         tags: true,
         createTag: function (params) {
             var term = $.trim(params.term);
@@ -47,9 +49,12 @@ window.currencyFormatDE = function(num) {
 }
 
 window.dateToDMY = function(date) {
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var y = date.getFullYear();
+    console.log(date);
+    let parts = date.split('-');
+    let dateResult = new Date(parts[0], parts[1] - 1, parts[2]);
+    var d = dateResult.getDate();
+    var m = dateResult.getMonth() + 1;
+    var y = dateResult.getFullYear();
     return '' + (d <= 9 ? '0' + d : d) + '/' + (m<=9 ? '0' + m : m) + '/' + y;
 }
 

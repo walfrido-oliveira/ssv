@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     $('select[name=client_id]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/clients/find',
             dataType: 'json',
@@ -34,6 +35,7 @@ $(document).ready(function() {
 
     $('select[name=client_contact_id]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/contacts/find',
             dataType: 'json',
@@ -63,6 +65,7 @@ $(document).ready(function() {
 
     $('select[name=service]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/services/find',
             dataType: 'json',
@@ -97,6 +100,7 @@ $(document).ready(function() {
 
     $('select[name=product]').select2({
         language: "pt-BR",
+        theme: 'bootstrap4',
         ajax: {
             url: '/admin/products/find',
             dataType: 'json',
@@ -147,6 +151,7 @@ $(document).ready(function() {
                   '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
                   '<i class="fas fa-trash-alt"></i>' +
                   '</a>' +
+                  '</td>'
                   '</tr>';
 
         tbody.append(row);

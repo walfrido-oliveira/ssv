@@ -156,6 +156,14 @@ class Budget extends Model
     }
 
     /**
+     * Get name Budget
+     */
+    public function getNameAttribute()
+    {
+        return '#' . $this->id . ' - ' . $this->client->nome_fantasia;
+    }
+
+    /**
      * Route notifications for the mail channel.
      *
      * @param  \Illuminate\Notifications\Notification  $notification
