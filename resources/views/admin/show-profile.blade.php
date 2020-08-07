@@ -43,10 +43,23 @@
                             <label for="email">{{ __("Email") }}</label>
                             {!! Form::text('email', old('email', $user->email), ['class' => 'form-control', 'id' => 'email', 'placeholder' => __("Email"), 'readonly' ]) !!}
                         </div>
-                        <div class="form-group">
-                            <label>{{ __('Role') }}</label>
-                            {!! Form::select('roles[]', $roles, $userRole,['class' => 'select2 ' . $errors->first('roles','is-invalid') , 'multiple', 'data-placeholder' => __('Select a Role'), 'style' => 'width: 100%;']) !!}
-                            {!! $errors->first('roles','<div class="invalid-feedback">:message</div>') !!}
+                        <div class="row">
+                            <div class="col-6">
+                                <label>{{ __('Role') }}</label>
+                                <ul class="list-group list-group-flush">
+                                    @foreach ($roles as $role)
+                                        <li class="list-group-item">{{ $role }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <label>{{ __('Customers') }}</label>
+                                <ul class="list-group list-group-flush">
+                                    @foreach ($clients as $client)
+                                        <li class="list-group-item">{{ $client }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">

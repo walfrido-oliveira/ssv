@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Client\Client;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -50,8 +51,9 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+        $clients = Client::pluck('nome_fantasia', 'id')->all();
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.create', compact('roles', 'clients'));
     }
 
     /**
@@ -71,6 +73,7 @@ class UserController extends Controller
         $user = $this->user->create($data);
 
         $user->syncRoles($data['roles']);
+        $user->clients()->sync($data['clients']);
 
         if (!is_null($request->profile_image))
         {
@@ -111,10 +114,12 @@ class UserController extends Controller
         $user = $this->user->where('slug', $slug)->first();
 
         $roles = Role::pluck('name', 'name')->all();
+        $clients = Client::pluck('nome_fantasia', 'id')->all();
 
         $userRole = $user->roles->pluck('name', 'name')->all();
+        $userClient = $user->clients->pluck('id')->all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
+        return view('admin.users.edit', compact('user', 'roles', 'clients', 'userRole', 'userClient'));
     }
 
     /**
@@ -126,7 +131,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only(['roles', 'profile_image']);
+        $data = $request->only(['roles', 'clients', 'profile_image']);
 
         $user = $this->user->find($id);
 
@@ -135,6 +140,8 @@ class UserController extends Controller
         $user->update($data);
 
         $user->syncRoles($data['roles']);
+        $user->clients()->sync([]);
+        $user->clients()->sync($data['clients']);
 
         if (!is_null($request->profile_image))
         {

@@ -40,7 +40,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ __('Budget') }}</b>
-                                    <a class="float-right" href="{{ route('admin.budgets.show', ['budget' => $order->budget->id]) }}">{{ '#' . $order->budget->id }}</a>
+                                    <a class="float-right" href="{{ route('admin.budgets.show', ['budget' => $order->budget->id]) }}">{{ '#' . $order->budget->formattedId }}</a>
                                 </li>
                             </ul>
                         </div>

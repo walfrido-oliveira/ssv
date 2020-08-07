@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Client\Client;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
@@ -21,12 +22,14 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $roles = Role::pluck('name', 'name')->all();
+        $clients = Client::pluck('nome_fantasia', 'id')->all();
 
         $userRole = $user->roles->pluck('name', 'name')->all();
+        $userClient = $user->clients->pluck('nome_fantasia')->all();
 
         if (!is_null($user))
         {
-            return view('admin.show-profile', compact('user', 'roles', 'userRole'));
+            return view('admin.show-profile', compact('user', 'roles', 'clients', 'userRole', 'userClient'));
         } else {
             abort(404);
         }
