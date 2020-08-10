@@ -8,6 +8,7 @@ use Spatie\Sluggable\HasSlug;
 use App\Notifications\Welcome;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -125,5 +126,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $this->notify(new Welcome($this, $url));
 
-      }
+    }
+
+    public function getRoles() {
+        $roles = Role::pluck('name', 'name')->all();
+        $rolesTemp;
+        foreach ($roles as $key => $role) {
+            $rolesTemp[$key] = __($role);
+        }
+        return $rolesTemp;
+    }
+
+    public function getRolesFormrtted() {
+        $roles = $this->roles->pluck('name', 'name')->all();
+        $rolesTemp;
+        foreach ($roles as $key => $role) {
+            $rolesTemp[$key] = __($role);
+        }
+        return implode(', ', $rolesTemp);
+    }
 }
