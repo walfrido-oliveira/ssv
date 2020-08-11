@@ -245,4 +245,9 @@ return [
         'URL' => 'https://www.receitaws.com.br/v1/cnpj/'
     ],
 
+    'mercadopago' => [
+        'PUBLIC_KEY' => 'TEST-a2d4da40-386f-47dc-9f2e-04bbdbee0402',
+        'ACCESS_TOKEN' => 'TEST-4754397150351952-081113-d4d3ee211bffe85b41997e1d25b325fb-92135179'
+    ]
+
 ];
