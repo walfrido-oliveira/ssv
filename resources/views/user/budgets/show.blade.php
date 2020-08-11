@@ -15,7 +15,7 @@
                         <div class="card-body box-profile">
                             <h2 class="profile-username text-center">#{{ $budget->id }}</h2>
                             <h3 class="profile-username text-center">{{ $budget->client->nome_fantasia }}</h3>
-                            <p class="text-muted text-center">{{ alternative_money($budget->amount) }}</p>
+                            <p class="text-muted text-center">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>{{ __('Created at') }}</b>
