@@ -2,6 +2,9 @@
 
 namespace App\Models\Billing;
 
+use App\Models\User;
+use App\Models\Budget\Budget;
+use App\Models\Client\Client;
 use Illuminate\Database\Eloquent\Model;
 
 class Billing extends Model
@@ -32,5 +35,42 @@ class Billing extends Model
     public function getFormattedIdAttribute()
     {
         return sprintf("%05d", $this->id);
+    }
+
+    /**
+     * return a single Client
+     *
+     * @return Client
+     */
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * return a single Budget
+     *
+     * @return Budget
+     */
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
+    }
+
+    /**
+     * Check if client user has acess to budget
+     *
+     * @param  int  $id
+     *
+     * @return boolean
+     */
+    public function checkClient($id)
+    {
+        $clients = User::getClientsId();
+
+        $billings = $this->whereIn('client_id', $clients)->where('id', $id)->first();
+
+        return !is_null($billings);
+
     }
 }
