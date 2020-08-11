@@ -89,6 +89,12 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get('/{billing}', 'BillingController@show')->name('show');
         });
 
+        Route::prefix('checkout')->name('checkout.')->group(function(){
+            Route::get('/', 'CheckoutController@index')->name('index');
+            Route::post('/proccess', 'CheckoutController@proccess')->name('proccess');
+            Route::get('/thanks', 'CheckoutController@thanks')->name('thanks');
+        });
+
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('/', 'ProfileController@show')->name('show');
             Route::put('/', 'ProfileController@update')->name('update');
