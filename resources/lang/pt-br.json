@@ -253,6 +253,9 @@
     "Technician":"Técnico",
     "Billings":"Faturas",
     "Billing Date":"Data da Fatura",
-    "Due Date":"Vencimento"
+    "Due Date":"Vencimento",
+    "Details Billing":"Detalhes da Fatura",
+    "Pending":"Pendente",
+    "Pay":"Realizar Pagamento"
 
 }
