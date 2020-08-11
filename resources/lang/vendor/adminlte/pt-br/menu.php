@@ -38,9 +38,11 @@ return [
     "payment_methods_list"          => "Lista",
     "transport_methods"             => "Formas de Transporte",
     "transport_methods_list"        => "Lista",
-    "service_order"                 => "Ordem de Serviços",
+    "service_orders"                 => "Ordem de Serviços",
     "users"                         => "Usuários",
     "user_list"                     => "Lista de Usuários",
     "service-types"                 => "Tipos de Serviço",
-    "service_type_list"             => "Lista de Tipo de Serviços"
+    "service_type_list"             => "Lista de Tipo de Serviços",
+    "billings"                      => "Faturas",
+    "billing_list"                  => 'Lista de Faturamentos'
 ];

@@ -435,7 +435,19 @@ return [
             ]
         ],
         [
-            'text' => 'service_order',
+            'text' => 'billings',
+            'icon' => 'fas fa-fw fa-file-invoice-dollar',
+            'can'  => 'billing-list',
+            'submenu' => [
+                [
+                    'text' => 'billing_list',
+                    'route' => 'billings.index',
+                    'icon' => 'fas fa-fw fa-list'
+                ]
+            ]
+        ],
+        [
+            'text' => 'service_orders',
             'icon' => 'fas fa-fw fa-toolbox',
             'can' => 'os-list',
             'submenu' => [
