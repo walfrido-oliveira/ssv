@@ -38,4 +38,19 @@ class BillingController extends Controller
 
         return view('user.billings.index', compact('billings'));
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        if (!$this->billing->checkClient($id)) abort(404);
+
+        $billing = $this->billing->find($id);
+
+        return view('user.billings.show', compact('billing'));
+    }
 }
