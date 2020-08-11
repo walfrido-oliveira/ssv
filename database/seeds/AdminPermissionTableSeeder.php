@@ -73,6 +73,10 @@ class AdminPermissionTableSeeder extends Seeder
             'order-create',
             'order-edit',
             'order-delete',
+            'billing-list',
+            'billing-create',
+            'billing-edit',
+            'billing-delete',
         ];
 
         foreach ($permissions as $permission) {
