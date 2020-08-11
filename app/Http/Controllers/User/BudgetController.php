@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,7 @@ class BudgetController extends Controller
 	{
         $this->budget = $budget;
 
-        $this->middleware('permission:budget-list|budget-create|budget-edit|budget-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:budget-list', ['only' => ['index']]);
     }
 
     /**
@@ -32,7 +33,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $clients = $this->getClientsId();
+        $clients = User::getClientsId();
         $budgets = $this->budget->whereIn('client_id', $clients)->paginate(10);
 
         return view('user.budgets.index', compact('budgets'));
@@ -138,16 +139,6 @@ class BudgetController extends Controller
     }
 
     /**
-     * Get all ids client for user
-     *
-     * @return array
-     */
-    private function getClientsId()
-    {
-        return auth()->user()->clients()->pluck('client_user.client_id');
-    }
-
-    /**
      * Check if client user has acess to budget
      *
      * @param  int  $id
@@ -156,7 +147,7 @@ class BudgetController extends Controller
      */
     private function checkClient($id)
     {
-        $clients = $this->getClientsId();
+        $clients = User::getClientsId();
 
         $budgets = $this->budget->whereIn('client_id', $clients)->where('id', $id)->first();
 

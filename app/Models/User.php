@@ -91,6 +91,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get all ids client for current user
+     *
+     * @return array
+     */
+    public static function getClientsId()
+    {
+        return auth()->user()->clients()->pluck('client_user.client_id');
+    }
+
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions() : SlugOptions
