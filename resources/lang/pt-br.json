@@ -256,6 +256,15 @@
     "Due Date":"Vencimento",
     "Details Billing":"Detalhes da Fatura",
     "Pending":"Pendente",
-    "Pay":"Realizar Pagamento"
+    "Pay":"Realizar Pagamento",
+    "Payment":"Pagamento",
+    "Card Number":"Número do cartão",
+    "Card Holder Name":"Nome e sobrenome",
+    "Card Expiration Month":"Mês de vencimento",
+    "Card Expiration Year":"Ano de vencimento",
+    "Security Code":"Código de segurança",
+    "Installments":"Parcelas",
+    "Doc Type":"Tipo de documento",
+    "Doc Number":"Número do documento"
 
 }
