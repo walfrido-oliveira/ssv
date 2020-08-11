@@ -52,15 +52,10 @@
                                         </span>
                                     </td>
                                     <td width="15%">
-                                        @if($billing->status == "created")
+                                        @if($billing->status == "pending")
                                             <div class="btn-group">
-                                                <a href="#" class="btn btn-success btn-sm approve" data-toggle="modal" data-target="#approve-modal" data-id={{ $billing->id }}>
-                                                    <i class="fas fa-check"></i> {{ __('approve') }}</i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a href="#" class="btn btn-danger btn-sm disapprove" data-toggle="modal" data-target="#disapprove-modal" data-id={{ $billing->id }}>
-                                                    <i class="fas fa-ban"></i> {{ __('disapprove') }}</i>
+                                                <a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" class="btn btn-secondary btn-sm">
+                                                    <i class="fas fa-book"></i> {{ __('details') }}</i>
                                                 </a>
                                             </div>
                                         @endif
