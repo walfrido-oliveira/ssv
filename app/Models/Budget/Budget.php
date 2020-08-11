@@ -2,6 +2,7 @@
 
 namespace App\Models\Budget;
 
+use App\Models\User;
 use App\Models\Client\Client;
 use App\Models\Product\Product;
 use App\Models\Service\Service;
@@ -196,6 +197,23 @@ class Budget extends Model
     public function sendApprovedBudget()
     {
         $this->notify(new ApprovedBudget($this));
+    }
+
+    /**
+     * Check if client user has acess to budget
+     *
+     * @param  int  $id
+     *
+     * @return boolean
+     */
+    public function checkClient($id)
+    {
+        $clients = User::getClientsId();
+
+        $budgets = $this->whereIn('client_id', $clients)->where('id', $id)->first();
+
+        return !is_null($budgets);
+
     }
 
 }
