@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function() {
         });
 
         Route::prefix('checkout')->name('checkout.')->group(function(){
-            Route::get('/', 'CheckoutController@index')->name('index');
+            Route::get('/{billing}', 'CheckoutController@show')->name('show');
             Route::post('/proccess', 'CheckoutController@proccess')->name('proccess');
             Route::get('/thanks', 'CheckoutController@thanks')->name('thanks');
         });
