@@ -55,7 +55,7 @@
                     <div class="col-12 pl-0 pr-0">
                         <a href="{{ route('user.billings.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
                         @if($billing->status == "pending")
-                            <a href="{{ route('user.checkout.index')}}" class="btn btn-success">{{ __('Pay') }}</a>
+                            <a href="{{ route('user.checkout.show', ['billing' => $billing->id])}}" class="btn btn-success">{{ __('Pay') }}</a>
                         @endif
                     </div>
                 </div>
