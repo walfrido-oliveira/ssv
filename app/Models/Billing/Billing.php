@@ -25,4 +25,12 @@ class Billing extends Model
         'due_date' => 'datetime',
         'created_at' => 'datetime',
     ];
+
+    /**
+     * Get formatted id
+     */
+    public function getFormattedIdAttribute()
+    {
+        return sprintf("%05d", $this->id);
+    }
 }
