@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach($budgets as $budget)
                                 <tr>
-                                    <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->id }}</a></td>
+                                    <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->formattedId }}</a></td>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->client->razao_social }}</a></td>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">
