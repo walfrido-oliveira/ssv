@@ -74,6 +74,11 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::resource('users', 'UserController');
 
+        Route::prefix('billings')->name('billings.')->group(function(){
+            Route::get('/', 'BillingController@index')->name('index');
+            Route::get('/{billing}', 'BillingController@show')->name('show');
+        });
+
     });
 
     Route::prefix('user')->name('user.')->namespace('User')->middleware(['check_user_type:User'])->group(function(){
