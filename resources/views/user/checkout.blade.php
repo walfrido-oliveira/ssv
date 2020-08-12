@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="transaction_amount">{{ __('Amount') }}</label>
-                                    {!! Form::text('transaction_amount', alternative_money($billing->budget->amount, '$', 2, ',', '.'),
+                                    {!! Form::text('transaction_amount', alternative_money($billing->amount, '$', 2, ',', '.'),
                                     ['class' => 'form-control ',
                                     'id' => 'transaction_amount', 'placeholder' => __("Amount"), 'readonly']) !!}
                                     <div class="invalid-feedback d-block" id="invalid-transaction_amount"></div>
@@ -90,6 +90,8 @@
                                 <div class="form-group">
                                     <div class="invalid-feedback d-block" id="invalid-card-token"></div>
                                 </div>
+                                {!! Form::hidden('docType', $docType, ['id' => 'docType', 'data-checkout' => 'docType']) !!}
+                                {!! Form::hidden('docNumber', $docNumber, ['id' => 'docNumber', 'data-checkout' => 'docNumber']) !!}
                                 {!! Form::hidden('payment_method_id', null, ['id' => 'payment_method_id']) !!}
                                 {!! Form::hidden('billing_id', $billing->id, ['id' => 'billing_id']) !!}
                             </div>
@@ -176,7 +178,9 @@
         };
 
         function sdkResponseHandler(status, response) {
+            console.log(response);
             if (status != 200 && status != 201) {
+                console.log(response.cause);
                 setCodeErrorResponse(response.cause);
             }else{
                 var form = document.querySelector('#pay');
