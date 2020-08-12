@@ -265,6 +265,9 @@
     "Security Code":"Código de segurança",
     "Installments":"Parcelas",
     "Doc Type":"Tipo de documento",
-    "Doc Number":"Número do documento"
+    "Doc Number":"Número do documento",
+    "Invalid user identification number":"Documento de identificação inválido",
+    "Paid at":"Pagamento",
+    "Paid":"Pago"
 
 }
