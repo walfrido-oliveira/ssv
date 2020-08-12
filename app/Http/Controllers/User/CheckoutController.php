@@ -50,27 +50,41 @@ class CheckoutController extends Controller
 
         $data = $request->all();
 
+        $billing = Billing::find($data['billing_id']);
+
         $amount = str_replace('R$ ', '', $data['transaction_amount'], );
         $amount = str_replace('.', '', $amount);
         $amount = str_replace(',', '.', $amount);
 
         $payment = new Payment();
-        $payment->transaction_amount = (float)$amount;
-        $payment->token = $data['token'];
-        $payment->description = $data['description'];
-        $payment->installments = $data['installments'];
-        $payment->payment_method_id = $data['payment_method_id'];
-        $payment->payer = array(
-        "email" => $data['email']
-        );
 
-        $payment->save();
+        $payment->token = $data['token'];
+        $payment->installments = $data['installments'];
+        $payment->transaction_amount = (float)$amount;
+        $payment->description = $data['description'];
+        $payment->payment_method_id = $data['payment_method_id'];
+        $payment->payer =
+        [
+            'email' => $billing->budget->clientContact->email,
+            'identification' => [
+                'number' => $billing->client->client_id,
+                'type' => strlen($billing->client->client_id) > 11 ? 'CNPJ' : 'CPF'
+            ]
+        ];
+
+        //$payment->notification_url = route('notifications');
+
+        $response = $payment->save();
+
+        if (!$response) {
+            dd($payment->error);
+        }
 
         $response = $this->setResponse($payment);
 
         flash($response['status'], $response['message']);
 
-        return redirect()->route('user.billings.show', ['billing' => 1]);
+        return redirect()->route('user.billings.show', ['billing' => $billing->id]);
     }
 
     /**
