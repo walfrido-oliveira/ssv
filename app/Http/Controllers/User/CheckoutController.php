@@ -95,6 +95,6 @@ class CheckoutController extends Controller
      */
     private function setAcess()
     {
-        SDK::setAccessToken(config('app.mercadopago.ACCESS_TOKEN'));
+        SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
     }
 }

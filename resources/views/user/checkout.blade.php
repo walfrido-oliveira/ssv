@@ -125,7 +125,7 @@
     <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
 
     <script>
-        window.Mercadopago.setPublishableKey("{!! config('app.mercadopago.PUBLIC_KEY') !!}");
+        window.Mercadopago.setPublishableKey("{!! env('MERCADOPAGO_PUBLIC_KEY') !!}");
 
         document.getElementById('cardNumber').addEventListener('keyup', guessPaymentMethod);
         document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);

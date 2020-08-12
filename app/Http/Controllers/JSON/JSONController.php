@@ -28,12 +28,12 @@ class JSONController extends Controller
      */
     public function getAdressInformations(Request $request)
     {
-        $url = config('app.webmaniabr.URL') .
+        $url = env('WEBMANIABR_URL') .
         $request->cep.
                "/?app_key=".
-               config('app.webmaniabr.APP_KEY').
+               env('WEBMANIABR_APP_KEY').
                "&app_secret=".
-               config('app.webmaniabr.APP_SECRET');
+               env('WEBMANIABR_APP_SECRET');
 
         $json = file_get_contents($url);
 
@@ -50,7 +50,7 @@ class JSONController extends Controller
      */
     public function getCustomerInformations(Request $request)
     {
-        $url = config('app.receitaws.URL') . $request->cnpj;
+        $url = env('RECEITAWS_APP_URL') . $request->cnpj;
 
         $json = file_get_contents($url);
 
