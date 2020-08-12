@@ -15,7 +15,7 @@
                         <div class="card-body box-profile">
                             <h2 class="profile-username text-center">#{{ $billing->id }}</h2>
                             <h3 class="profile-username text-center">{{ $billing->client->nome_fantasia }}</h3>
-                            <p class="text-muted text-center">{{ alternative_money($billing->amount) }}</p>
+                            <p class="text-muted text-center">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>{{ __('Created at') }}</b>
@@ -45,8 +45,16 @@
                                 </li>
                                 @if($billing->status == 'paid')
                                     <li class="list-group-item">
-                                        <b>{{ __('Approved at') }}</b>
-                                        <a class="float-right">{{ !is_null($billing->approved_at) ? $billing->approved_at->format('d/m/Y') : '' }}</a>
+                                        <b>{{ __('Paid at') }}</b>
+                                        @foreach ($billing->transactionPayments as $payment)
+                                            @if ($payment->payment->status == 'approved' &&
+                                                 $payment->payment->status_detail == 'accredited')
+                                                 @php
+                                                     $date_approved = strtotime($payment->payment->date_approved);
+                                                 @endphp
+                                                <a class="float-right">{{  date('d/m/Y', $date_approved) }}</a>
+                                            @endif
+                                        @endforeach
                                     </li>
                                 @endif
                             </ul>
