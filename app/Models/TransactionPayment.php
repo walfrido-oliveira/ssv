@@ -24,6 +24,6 @@ class TransactionPayment extends Model
     {
         SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
         $payment = new Payment();
-        return $payment->get(28849682);
+        return $payment->get($this->payment_id);
     }
 }
