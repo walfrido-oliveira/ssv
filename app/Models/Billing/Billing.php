@@ -5,6 +5,7 @@ namespace App\Models\Billing;
 use App\Models\User;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
+use App\Models\TransactionPayment;
 use Illuminate\Database\Eloquent\Model;
 
 class Billing extends Model
@@ -45,6 +46,16 @@ class Billing extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * return a single TransactionPayment
+     *
+     * @return TransactionPayment
+     */
+    public function transactionPayments()
+    {
+        return $this->hasMany(TransactionPayment::class);
     }
 
     /**

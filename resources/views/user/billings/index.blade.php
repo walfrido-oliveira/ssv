@@ -52,13 +52,11 @@
                                         </span>
                                     </td>
                                     <td width="15%">
-                                        @if($billing->status == "pending")
-                                            <div class="btn-group">
-                                                <a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" class="btn btn-secondary btn-sm">
-                                                    <i class="fas fa-book"></i> {{ __('details') }}</i>
-                                                </a>
-                                            </div>
-                                        @endif
+                                        <div class="btn-group">
+                                            <a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-book"></i> {{ __('details') }}</i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

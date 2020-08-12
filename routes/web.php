@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => false]);
 
+Route::post('/notifications', 'NotificationsController@paymentNotification')->name('notifications');
 
 Route::group(['middleware' => ['auth']], function() {
 
