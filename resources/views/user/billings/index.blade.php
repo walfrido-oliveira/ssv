@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ __('Budgets') }}</h1>
+    <h1 class="m-0 text-dark">{{ __('Billings') }}</h1>
 @stop
 
 @section('content')
@@ -26,39 +26,36 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('Customer') }}</th>
+                                <th>{{ __('Billing Date') }}</th>
+                                <th>{{ __('Due Date') }}</th>
                                 <th>{{ __('Amount') }}</th>
-                                <th>Status</th>
+                                <th>{{ __('Status') }}</th>
                                 <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($budgets as $budget)
+                            @foreach($billings as $billing)
                                 <tr>
-                                    <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->formattedId }}</a></td>
-                                    <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->client->razao_social }}</a></td>
-                                    <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
+                                    <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ $billing->formattedId }}</a></td>
+                                    <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->created_at, 'd/m/Y') }}</a></td>
+                                    <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->due_date, 'd/m/Y') }}</a></td>
+                                    <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
-                                            @if($budget->status == "created")
-                                                {{ __('Created') }}
-                                            @elseif($budget->status == 'approved')
-                                                {{ __('Approved') }}
+                                        <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
+                                            @if($billing->status == "pending")
+                                                {{ __('Pending') }}
+                                            @elseif($billing->status == 'paid')
+                                                {{ __('Paid') }}
                                             @else
-                                                {{ __('Disapproved') }}
+                                                {{ __('Overdue') }}
                                             @endif
                                         </span>
                                     </td>
                                     <td width="15%">
-                                        @if($budget->status == "created")
+                                        @if($billing->status == "pending")
                                             <div class="btn-group">
-                                                <a href="#" class="btn btn-success btn-sm approve" data-toggle="modal" data-target="#approve-modal" data-id={{ $budget->id }}>
-                                                    <i class="fas fa-check"></i> {{ __('approve') }}</i>
-                                                </a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a href="#" class="btn btn-danger btn-sm disapprove" data-toggle="modal" data-target="#disapprove-modal" data-id={{ $budget->id }}>
-                                                    <i class="fas fa-ban"></i> {{ __('disapprove') }}</i>
+                                                <a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" class="btn btn-secondary btn-sm">
+                                                    <i class="fas fa-book"></i> {{ __('details') }}</i>
                                                 </a>
                                             </div>
                                         @endif
@@ -67,7 +64,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $budgets->links() }}
+                    {{ $billings->links() }}
                 </div>
             </div>
         </div>
@@ -80,9 +77,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">{{ __('Do you really want to approve this budget?') }}</div>
+                <div class="modal-body">{{ __('Do you really want to approve this billing?') }}</div>
                 <div class="modal-footer">
-                    <form action="{{route('user.budgets.approve', ['budget' => '#'])}}" method="post" id="approve-modal-form">
+                    <form action="" method="post" id="approve-modal-form">
                         @csrf
                         @method("PUT")
                         <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
@@ -100,9 +97,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">{{ __('Do you really want to disapprove this budget?') }}</div>
+                <div class="modal-body">{{ __('Do you really want to disapprove this billing?') }}</div>
                 <div class="modal-footer">
-                    <form action="{{route('user.budgets.disapprove', ['budget' => '#'])}}" method="post" id="disapprove-modal-form">
+                    <form action="" method="post" id="disapprove-modal-form">
                         @csrf
                         @method("PUT")
                         <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
@@ -116,7 +113,6 @@
 @stop
 
 @section('js')
-    <script src="{{ mix('js/budget-user.js') }}"></script>
 @stop
 
 

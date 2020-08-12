@@ -234,15 +234,4 @@ return [
 
     ],
 
-    'webmaniabr' => [
-        'APP_KEY' => 'WCDKcdgMxB805tLJ2atHvIHcUIRViz9h',
-        'APP_SECRET' => 'k6QNlftoMdHdBjy8hgvri47kqUvgBMXU7nrxLIT3DUfFzQDV',
-        'URL' => 'https://webmaniabr.com/api/1/cep/',
-    ],
-
-    'receitaws' => [
-        'APP_KEY' => '',
-        'URL' => 'https://www.receitaws.com.br/v1/cnpj/'
-    ],
-
 ];

@@ -247,6 +247,24 @@
     "A technician will  take care of your process.":"Um técnico se encarregará do seu processo.",
     "Info":"Informações",
     "Service Type":"Tipo",
-    "Select a Customer":"Selecione os clientes"
+    "Select a Customer":"Selecione os clientes",
+    "Order updated successfully!":"Ordem de Serviço atualizada com sucesso!",
+    "Admin":"Administrador",
+    "Technician":"Técnico",
+    "Billings":"Faturas",
+    "Billing Date":"Data da Fatura",
+    "Due Date":"Vencimento",
+    "Details Billing":"Detalhes da Fatura",
+    "Pending":"Pendente",
+    "Pay":"Realizar Pagamento",
+    "Payment":"Pagamento",
+    "Card Number":"Número do cartão",
+    "Card Holder Name":"Nome e sobrenome",
+    "Card Expiration Month":"Mês de vencimento",
+    "Card Expiration Year":"Ano de vencimento",
+    "Security Code":"Código de segurança",
+    "Installments":"Parcelas",
+    "Doc Type":"Tipo de documento",
+    "Doc Number":"Número do documento"
 
 }

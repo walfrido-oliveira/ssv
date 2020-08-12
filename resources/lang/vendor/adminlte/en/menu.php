@@ -38,9 +38,11 @@ return [
     "payment_methods_list"          => "Payment Methods List",
     "transport_methods"             => "Transport Methods",
     "transport_methods_list"        => "Transport Methods List",
-    "service_order"                 => "Service Order",
+    "service_ordera"                 => "Service Order",
     "users"                         => 'Users',
     "user_list"                     => "User List",
     "service-types"                 => "Service Types",
-    "service_type_list"             => "Service Types List"
+    "service_type_list"             => "Service Types List",
+    "billings"                      => "Billings",
+    "billing_list"                  => 'Billing List'
 ];

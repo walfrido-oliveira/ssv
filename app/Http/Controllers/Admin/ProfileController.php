@@ -43,7 +43,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        $data = $request->only(['roles', 'profile_image']);
+        $data = $request->only(['profile_image']);
 
         $user = auth()->user();
 

@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = $this->user->getRoles();
         $clients = Client::pluck('nome_fantasia', 'id')->all();
 
         return view('admin.users.create', compact('roles', 'clients'));
@@ -113,7 +113,7 @@ class UserController extends Controller
     {
         $user = $this->user->where('slug', $slug)->first();
 
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = $this->user->getRoles();
         $clients = Client::pluck('nome_fantasia', 'id')->all();
 
         $userRole = $user->roles->pluck('name', 'name')->all();
@@ -140,8 +140,13 @@ class UserController extends Controller
         $user->update($data);
 
         $user->syncRoles($data['roles']);
+
         $user->clients()->sync([]);
-        $user->clients()->sync($data['clients']);
+
+        if (isset($data['clients']))
+        {
+            $user->clients()->sync($data['clients']);
+        }
 
         if (!is_null($request->profile_image))
         {
