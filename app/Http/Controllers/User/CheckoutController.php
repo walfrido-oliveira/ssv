@@ -6,6 +6,7 @@ use MercadoPago\SDK;
 use MercadoPago\Payment;
 use Illuminate\Http\Request;
 use App\Models\Billing\Billing;
+use App\Models\TransactionPayment;
 use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
@@ -23,6 +24,11 @@ class CheckoutController extends Controller
 
         $billing = Billing::find($id);
 
+        if($billing->status == 'paid') return redirect()->route('user.billings.show', ['billing' => $billing->id]);
+
+        $docType = strlen($billing->client->client_id) > 11 ? 'CNPJ' : 'CPF';
+        $docNumber = $billing->client->client_id;
+
         $this->setAcess();
 
         $docTypesTemp = SDK::get('/v1/identification_types');
@@ -35,7 +41,7 @@ class CheckoutController extends Controller
             }
         }
 
-        return view('user.checkout', compact('billing', 'docTypes'));
+        return view('user.checkout', compact('billing', 'docTypes', 'docType', 'docNumber'));
     }
 
     /**
@@ -77,7 +83,15 @@ class CheckoutController extends Controller
         $response = $payment->save();
 
         if (!$response) {
-            dd($payment->error);
+            flash('error', __($payment->error->message));
+            return redirect()->route('user.checkout.show', ['billing' => $billing->id]);
+        } else {
+            TransactionPayment::create([
+                'billing_id' => $billing->id,
+                'payment_id' => $payment->id
+            ]);
+            $billing->status = 'paid';
+            $billing->save();
         }
 
         $response = $this->setResponse($payment);
