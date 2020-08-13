@@ -2,31 +2,31 @@
 
 namespace App\Notifications;
 
-use App\Models\Budget\Budget;
 use Illuminate\Bus\Queueable;
+use App\Models\Billing\Billing;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ApprovedBudget extends Notification implements ShouldQueue
+class ApprovedPayment extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-	 * @var Budget
+	 * @var Billing
 	 */
-    private $budget;
+    private $billing;
 
     /**
      * Create a new notification instance.
      *
-     * @param Budget $budget
+     * @param Billing $billing
      *
      * @return void
      */
-    public function __construct(Budget $budget)
+    public function __construct(Billing $billing)
     {
-        $this->budget = $budget;
+        $this->billing = $billing;
     }
 
     /**
@@ -48,12 +48,12 @@ class ApprovedBudget extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url(route('admin.budgets.show', ['budget' => $this->budget->id]) );
+        $url = url(route('user.billings.show', ['billing' => $this->billing->id]) );
 
         return (new MailMessage)
-                    ->subject(__('Approved Budget Notification') . ' - #' . $this->budget->formattedId . ' - ' . config('app.name'))
-                    ->line(__('Attention the budget of number #:number has been approved.', ['number' => $this->budget->formattedId] ))
-                    ->line(__('Click in the button below and check the budget.'))
+                    ->subject(__('Payment Notification') . ' - #' . $this->billing->formattedId . ' - ' . config('app.name'))
+                    ->line(__('The billing of number #:number has been payment approved.', ['number' => $this->billing->formattedId] ))
+                    ->line(__('Click in the button below and check the billing.'))
                     ->action(__('Check'), $url);
     }
 

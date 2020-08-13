@@ -1,5 +1,7 @@
 <?php
 
+use MercadoPago\SDK;
+use MercadoPago\Payment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +14,36 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('boleto', function() {
+    SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
+
+    $payment = new Payment();
+    $payment->transaction_amount = 100;
+    $payment->description = "Título do produto";
+    $payment->payment_method_id = "bolbradesco";
+    $payment->payer = array(
+        "email" => "test@test.com",
+        "first_name" => "Test",
+        "last_name" => "User",
+        "identification" => array(
+            "type" => "CPF",
+            "number" => "19119119100"
+        ),
+        "address"=>  array(
+            "zip_code" => "06233200",
+            "street_name" => "Av. das Nações Unidas",
+            "street_number" => "3003",
+            "neighborhood" => "Bonfim",
+            "city" => "Osasco",
+            "federal_unit" => "SP"
+        )
+    );
+
+    $payment->save();
+
+    dd($payment);
+});
 
 Auth::routes(['verify' => false]);
 
@@ -73,6 +105,11 @@ Route::group(['middleware' => ['auth']], function() {
         });
 
         Route::resource('users', 'UserController');
+
+        Route::prefix('billings')->name('billings.')->group(function(){
+            Route::get('/', 'BillingController@index')->name('index');
+            Route::get('/{billing}', 'BillingController@show')->name('show');
+        });
 
     });
 

@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ __('Details Budget') }}</h1>
+    <h1 class="m-0 text-dark">{{ __('Details Billing') }}</h1>
 @stop
 
 @section('content')
@@ -13,70 +13,72 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <h2 class="profile-username text-center">#{{ $budget->formattedId }}</h2>
-                            <h3 class="profile-username text-center">{{ $budget->client->nome_fantasia }}</h3>
-                            <p class="text-muted text-center">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</p>
+                            <h2 class="profile-username text-center">#{{ $billing->id }}</h2>
+                            <h3 class="profile-username text-center">{{ $billing->client->nome_fantasia }}</h3>
+                            <p class="text-muted text-center">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>{{ __('Created at') }}</b>
-                                    <a class="float-right">{{ !is_null($budget->created_at) ? $budget->created_at->format('d/m/Y') : '' }}</a>
+                                    <a class="float-right">{{ !is_null($billing->created_at) ? $billing->created_at->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ __('Updated at') }}</b>
-                                    <a class="float-right">{{ !is_null($budget->updated_at) ? $budget->updated_at->format('d/m/Y') : '' }}</a>
+                                    <a class="float-right">{{ !is_null($billing->updated_at) ? $billing->updated_at->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>{{ __('Validity') }}</b>
-                                    <a class="float-right">{{ !is_null($budget->validity) ? $budget->validity->format('d/m/Y') : '' }}</a>
+                                    <b>{{ __('Due Date') }}</b>
+                                    <a class="float-right">{{ !is_null($billing->due_date) ? $billing->due_date->format('d/m/Y') : '' }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ __('Status') }}</b>
                                     <a class="float-right">
-                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
-                                            @if($budget->status == "created")
-                                                {{ __('Created') }}
-                                            @elseif($budget->status == 'approved')
-                                                {{ __('Approved') }}
+                                        <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
+                                            @if($billing->status == "pending")
+                                                {{ __('Pending') }}
+                                            @elseif($billing->status == 'paid')
+                                                {{ __('Paid') }}
                                             @else
-                                                {{ __('Disapproved') }}
+                                                {{ __('Overdue') }}
                                             @endif
                                         </span>
                                     </a>
                                 </li>
-                                @if($budget->status == 'approved')
+                                @if($billing->status == 'paid')
                                     <li class="list-group-item">
-                                        <b>{{ __('Approved at') }}</b>
-                                        <a class="float-right">{{ !is_null($budget->approved_at) ? $budget->approved_at->format('d/m/Y') : '' }}</a>
-                                    </li>
-                                @endif
-                                @if($budget->status == 'disapproved')
-                                    <li class="list-group-item">
-                                        <b>{{ __('Disapproved at') }}</b>
-                                        <a class="float-right">{{ !is_null($budget->disapproved_at) ? $budget->disapproved_at->format('d/m/Y') : '' }}</a>
+                                        <b>{{ __('Paid at') }}</b>
+                                        @foreach ($billing->transactionPayments as $payment)
+                                            @if ($payment->payment->status == 'approved' &&
+                                                 $payment->payment->status_detail == 'accredited')
+                                                 @php
+                                                     $date_approved = strtotime($payment->payment->date_approved);
+                                                 @endphp
+                                                <a class="float-right">{{  date('d/m/Y', $date_approved) }}</a>
+                                            @endif
+                                        @endforeach
                                     </li>
                                 @endif
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 pl-0">
-                        <a href="{{ route('admin.budgets.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
+                    <div class="col-12 pl-0 pr-0">
+                        <a href="{{ route('admin.billings.index')}}" class="btn btn-secondary">{{ __('Back') }}</a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#budget-info" data-toggle="tab">{{ __('Info') }}</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#billing-info" data-toggle="tab">{{ __('Info') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#services" data-toggle="tab">{{ __('Services') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#products" data-toggle="tab">{{ __('Products') }}</a></li>
                             </ul>
                         </div>
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="budget-info">
+                                <div class="active tab-pane" id="billing-info">
                                     <dl>
 
-                                        @php $contact = $budget->clientContact; @endphp
+                                        @php $contact = $billing->budget->clientContact; @endphp
 
                                         <dt>{{ __('Contact') }}</dt>
                                         <dd><a href="#" class="show-contact-info">{{ $contact->contact }}</a></dd>
@@ -99,19 +101,19 @@
                                         </dl>
 
                                         <dt>{{ __('Type') }}</dt>
-                                        <dd>{{ $budget->budgetType->name }}</dd>
+                                        <dd>{{ $billing->budget->budgetType->name }}</dd>
 
                                         <dt>{{ __('Payment Method') }}</dt>
-                                        <dd>{{ $budget->paymentMethod->name }}</dd>
+                                        <dd>{{ $billing->budget->paymentMethod->name }}</dd>
 
                                         <dt>{{ __('Transport Method') }}</dt>
-                                        <dd>{{ $budget->transportMethod->name }}</dd>
+                                        <dd>{{ $billing->budget->transportMethod->name }}</dd>
 
                                         <dt>{{ __('Description') }}</dt>
-                                        <dd>{{ $budget->description }}</dd>
+                                        <dd>{{ $billing->budget->description }}</dd>
                                     </dl>
                                 </div>
-                                <div class="tab-pane table-responsive" id="services">
+                                <div class="tab-pane" id="services">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
@@ -124,7 +126,7 @@
                                         </thead>
                                         <tbody>
                                             @php $index = 0; @endphp
-                                            @foreach ($budget->services as $service)
+                                            @foreach ($billing->budget->services as $service)
                                                 <tr>
                                                     <td>{{ $index+1 }}</td>
                                                     <td>{{ $service->name }}</td>
@@ -141,12 +143,12 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td>{{ alternative_money((float)$budget->serviceAmount, '$', 2, ',', '.') }}</td>
+                                                <td>{{ alternative_money((float)$billing->budget->serviceAmount, '$', 2, ',', '.') }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-                                <div class="tab-pane table-responsive" id="products">
+                                <div class="tab-pane" id="products">
                                     <table class="table table-hover table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
@@ -159,7 +161,7 @@
                                         </thead>
                                         <tbody>
                                             @php $index = 0; @endphp
-                                            @foreach ($budget->products as $product)
+                                            @foreach ($billing->budget->products as $product)
                                                 <tr>
                                                     <td>{{ $index+1 }}</td>
                                                     <td>{{ $product->name }}</td>
@@ -176,7 +178,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td>{{ alternative_money((float)$budget->productAmount, '$', 2, ',', '.') }}</td>
+                                                <td>{{ alternative_money((float)$billing->budget->productAmount, '$', 2, ',', '.') }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -188,6 +190,9 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('js')
 @stop
 
 

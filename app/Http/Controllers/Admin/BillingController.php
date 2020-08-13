@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,9 +34,9 @@ class BillingController extends Controller
     public function index()
     {
         $clients = User::getClientsId();
-        $billings = $this->billing->whereIn('client_id', $clients)->paginate(10);
+        $billings = $this->billing->paginate(10);
 
-        return view('user.billings.index', compact('billings'));
+        return view('admin.billings.index', compact('billings'));
     }
 
     /**
@@ -51,6 +51,6 @@ class BillingController extends Controller
 
         $billing = $this->billing->find($id);
 
-        return view('user.billings.show', compact('billing'));
+        return view('admin.billings.show', compact('billing'));
     }
 }
