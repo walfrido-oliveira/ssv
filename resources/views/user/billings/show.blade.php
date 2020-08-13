@@ -38,7 +38,7 @@
                                             @elseif($billing->status == 'paid')
                                                 {{ __('Paid') }}
                                             @else
-                                                {{ __('Overdue') }}
+                                                {{ __('In Process') }}
                                             @endif
                                         </span>
                                     </a>
