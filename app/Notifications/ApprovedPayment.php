@@ -48,7 +48,7 @@ class ApprovedPayment extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url(route('user.billing.show', ['billing' => $this->budget->id]) );
+        $url = url(route('user.billings.show', ['billing' => $this->billing->id]) );
 
         return (new MailMessage)
                     ->subject(__('Payment Notification') . ' - #' . $this->billing->formattedId . ' - ' . config('app.name'))
