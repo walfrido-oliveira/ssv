@@ -7,6 +7,7 @@ use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\TransactionPayment;
 use App\Notifications\ApprovedPayment;
+use App\Notifications\InProcessPayment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\DisapprovedPayment;
@@ -110,5 +111,10 @@ class Billing extends Model
     public function sendDisapprovedPayment()
     {
         $this->notify(new DisapprovedPayment($this));
+    }
+
+    public function sendInProcessdPayment()
+    {
+        $this->notify(new InProcessPayment($this));
     }
 }
