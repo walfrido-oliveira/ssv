@@ -6,10 +6,16 @@ use App\Models\User;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\TransactionPayment;
+use App\Notifications\ApprovedPayment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\DisapprovedPayment;
 
 class Billing extends Model
 {
+
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -83,5 +89,26 @@ class Billing extends Model
 
         return !is_null($billings);
 
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return [$this->budget->clientContact->email => $this->budget->clientContact->name];
+    }
+
+    public function sendApprovedPayment()
+    {
+        $this->notify(new ApprovedPayment($this));
+    }
+
+    public function sendDisapprovedPayment()
+    {
+        $this->notify(new DisapprovedPayment($this));
     }
 }
