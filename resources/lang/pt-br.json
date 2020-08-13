@@ -273,6 +273,7 @@
     "The billing of number #:number has been payment approved.":"A fatura de número #:number teve seu pagamento aprovado",
     "Click in the button below and check the billing.":"Click no botão a seguir e verifique sua fatura",
     "Payment Notification":"Notificação de Pagamento",
-    "The billing of number #:number has been payment disapproved":"A fatura de número #:number teve seu pagamento reprovado"
+    "The billing of number #:number has been payment disapproved":"A fatura de número #:number teve seu pagamento reprovado",
+    "There, your payment has been approved! In the summary, you will see the charge for the amount as :statement_descriptor. We are processing the payment.": "Pronto, seu pagamento foi aprovado! No resumo, você verá a cobrança do valor como :statement_descriptor. Estamos processando o pagamento."
 
 }
