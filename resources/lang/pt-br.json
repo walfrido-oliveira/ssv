@@ -290,6 +290,8 @@
     ":payment_method_id does not process payments on installments installments.":"O :payment_method_id não processa pagamentos em installments parcelas.",
     "You have reached the allowed retry limit.":"Você atingiu o limite de tentativas permitido.",
     "Choose another card or payment method.":"Escolha outro cartão ou outra forma de pagamento.",
-    ":payment_method_id does not process the payment.":":payment_method_id não processa o pagamento."
+    ":payment_method_id does not process the payment.":":payment_method_id não processa o pagamento.",
+    "The billing number #:number is with the payment in process.":"O faturamento de número #:numero está com o pagamento em processo.",
+    "In Process":"Em Processo"
 
 }
