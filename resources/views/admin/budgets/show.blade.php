@@ -135,6 +135,15 @@
                                                 @php $index++; @endphp
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>{{ __('Total') }}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{ alternative_money((float)$budget->serviceAmount, '$', 2, ',', '.') }}</td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                                 <div class="tab-pane table-responsive" id="products">
@@ -161,6 +170,15 @@
                                                 @php $index++; @endphp
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>{{ __('Total') }}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{ alternative_money((float)$budget->productAmount, '$', 2, ',', '.') }}</td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
