@@ -80,9 +80,7 @@ class CheckoutController extends Controller
 
         //$payment->notification_url = route('notifications');
 
-        $response = $payment->save();
-
-        if (!$response) {
+        if (!$payment->save()) {
             flash('error', __($payment->error->message));
             return redirect()->route('user.checkout.show', ['billing' => $billing->id]);
         } else {
@@ -91,12 +89,7 @@ class CheckoutController extends Controller
                 'payment_id' => $payment->id
             ]);
 
-            if ($payment->status == 'approved' && $payment->status_detail == 'accredited') {
-                $billing->status = 'paid';
-                $billing->save();
-                $billing->sendApprovedPayment();
-            }
-
+            $this->setPaymentNotification($payment, $billing);
         }
 
         $response = $this->setResponse($payment);
@@ -104,6 +97,29 @@ class CheckoutController extends Controller
         flash($response['status'], $response['message']);
 
         return redirect()->route('user.billings.show', ['billing' => $billing->id]);
+    }
+
+    /**
+     * Set payment notification to a user
+     *
+     * @param  Payment $payment
+     * @param  Billing $billing
+     */
+    private function setPaymentNotification($payment, $billing)
+    {
+        if ($payment->status == 'approved' && $payment->status_detail == 'accredited') {
+            $billing->status = 'paid';
+            $billing->save();
+            $billing->sendApprovedPayment();
+        } else if ($payment->status == 'in_process') {
+            $billing->status = 'in_process';
+            $billing->save();
+            $billing->sendInProcessdPayment();
+        } else if ($payment->status == 'rejected') {
+            $billing->status = 'pending';
+            $billing->save();
+            $billing->sendDisapprovedPayment();
+        }
     }
 
     /**
@@ -121,14 +137,14 @@ class CheckoutController extends Controller
         if ($payment->status == 'in_process' && $payment->status_detail == 'pending_contingency') {
             return
             [
-                "status" => "error",
+                "status" => "info",
                 "message" => __('Dont worry, less than 2 working days we will inform you by email if you have been credited. We are processing you you payment.')
             ];
         }
         if ($payment->status == 'in_process' && $payment->status_detail == 'pending_review_manual') {
             return
             [
-                "status" => "error",
+                "status" => "info",
                 "message" => __('Dont worry, less than 2 working days we will inform you by email if you have been credited or if we need mode information. We are processing you you payment.')
             ];
         }

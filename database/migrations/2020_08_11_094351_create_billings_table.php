@@ -23,7 +23,7 @@ class CreateBillingsTable extends Migration
             $table->timestamp('due_date');
             $table->timestamps();
             $table->decimal('amount', 10, 2);
-            $table->enum('status', ['pending', 'overdue', 'paid'])->default('pending');
+            $table->enum('status', ['pending', 'in_process', 'paid'])->default('pending');
 
             $table->foreign('budget_id')->references('id')->on('budgets');
             $table->foreign('client_id')->references('id')->on('clients');
