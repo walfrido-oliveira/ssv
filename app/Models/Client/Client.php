@@ -2,9 +2,10 @@
 
 namespace App\Models\Client;
 
+use App\Models\User;
+use App\Models\Budget\Budget;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\Budget\Budget;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client\Contact\ClientContact;
 
@@ -51,6 +52,14 @@ class Client extends Model
     public function contacts()
     {
         return $this->hasMany(ClientContact::class);
+    }
+
+    /**
+     * Get users
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     /**

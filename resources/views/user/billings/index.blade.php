@@ -39,7 +39,7 @@
                                 <tr>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ $billing->formattedId }}</a></td>
                                     <td>
-                                        <a class="text-limit" href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}" title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
+                                        <a class="text-limit" href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
                                     </td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->created_at, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->due_date, 'd/m/Y') }}</a></td>

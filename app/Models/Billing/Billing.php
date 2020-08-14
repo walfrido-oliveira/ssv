@@ -95,34 +95,47 @@ class Billing extends Model
     }
 
     /**
-     * Route notifications for the mail channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return array|string
+     * Send created billing  notification for all users
      */
-    public function routeNotificationForMail($notification)
+    public function sendCreatedBilling()
     {
-        return [$this->budget->clientContact->email => $this->budget->clientContact->name];
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendCreatedBilling($this);
+        }
     }
 
-    public function sendCreatBilling()
-    {
-        $this->notify(new CreateBilling($this));
-    }
-
+    /**
+     * Send approved payment notification for all users
+     */
     public function sendApprovedPayment()
     {
-        $this->notify(new ApprovedPayment($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendApprovedPayment($this);
+        }
     }
 
+    /**
+     * Send disaapproved payment  notification for all users
+     */
     public function sendDisapprovedPayment()
     {
-        $this->notify(new DisapprovedPayment($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendDisapprovedPayment($this);
+        }
     }
 
+    /**
+     * Send in process payment notification for all users
+     */
     public function sendInProcessdPayment()
     {
-        $this->notify(new InProcessPayment($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendInProcessdPayment($this);
+        }
     }
 
     /**

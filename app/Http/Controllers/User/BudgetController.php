@@ -89,7 +89,7 @@ class BudgetController extends Controller
                 'amount' => $budget->amount,
             ]);
 
-            $billing->sendCreatBilling();
+            $billing->sendCreatedBilling();
 
             flash('success', 'Budget approved successfully!');
         }

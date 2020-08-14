@@ -37,7 +37,7 @@
                                 <tr>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->formattedId }}</a></td>
                                     <td>
-                                        <a class="text-limit" href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}" title="{{ $budget->client->razao_social }}">{{ $budget->client->razao_social }}</a>
+                                        <a class="text-limit" href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}" title="{{ $budget->client->razao_social }}">{{ $budget->client->razao_social }}</a>
                                     </td>
                                     <td><a href="{{ route('user.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">

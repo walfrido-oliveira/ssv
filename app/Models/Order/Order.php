@@ -63,6 +63,8 @@ class Order extends Model
 
     /**
      * Get formatted id
+     *
+     * @return string
      */
     public function getFormattedIdAttribute()
     {
@@ -70,18 +72,13 @@ class Order extends Model
     }
 
     /**
-     * Route notifications for the mail channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return array|string
+     * Send created order notification for all users
      */
-    public function routeNotificationForMail($notification)
+    public function sendCreatedOrder()
     {
-        return [$this->budget->clientContact->email => $this->budget->clientContact->name];
-    }
-
-    public function sendCreateOrder()
-    {
-        $this->notify(new CreateOrder($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendCreatedOrder($this);
+        }
     }
 }
