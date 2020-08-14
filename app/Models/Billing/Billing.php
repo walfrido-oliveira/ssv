@@ -7,6 +7,7 @@ use MercadoPago\Payment;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\TransactionPayment;
+use App\Notifications\CreateBilling;
 use App\Notifications\ApprovedPayment;
 use App\Notifications\InProcessPayment;
 use Illuminate\Database\Eloquent\Model;
@@ -102,6 +103,11 @@ class Billing extends Model
     public function routeNotificationForMail($notification)
     {
         return [$this->budget->clientContact->email => $this->budget->clientContact->name];
+    }
+
+    public function sendCreatBilling()
+    {
+        $this->notify(new CreateBilling($this));
     }
 
     public function sendApprovedPayment()
