@@ -199,8 +199,8 @@
     "Do you really want to disapprove this budget?":"Você deseja realmente reprovar esse orçamento?",
     "approve":"aprovar",
     "disapprove":"reprovar",
-    "Attention the budget of number #:number has been disapproved.":"Atenção, o orçamento de numero #:number foi reprovado.",
-    "Attention the budget of number #:number has been approved.":"Atenção, o orçamento de numero #:number foi aprovado.",
+    "Attention the budget of number #:number has been disapproved.":"Atenção, o orçamento de número #:number foi reprovado.",
+    "Attention the budget of number #:number has been approved.":"Atenção, o orçamento de número #:number foi aprovado.",
     "Click in the button below and check the budget.":"Clique no botão abaixo e verifique o orçamento.",
     "Check":"Verificar",
     "Approved Budget Notification":"Notificação de aprovação de Orçamento",
@@ -291,7 +291,8 @@
     "You have reached the allowed retry limit.":"Você atingiu o limite de tentativas permitido.",
     "Choose another card or payment method.":"Escolha outro cartão ou outra forma de pagamento.",
     ":payment_method_id does not process the payment.":":payment_method_id não processa o pagamento.",
-    "The billing number #:number is with the payment in process.":"O faturamento de número #:numero está com o pagamento em processo.",
-    "In Process":"Em Processo"
+    "The billing number #:number is with the payment in process.":"O faturamento de número #:number está com o pagamento em processo.",
+    "In Process":"Em Processo",
+    "The billing of number #:number has been created in your user account.":"O faturamento de número #:number foi criado em sua conta de usuário."
 
 }
