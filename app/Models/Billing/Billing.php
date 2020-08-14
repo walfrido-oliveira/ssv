@@ -130,7 +130,7 @@ class Billing extends Model
      *
      * @param Payment $payment
      */
-    private function sendPaymentNotification($payment)
+    public function sendPaymentNotification($payment)
     {
         if ($payment->status == 'approved' && $payment->status_detail == 'accredited') {
             $this->status = 'paid';
@@ -152,7 +152,7 @@ class Billing extends Model
      *
      * @param Payment $payment
      */
-    private function getPaymentResponse($payment)
+    public function getPaymentResponse($payment)
     {
         if ($payment->status == 'approved' && $payment->status_detail == 'accredited') {
             return
