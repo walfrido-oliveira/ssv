@@ -163,9 +163,11 @@
                                                     <input type="hidden" name="services[{{ $index }}][total]" value="{{ $service['total'] }}">
                                                 </td>
                                                 <td width="15%">
-                                                    <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
+                                                    <div class="btn-group">
+                                                        <a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-{{ $index }}">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @php $index++; @endphp
@@ -223,9 +225,11 @@
                                                     <input type="hidden" name="products[{{ $index }}][total]" value="{{ $product['total'] }}">
                                                 </td>
                                                 <td width="15%">
-                                                    <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
+                                                    <div class="btn-group">
+                                                        <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @php $index++; @endphp

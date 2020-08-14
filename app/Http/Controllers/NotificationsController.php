@@ -18,7 +18,10 @@ class NotificationsController extends Controller
     {
         $data = $request->all();
 
-        PaymentNotification::create($data);
+        PaymentNotification::create([
+            'topic' => $data['topic'],
+            'payment_id' => $data['id']
+        ]);
 
         return response();
     }

@@ -174,29 +174,36 @@ class Budget extends Model
     }
 
     /**
-     * Route notifications for the mail channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return array|string
+     * Send created notification for all users
      */
-    public function routeNotificationForMail($notification)
+    public function sendCreatedBudget()
     {
-        return [$this->clientContact->email => $this->clientContact->name];
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendCreatedBudget($this);
+        }
     }
 
-    public function sendCreatdBudget()
-    {
-        $this->notify(new CreateBudget($this));
-    }
-
+    /**
+     * Send disapproved notification for all users
+     */
     public function sendDisapprovedBudget()
     {
-        $this->notify(new DisapprovedBudget($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendDisapprovedBudget($this);
+        }
     }
 
+    /**
+     * Send approved notification for all users
+     */
     public function sendApprovedBudget()
     {
-        $this->notify(new ApprovedBudget($this));
+        $users = $this->client->users;
+        foreach ($users as $key => $user) {
+            $user->sendApprovedBudget($this);
+        }
     }
 
     /**

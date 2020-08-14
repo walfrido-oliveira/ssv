@@ -26,6 +26,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>{{ __('Customer') }}</th>
                                 <th>{{ __('Billing Date') }}</th>
                                 <th>{{ __('Due Date') }}</th>
                                 <th>{{ __('Amount') }}</th>
@@ -37,6 +38,9 @@
                             @foreach($billings as $billing)
                                 <tr>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ $billing->formattedId }}</a></td>
+                                    <td>
+                                        <a class="text-limit" href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
+                                    </td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->created_at, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->due_date, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</a></td>
@@ -47,7 +51,7 @@
                                             @elseif($billing->status == 'paid')
                                                 {{ __('Paid') }}
                                             @else
-                                                {{ __('Overdue') }}
+                                                {{ __('In Process') }}
                                             @endif
                                         </span>
                                     </td>

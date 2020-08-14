@@ -15,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/payment/{payment}', function($id) {
+    SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
+    $payment = new Payment();
+    $payment = $payment->get($id);
+    dd($payment);
+});
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return redirect('/home');
+});
+
 Route::get('boleto', function() {
     SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
 

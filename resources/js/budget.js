@@ -148,9 +148,11 @@ $(document).ready(function() {
                   '<td>' + amount.val() + '<input type="hidden" name="services[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
                   '<td class="total-service-item">' + window.currencyFormatDE(amount.val() * data.price) + '<input type="hidden" name="services[' + (index-1) + '][total]" value="' + amount.val() * data.price + '" /></td>' +
                   '<td width="15%">' +
+                  '<div class="btn-group">' +
                   '<a href="#" class="btn btn-danger btn-sm btn-remove-service" data-toggle="modal" data-target="#delete-modal" data-row="row-service-' + (index-1) + '">' +
                   '<i class="fas fa-trash-alt"></i>' +
                   '</a>' +
+                  '</div>'
                   '</td>'
                   '</tr>';
 
@@ -186,9 +188,11 @@ $(document).ready(function() {
                   '<td>' + amount.val() + '<input type="hidden" name="products[' + (index-1) + '][amount]" value="' + amount.val() + '" /></td>' +
                   '<td class="total-product-item">' + window.currencyFormatDE(amount.val() * data.price) + '<input type="hidden" name="products[' + (index-1) + '][total]" value="' + amount.val() * data.price + '" /></td>' +
                   '<td width="15%">' +
+                  '<div class="btn-group">' +
                   '<a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-' + (index-1) + '">' +
                   '<i class="fas fa-trash-alt"></i>' +
                   '</a>' +
+                  '</div>'
                   '</tr>';
 
         tbody.append(row);

@@ -93,3 +93,11 @@ form.was-validated select:invalid ~ .select2-container--bootstrap4 .select2-sele
     white-space: -o-pre-wrap;
     word-wrap: break-word;
 }
+
+.text-limit {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+    display: block;
+}
