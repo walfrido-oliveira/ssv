@@ -89,7 +89,7 @@ class CheckoutController extends Controller
                 'payment_id' => $payment->id
             ]);
 
-            $billing->setPaymentNotification($payment, $billing);
+            $billing->sendPaymentNotification($payment, $billing);
         }
 
         $response = $billing->getPaymentResponse($payment);

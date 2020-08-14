@@ -120,11 +120,11 @@ class Billing extends Model
     }
 
     /**
-     * Set payment notification to a user
+     * Send payment notification to a user
      *
      * @param Payment $payment
      */
-    private function setPaymentNotification($payment)
+    private function sendPaymentNotification($payment)
     {
         if ($payment->status == 'approved' && $payment->status_detail == 'accredited') {
             $this->status = 'paid';
