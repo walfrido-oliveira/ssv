@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
+use App\Models\Billing\Billing;
 use App\Http\Controllers\Controller;
 
 class BudgetController extends Controller
@@ -79,6 +80,16 @@ class BudgetController extends Controller
             $budget->save();
 
             $budget->sendApprovedBudget();
+
+            $billing = Billing::create([
+                'budget_id' => $budget->id,
+                'client_id' => $budget->client->id,
+                'payment_method_id' => $budget->paymentMethod->id,
+                'due_date' => $budget->approved_at->addDays(30),
+                'amount' => $budget->amount,
+            ]);
+
+            $billing->sendCreatBilling();
 
             flash('success', 'Budget approved successfully!');
         }
