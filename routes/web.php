@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return redirect('/home');
+});
+
 Route::get('boleto', function() {
     SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
 
