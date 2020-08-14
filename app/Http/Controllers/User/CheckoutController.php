@@ -58,7 +58,7 @@ class CheckoutController extends Controller
 
         $billing = Billing::find($data['billing_id']);
 
-        $amount = str_replace('R$ ', '', $data['transaction_amount'], );
+        $amount = str_replace('R$ ', '', $data['transaction_amount']);
         $amount = str_replace('.', '', $amount);
         $amount = str_replace(',', '.', $amount);
 
