@@ -47,8 +47,6 @@ class BillingController extends Controller
      */
     public function show($id)
     {
-        if (!$this->billing->checkClient($id)) abort(404);
-
         $billing = $this->billing->find($id);
 
         return view('admin.billings.show', compact('billing'));
