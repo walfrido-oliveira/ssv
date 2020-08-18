@@ -29,12 +29,31 @@ class BillingController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $clients = User::getClientsId();
-        $billings = $this->billing->paginate(10);
+
+        $term = trim($request->q);
+
+        if (empty($term) && !$request->has('status')) {
+            $billings = $this->billing
+            ->paginate(10);
+        } else if($request->has('status')) {
+            $billings = $this->billing->where('status', '=', $request->status)
+            ->paginate(10);
+        } else {
+            $billings = $this->billing
+            ->whereHas('client', function($query) use ($term) {
+                    $query->where('clients.razao_social', 'like', '%' . $term . '%');
+            })->orwhere('id', '=', $term)
+            ->orwhere('amount', '=', is_numeric($term) ? $term : true)
+            ->orwhere('due_date', 'like', is_date($term) ? date_format(date_create_from_format('d/m/Y', $term), 'Y-m-d') . '%' : '')
+            ->orwhere('created_at', 'like', is_date($term) ? date_format(date_create_from_format('d/m/Y', $term), 'Y-m-d') . '%' : '')
+            ->paginate(10);
+        }
 
         return view('admin.billings.index', compact('billings'));
     }
