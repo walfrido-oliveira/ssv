@@ -11,17 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{ route('admin.orders.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Order') }}</i></a>
-                    <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.orders.index'), 'create' => route('admin.orders.create')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>
@@ -40,15 +30,17 @@
                                         <a class="text-limit" href="{{ route('admin.orders.show', ['order' => $order->id]) }}" title="{{ $order->client->razao_social }}">{{ $order->client->razao_social }}</a>
                                     </td>
                                     <td class="project-state">
-                                        <span class="badge @if($order->status == "created") badge-primary @elseif($order->status == 'approved') badge-success @else badge-danger @endif">
-                                            @if($order->status == "created")
-                                                {{ __('Created') }}
-                                            @elseif($order->status == 'approved')
-                                                {{ __('Approved') }}
-                                            @else
-                                                {{ __('Disapproved') }}
-                                            @endif
-                                        </span>
+                                        <a href="{{ route('admin.orders.index', ['status' => $order->status]) }}">
+                                            <span class="badge @if($order->status == "created") badge-primary @elseif($order->status == 'approved') badge-success @else badge-danger @endif">
+                                                @if($order->status == "created")
+                                                    {{ __('Created') }}
+                                                @elseif($order->status == 'approved')
+                                                    {{ __('Approved') }}
+                                                @else
+                                                    {{ __('Disapproved') }}
+                                                @endif
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">

@@ -11,19 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-tools">
-                        <form action="{{ route('admin.billings.index') }}" method="GET">
-                            <div class="input-group input-group-sm">
-                                <input type="text" name="q" class="form-control float-right" placeholder="{{ __('Search') }}" value="{{ request()->get('q') }}">
-                                <div class="input-group-append">
-                                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                </div>
-                                <a class="btn btn-default" href="{{ route('admin.billings.index') }}"><i class="fas fa-redo-alt"></i></a>
-                            </div>
-                        </form>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.billings.index')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>

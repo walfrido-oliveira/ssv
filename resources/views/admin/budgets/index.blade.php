@@ -11,20 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{ route('admin.budgets.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> {{ __('Add New') }}</i></a>
-                    <div class="card-tools">
-                      <form action="{{ route('admin.budgets.index') }}" method="GET">
-                        <div class="input-group input-group-sm">
-                            <input type="text" name="q" class="form-control float-right" placeholder="{{ __('Search') }}">
-                            <div class="input-group-append">
-                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                            </div>
-                            <a class="btn btn-default" href="{{ route('admin.budgets.index') }}"><i class="fas fa-redo-alt"></i></a>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.budgets.index'), 'create' => route('admin.budgets.create')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>
