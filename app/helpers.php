@@ -51,3 +51,11 @@ if (! function_exists('sanitize_var'))
         return filter_var($var, $filter, $options);
     }
 }
+
+if (! function_exists('is_date'))
+{
+    function is_date($date)
+    {
+        return date_create_from_format('d/m/Y', $date);
+    }
+}
