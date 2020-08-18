@@ -32,14 +32,30 @@ class OrderController extends Controller
         $this->middleware('permission:order-delete', ['only' => ['destroy']]);
     }
 
-    /**
+     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = $this->order->paginate(10);
+        $term = trim($request->q);
+
+        if (empty($term) && !$request->has('status')) {
+            $orders = $this->order
+            ->paginate(10);
+        } else if($request->has('status')) {
+            $orders = $this->order->where('status', '=', $request->status)
+            ->paginate(10);
+        } else {
+            $orders = $this->order
+            ->whereHas('client', function($query) use ($term) {
+                    $query->where('clients.razao_social', 'like', '%' . $term . '%');
+            })->orwhere('id', '=', $term)
+            ->paginate(10);
+        }
+
         return view('admin.orders.index', compact('orders'));
     }
 

@@ -11,16 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.billings.index')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>
@@ -39,21 +30,24 @@
                                 <tr>
                                     <td><a href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}">{{ $billing->formattedId }}</a></td>
                                     <td>
-                                        <a class="text-limit" href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}" title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
+                                        <a class="text-limit" href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}"
+                                            title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
                                     </td>
                                     <td><a href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->created_at, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->due_date, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('admin.billings.show', ['billing' => $billing->id]) }}">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
-                                            @if($billing->status == "pending")
-                                                {{ __('Pending') }}
-                                            @elseif($billing->status == 'paid')
-                                                {{ __('Paid') }}
-                                            @else
-                                                {{ __('In Process') }}
-                                            @endif
-                                        </span>
+                                        <a href="{{ route('admin.billings.index', ['status' => $billing->status]) }}">
+                                            <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
+                                                @if($billing->status == "pending")
+                                                    {{ __('Pending') }}
+                                                @elseif($billing->status == 'paid')
+                                                    {{ __('Paid') }}
+                                                @else
+                                                    {{ __('In Process') }}
+                                                @endif
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">

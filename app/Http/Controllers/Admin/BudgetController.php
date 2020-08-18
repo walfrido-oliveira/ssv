@@ -7,6 +7,7 @@ use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use App\Models\Service\Service;
 use App\Models\Budget\BudgetType;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\CreateBudget;
 use App\Http\Controllers\Controller;
 use App\Models\Budget\BudgetService;
@@ -39,11 +40,24 @@ class BudgetController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $budgets = $this->budget->paginate(10);
+        $term = trim($request->q);
+
+        if (empty($term) && !$request->has('status')) {
+            $budgets = $this->budget->paginate(10);
+        } else if($request->has('status')) {
+            $budgets = $this->budget->where('status', '=', $request->status)->paginate(10);;
+        } else {
+            $budgets = $this->budget->whereHas('client', function($query) use ($term) {
+                $query->where('clients.razao_social', 'like', '%' . $term . '%');
+            })->orwhere('id', '=', $term)
+            ->orwhere('amount', '=', is_numeric($term) ? $term : true)
+            ->paginate(10);
+        }
         return view('admin.budgets.index', compact('budgets'));
     }
 
@@ -107,6 +121,9 @@ class BudgetController extends Controller
 
         $budget->services()->sync($services);
         $budget->products()->sync($products);
+
+        $budget->amount = $budget->productAmount + $budget->serviceAmount;
+        $budget->save();
 
         $budget->sendCreatedBudget();
 
@@ -198,6 +215,9 @@ class BudgetController extends Controller
         $budget->services()->sync($services);
         $budget->products()->sync([]);
         $budget->products()->sync($products);
+
+        $budget->amount = $budget->productAmount + $budget->serviceAmount;
+        $budget->save();
 
         flash('success', 'Budget updated successfully!');
 

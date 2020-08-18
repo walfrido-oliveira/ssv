@@ -149,15 +149,6 @@ class Budget extends Model
     }
 
     /**
-     *
-     * Get amount of budget
-     */
-    public function getAmountAttribute()
-    {
-        return $this->getServiceAmountAttribute() + $this->getProductAmountAttribute();
-    }
-
-    /**
      * Get name Budget
      */
     public function getNameAttribute()
