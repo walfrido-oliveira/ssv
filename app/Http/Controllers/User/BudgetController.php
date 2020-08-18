@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Models\Billing\Billing;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class BudgetController extends Controller
@@ -30,13 +31,36 @@ class BudgetController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        DB::enableQueryLog();
         $clients = User::getClientsId();
-        $budgets = $this->budget->whereIn('client_id', $clients)->paginate(10);
 
+        $term = trim($request->q);
+
+        if (empty($term) && !$request->has('status')) {
+            $budgets = $this->budget
+            ->whereIn('client_id', $clients)
+            ->paginate(10);
+        } else if($request->has('status')) {
+            $budgets = $this->budget->where('status', '=', $request->status)
+            ->whereIn('client_id', $clients)
+            ->paginate(10);
+        } else {
+            $budgets = $this->budget
+            ->whereIn('client_id', $clients)
+            ->where(function($query) use ($term) {
+                $query->whereHas('client', function($query) use ($term) {
+                    $query->where('clients.razao_social', 'like', '%' . $term . '%');
+                })->orwhere('id', '=', $term)
+                ->orwhere('amount', '=', is_numeric($term) ? $term : true);
+            })
+            ->paginate(10);
+        }
+        //dd(DB::getQueryLog());
         return view('user.budgets.index', compact('budgets'));
     }
 
