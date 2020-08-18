@@ -13,12 +13,15 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
+                        <form action="{{ route('user.billings.index') }}" method="GET">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="q" class="form-control float-right" placeholder="{{ __('Search') }}" value="{{ request()->get('q') }}">
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                                <a class="btn btn-default" href="{{ route('user.billings.index') }}"><i class="fas fa-redo-alt"></i></a>
+                            </div>
+                        </form>
                     </div>
                   </div>
                 <div class="card-body table-responsive">
@@ -39,21 +42,24 @@
                                 <tr>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ $billing->formattedId }}</a></td>
                                     <td>
-                                        <a class="text-limit" href="{{ route('user.billings.show', ['billing' => $billing->id]) }}" title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
+                                        <a class="text-limit" href="{{ route('user.billings.show', ['billing' => $billing->id]) }}"
+                                            title="{{ $billing->client->razao_social }}">{{ $billing->client->razao_social }}</a>
                                     </td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->created_at, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ date_format($billing->due_date, 'd/m/Y') }}</a></td>
                                     <td><a href="{{ route('user.billings.show', ['billing' => $billing->id]) }}">{{ alternative_money($billing->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
-                                            @if($billing->status == "pending")
-                                                {{ __('Pending') }}
-                                            @elseif($billing->status == 'paid')
-                                                {{ __('Paid') }}
-                                            @else
-                                                {{ __('In Process') }}
-                                            @endif
-                                        </span>
+                                        <a href="{{ route('user.billings.index', ['status' => $billing->status]) }}">
+                                            <span class="badge @if($billing->status == "pending") badge-secondary @elseif($billing->status == 'paid') badge-success @else badge-danger @endif">
+                                                @if($billing->status == "pending")
+                                                    {{ __('Pending') }}
+                                                @elseif($billing->status == 'paid')
+                                                    {{ __('Paid') }}
+                                                @else
+                                                    {{ __('In Process') }}
+                                                @endif
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
