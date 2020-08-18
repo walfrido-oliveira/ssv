@@ -294,6 +294,7 @@
     "The billing number #:number is with the payment in process.":"O faturamento de número #:number está com o pagamento em processo.",
     "In Process":"Em Processo",
     "The billing of number #:number has been created in your user account.":"O faturamento de número #:number foi criado em sua conta de usuário.",
-    "Go Home":"Início"
+    "Go Home":"Início",
+    "Add New":"Adicionar Novo"
 
 }

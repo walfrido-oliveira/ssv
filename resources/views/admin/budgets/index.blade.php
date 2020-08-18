@@ -12,14 +12,17 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('admin.budgets.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Budget') }}</i></a>
+                    <a href="{{ route('admin.budgets.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> {{ __('Add New') }}</i></a>
                     <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      <form action="{{ route('admin.budgets.index') }}" method="GET">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="q" class="form-control float-right" placeholder="{{ __('Search') }}">
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                            <a class="btn btn-default" href="{{ route('admin.budgets.index') }}"><i class="fas fa-redo-alt"></i></a>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 <div class="card-body table-responsive">
@@ -38,19 +41,22 @@
                                 <tr>
                                     <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ $budget->formattedId }}</a></td>
                                     <td>
-                                        <a class="text-limit" href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}" title="{{ $budget->client->razao_social }}">{{ $budget->client->razao_social }}</a>
+                                        <a class="text-limit" href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}"
+                                            title="{{ $budget->client->razao_social }}">{{ $budget->client->razao_social }}</a>
                                     </td>
                                     <td><a href="{{ route('admin.budgets.show', ['budget' => $budget->id]) }}">{{ alternative_money($budget->amount, '$', 2, ',', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
-                                            @if($budget->status == "created")
-                                                {{ __('Created') }}
-                                            @elseif($budget->status == 'approved')
-                                                {{ __('Approved') }}
-                                            @else
-                                                {{ __('Disapproved') }}
-                                            @endif
-                                        </span>
+                                        <a href="{{ route('admin.budgets.index', ['status' => $budget->status]) }}">
+                                            <span class="badge @if($budget->status == "created") badge-primary @elseif($budget->status == 'approved') badge-success @else badge-danger @endif">
+                                                @if($budget->status == "created")
+                                                    {{ __('Created') }}
+                                                @elseif($budget->status == 'approved')
+                                                    {{ __('Approved') }}
+                                                @else
+                                                    {{ __('Disapproved') }}
+                                                @endif
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
