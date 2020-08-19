@@ -55,8 +55,8 @@
                             <div class="col-6">
                                 <label>{{ __('Customers') }}</label>
                                 <ul class="list-group list-group-flush">
-                                    @foreach ($clients as $client)
-                                        <li class="list-group-item">{{ $client }}</li>
+                                    @foreach ($clients as $key => $client)
+                                <li class="list-group-item"><a href="{{ route('admin.clients.show', ['client' => $key]) }}">{{ $client }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
