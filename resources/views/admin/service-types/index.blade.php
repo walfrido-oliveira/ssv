@@ -11,17 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{ route('admin.service-types.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Service Type') }}</i></a>
-                    <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.service-types.index'), 'create' => route('admin.service-types.create')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>
