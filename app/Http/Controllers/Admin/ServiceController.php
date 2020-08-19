@@ -30,11 +30,23 @@ class ServiceController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $services = $this->service->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $services = $this->service
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->orwhere('price', '=', is_numeric($term) ? $term : true)
+            ->paginate(10);
+        } else {
+            $services = $this->service->paginate(10);
+        }
+
         return view('admin.services.index', compact('services'));
     }
 
