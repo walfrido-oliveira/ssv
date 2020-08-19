@@ -34,11 +34,25 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $users = $this->user
+            ->whereHas('roles', function($query) use ($term) {
+                $query->where('name', 'like', '%' . $term . '%');
+            })
+            ->orwhere('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->paginate(10);
+        } else {
+            $users = $this->user->paginate(10);
+        }
+
         return view('admin.users.index', compact('users'));
     }
 
