@@ -66,4 +66,12 @@ class Product extends Model
     {
         return 'slug';
     }
+
+    /**
+     * Get sttaus product
+     */
+    public function getStatusAttribute()
+    {
+        return $this->amount_in_stock > 0 ? 'In Stoke' : 'Out of Stoke';
+    }
 }

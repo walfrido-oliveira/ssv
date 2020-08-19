@@ -30,11 +30,22 @@ class TransportMethodController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transportMethods = $this->transportMethod->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $transportMethods = $this->transportMethod
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->paginate(10);
+        } else {
+            $transportMethods = $this->transportMethod->paginate(10);
+        }
+
         return view('admin.transport-methods.index', compact('transportMethods'));
     }
 

@@ -34,9 +34,27 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->product->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $products = $this->product
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->orwhere('price', '=', is_numeric($term) ? $term : true)
+            ->paginate(10);
+        } else if($request->has('status')) {
+            $products = $this->product->paginate(10);
+            foreach ($products as $key => $item) {
+                if ($item->status != $request->status) {
+                    $products->forget($key);
+                }
+            }
+        } else {
+            $products = $this->product->paginate(10);
+        }
+
         return view('admin.products.index', compact('products'));
     }
 

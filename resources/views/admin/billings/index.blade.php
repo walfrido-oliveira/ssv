@@ -66,46 +66,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">{{ __('Do you really want to approve this billing?') }}</div>
-                <div class="modal-footer">
-                    <form action="" method="post" id="approve-modal-form">
-                        @csrf
-                        @method("PUT")
-                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
-                    </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="disapprove-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">{{ __('Do you really want to disapprove this billing?') }}</div>
-                <div class="modal-footer">
-                    <form action="" method="post" id="disapprove-modal-form">
-                        @csrf
-                        @method("PUT")
-                        <button type="submit" class="btn btn-primary">{{ __('Yes') }}</button>
-                    </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('No') }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @stop
 
 @section('js')

@@ -11,17 +11,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('Add Product') }}</i></a>
-                    <div class="card-tools">
-                      <div class="input-group input-group-sm">
-                        <input type="text" name="table_search" class="form-control float-right input-search" placeholder="{{ __('Search') }}">
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                @include('layouts.card-header', ['index' => route('admin.products.index'), 'create' => route('admin.products.create')])
                 <div class="card-body table-responsive">
                     <table class="table table-hover table-head-fixed text-nowrap table-search">
                         <thead>
@@ -42,9 +32,11 @@
                                     <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ alternative_money($product->price, '$', 2, ',') }}</a></td>
                                     <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ number_format($product->amount_in_stock, 0,'', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge badge-{{  $product->amount_in_stock > 0 ? 'success' : 'danger' }}">
-                                            {{ $product->amount_in_stock > 0 ? __('In Stoke') : __('Out of Stoke') }}
-                                        </span>
+                                        <a href="{{ route('admin.products.index', ['status' => $product->status]) }}">
+                                            <span class="badge badge-{{  $product->amount_in_stock > 0 ? 'success' : 'danger' }}">
+                                                {{ __($product->status) }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
