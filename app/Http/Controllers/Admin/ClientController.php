@@ -42,13 +42,27 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $activity = $request->activity;
+        $term = trim($request->q);
 
         if (!is_null($activity))
         {
-            $clients = $this->client->where('activity_id', $activity)->paginate(10);
+            $clients = $this->client
+            ->where('activity_id', $activity)
+            ->paginate(10);
+        } else if($request->has('status')) {
+            $clients = $this->client
+            ->where('status', '=', $request->status)
+            ->paginate(10);
+        } else if(!empty($term)) {
+            $clients = $this->client
+            ->where('nome_fantasia', 'like', '%' . $term .'%')
+            ->orwhere('id', '=', $term)
+            ->paginate(10);
         } else {
             $clients = $this->client->paginate(10);
         }
+
+
         return view('admin.clients.index', compact('clients'));
     }
 
