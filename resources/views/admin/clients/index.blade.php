@@ -28,9 +28,11 @@
                                     <td><a href="{{ route('admin.clients.show', ['client' => $client->slug]) }}">{{$client->id}}</a></td>
                                     <td><a href="{{ route('admin.clients.show', ['client' => $client->slug]) }}">{{$client->nome_fantasia}}</a></td>
                                     <td class="project-state">
-                                        <span class="badge badge-{{  $client->status == 'active' ? 'success' : 'secondary' }}">
-                                            {{ $client->status == 'active' ? __('Active') : __('Disabled') }}
-                                        </span>
+                                        <a href="{{ route('admin.clients.index', ['status' => $client->status]) }}">
+                                            <span class="badge badge-{{  $client->status == 'active' ? 'success' : 'secondary' }}">
+                                                {{ $client->status == 'active' ? __('Active') : __('Disabled') }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
