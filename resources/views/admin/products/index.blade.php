@@ -32,9 +32,11 @@
                                     <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ alternative_money($product->price, '$', 2, ',') }}</a></td>
                                     <td><a href="{{ route('admin.products.show', ['product' => $product->slug]) }}">{{ number_format($product->amount_in_stock, 0,'', '.') }}</a></td>
                                     <td class="project-state">
-                                        <span class="badge badge-{{  $product->amount_in_stock > 0 ? 'success' : 'danger' }}">
-                                            {{ $product->amount_in_stock > 0 ? __('In Stoke') : __('Out of Stoke') }}
-                                        </span>
+                                        <a href="{{ route('admin.products.index', ['status' => $product->status]) }}">
+                                            <span class="badge badge-{{  $product->amount_in_stock > 0 ? 'success' : 'danger' }}">
+                                                {{ __($product->status) }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td width="15%">
                                         <div class="btn-group">
