@@ -30,11 +30,22 @@ class BudgetTypeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $budgetTypes = $this->budgetType->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $budgetTypes = $this->budgetType
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->paginate(10);
+        } else {
+            $budgetTypes = $this->budgetType->paginate(10);
+        }
+
         return view('admin.budget-types.index', compact('budgetTypes'));
     }
 
