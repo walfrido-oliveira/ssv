@@ -30,11 +30,22 @@ class ProductCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->category->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $categories = $this->category
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->paginate(10);
+        } else {
+            $categories = $this->category->paginate(10);
+        }
+
         return view('admin.categories.index', compact('categories'));
     }
 
