@@ -31,11 +31,22 @@ class ServiceTypeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $serviceTypes = $this->serviceType->paginate(10);
+        $term = trim($request->q);
+
+        if (!empty($term)) {
+            $serviceTypes = $this->serviceType
+            ->where('id', '=', $term )
+            ->orwhere('name', 'like', '%' . $term . '%')
+            ->paginate(10);
+        } else {
+            $serviceTypes = $this->serviceType->paginate(10);
+        }
+
         return view('admin.service-types.index', compact('serviceTypes'));
     }
 
