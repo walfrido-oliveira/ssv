@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- #approve-modal -->
     <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- #disapprove-modal -->
     <div class="modal fade" id="disapprove-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
