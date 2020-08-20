@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Order\Order;
 use Illuminate\Http\Request;
+use App\Models\Budget\Budget;
+use App\Models\Client\Client;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -29,7 +35,28 @@ class HomeController extends Controller
 
         if ($user->hasRole("Admin"))
         {
-            return view('admin.home');
+            $totalUsers = User::all()->count();
+            $totalClients = Client::all()->count();
+            $totalBudgets = Budget::all()->count();
+            $totalOders = Order::all()->count();
+            $months = [__('January'), __('Febuary'), __('March'),
+                        __('April'), __('May'), __('June'), __('July'),
+                        __('August'), __('September'), __('October'),
+                        __('Novevember'), __('December')];
+            $label = __('# of budgets');
+            $totalBbudgetMonthTemp = Budget::all()
+            ->groupBy(function($val) {
+                return Carbon::parse($val->created_at)->format('m');
+            });
+
+            $totalBbudgetMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+            foreach ($totalBbudgetMonthTemp as $key => $value) {
+                $totalBbudgetMonth[$key - 1] = $value->count();
+            }
+
+            return view('admin.home', compact('totalClients', 'totalUsers', 'totalBudgets',
+                                              'totalOders', 'months', 'label', 'totalBbudgetMonth'));
         }
         else {
             return view('user.home');

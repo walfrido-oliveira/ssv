@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
+        "chart.js": "^2.9.3",
         "icheck-bootstrap": "^3.0.1",
         "jquery-mask-plugin": "^1.14.16",
         "overlayscrollbars": "^1.12.0",

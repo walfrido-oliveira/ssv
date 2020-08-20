@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $roles = Role::pluck('name', 'name')->all();
-        $clients = Client::pluck('nome_fantasia', 'id')->all();
+        $clients = Client::pluck('nome_fantasia', 'slug')->all();
 
         $userRole = $user->roles->pluck('name', 'name')->all();
         $userClient = $user->clients->pluck('nome_fantasia')->all();
