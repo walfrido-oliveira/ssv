@@ -17,6 +17,8 @@
 @import '../../vendor/almasaeed2010/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
 //toastr
 @import '~toastr/toastr';
+//Chart
+@import '~chart.js/dist/Chart';
 
 .image-profine-preview {
     height: 90px;
@@ -104,4 +106,8 @@ form.was-validated select:invalid ~ .select2-container--bootstrap4 .select2-sele
 
 .card-tools .input-group {
     width: 250px;
+}
+
+.bg-yellow {
+    background-color: #f39c12;
 }
