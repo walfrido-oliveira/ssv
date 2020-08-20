@@ -69,6 +69,7 @@ window.animateValue = function() {
         var increment = end > start? 1 : -1;
         var stepTime = Math.abs(Math.floor(duration / range));
 
+        if (end == 0) return;
         var timer = setInterval(function() {
             current += increment;
             element.innerHTML = current;
