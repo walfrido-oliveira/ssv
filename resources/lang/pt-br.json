@@ -295,6 +295,19 @@
     "In Process":"Em Processo",
     "The billing of number #:number has been created in your user account.":"O faturamento de número #:number foi criado em sua conta de usuário.",
     "Go Home":"Início",
-    "Add New":"Adicionar Novo"
+    "Add New":"Adicionar Novo",
+    "January":"Janeiro",
+    "Febuary":"Fevereiro",
+    "March":"Março",
+    "April":"Abril",
+    "May":"Maio",
+    "June":"Junho",
+    "July":"Julho",
+    "August":"Agosto",
+    "September":"Setembro",
+    "October":"Outubro",
+    "Novevember":"Novembro",
+    "December":"Dezembro",
+    "# of budgets":"número de orçamentos"
 
 }
