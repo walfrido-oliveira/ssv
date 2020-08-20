@@ -55,7 +55,7 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <canvas id="budgetChart"></canvas>
+            <canvas id="budgetChart"  width="500" height="250"></canvas>
         </div>
     </div>
 
@@ -96,10 +96,13 @@
                         }
                     }]
                 },
-                responsive: true,
+                responsive: false,
                 maintainAspectRatio: false,
+                animation: {
+                    animateRotate: true,
+                    animateScale: true
+                }
             },
         });
-        budgetChart.canvas.parentNode.style.height = '400px';
     </script>
 @stop
