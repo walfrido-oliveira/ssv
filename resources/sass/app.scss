@@ -111,3 +111,7 @@ form.was-validated select:invalid ~ .select2-container--bootstrap4 .select2-sele
 .bg-yellow {
     background-color: #f39c12;
 }
+
+.bg-yellow, .bg-yellow > a {
+    color: #FFF !important;
+}

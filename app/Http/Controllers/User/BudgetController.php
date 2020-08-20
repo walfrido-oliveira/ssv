@@ -36,7 +36,6 @@ class BudgetController extends Controller
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
         $clients = User::getClientsId();
 
         $term = trim($request->q);
@@ -60,7 +59,7 @@ class BudgetController extends Controller
             })
             ->paginate(10);
         }
-        //dd(DB::getQueryLog());
+
         return view('user.budgets.index', compact('budgets'));
     }
 
