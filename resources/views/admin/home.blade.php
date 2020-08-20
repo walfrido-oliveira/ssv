@@ -15,8 +15,9 @@
                 <p class="text-white">{{ __('Users') }}</p>
               </div>
               <div class="icon">
-                <i class="fas fa-user-plus"></i>
+                <i class="fas fa-user"></i>
               </div>
+              <a href="{{ route('admin.users.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -28,6 +29,7 @@
               <div class="icon">
                 <i class="fas fa-users"></i>
               </div>
+              <a href="{{ route('admin.clients.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -37,19 +39,21 @@
                 <p>{{ __('Budgets') }}</p>
               </div>
               <div class="icon">
-                <i class="fas fa-chart-bar"></i>
+                <i class="fas fa-money-check-alt"></i>
               </div>
+              <a href="{{ route('admin.budgets.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3 class="animated-value" data-animated-value="{{ $totalBudgets }}">0</h3>
+                <h3 class="animated-value" data-animated-value="{{ $totalOders }}">0</h3>
                 <p>{{ __('Orders') }}</p>
               </div>
               <div class="icon">
                 <i class="fas fa-toolbox"></i>
               </div>
+              <a href="{{ route('admin.orders.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

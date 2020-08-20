@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
 use Illuminate\Support\Carbon;
+use App\Models\Billing\Billing;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +60,11 @@ class HomeController extends Controller
                                               'totalOders', 'months', 'label', 'totalBbudgetMonth'));
         }
         else {
-            return view('user.home');
+            $totalBudgets = Budget::whereIn('client_id', User::getClientsId())->count();
+            $totalOders = Order::whereIn('client_id', User::getClientsId())->count();
+            $totalBillings = Billing::whereIn('client_id', User::getClientsId())->count();
+
+            return view('user.home', compact('totalBudgets', 'totalOders', 'totalBillings'));
         }
     }
 }
