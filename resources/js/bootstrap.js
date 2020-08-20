@@ -10,6 +10,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     window.toastr = require('toastr');
+    window.Chart = require('chart.js');
 
     require('bootstrap');
     require('overlayscrollbars');
@@ -17,8 +18,6 @@ try {
     require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
     require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/select2.full');
     require('../../vendor/almasaeed2010/adminlte/plugins/select2/js/i18n/pt-BR');
-
-
 
 } catch (e) {}
 
