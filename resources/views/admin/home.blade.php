@@ -11,7 +11,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3 class="text-white">{{ $totalUsers }}</h3>
+                <h3 class="text-white animated-value" data-animated-value="{{ $totalUsers }}">0</h3>
                 <p class="text-white">{{ __('Users') }}</p>
               </div>
               <div class="icon">
@@ -22,7 +22,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $totalClients }}</h3>
+                <h3 class="animated-value" data-animated-value="{{ $totalClients }}">0</h3>
                 <p>{{ __('Customers') }}</p>
               </div>
               <div class="icon">
@@ -33,7 +33,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>{{ $totalBudgets }}</h3>
+                <h3 class="animated-value" data-animated-value="{{ $totalBudgets }}">0</h3>
                 <p>{{ __('Budgets') }}</p>
               </div>
               <div class="icon">
@@ -44,7 +44,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>{{ $totalBudgets }}</h3>
+                <h3 class="animated-value" data-animated-value="{{ $totalBudgets }}">0</h3>
                 <p>{{ __('Orders') }}</p>
               </div>
               <div class="icon">
@@ -62,6 +62,10 @@
 @stop
 
 @section('js')
+
+    <script>
+        window.animateValue();
+    </script>
 
     <script>
         var months = @json($months);
@@ -93,8 +97,8 @@
                     }]
                 },
                 responsive: true,
-                maintainAspectRatio: false
-            }
+                maintainAspectRatio: false,
+            },
         });
         budgetChart.canvas.parentNode.style.height = '400px';
     </script>
