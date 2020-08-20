@@ -58,6 +58,28 @@ window.dateToDMY = function(date) {
     return '' + (d <= 9 ? '0' + d : d) + '/' + (m<=9 ? '0' + m : m) + '/' + y;
 }
 
+window.animateValue = function() {
+    var objs = document.getElementsByClassName('animated-value');
+    var duration = 1000;
+    Array.prototype.forEach.call(objs, function(element) {
+        var start = 0
+        var end = parseInt(element.dataset.animatedValue);
+        var range = end - start;
+        var current = start;
+        var increment = end > start? 1 : -1;
+        var stepTime = Math.abs(Math.floor(duration / range));
+
+        var timer = setInterval(function() {
+            current += increment;
+            element.innerHTML = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    });
+
+}
+
 
 
 
