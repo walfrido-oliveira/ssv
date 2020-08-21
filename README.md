@@ -35,7 +35,7 @@ Install all the dependencies using npm
 
     npm run dev
 
-Copy the example enf file and make the required configuration changes in the .env file
+Copy the example env file and make the required configuration changes in the .env file
 
     cp .env.example .env
 
@@ -59,6 +59,6 @@ You can now access the server at http://localhost:8000
 
 ## License
 
-This project is licensed under the apache-2.0 License - see the [LICENSE.md](https://github.com/walfrido-oliveira/ssv/blob/master/README.md file for details
+This project is licensed under the apache-2.0 License - see the [LICENSE.md](https://github.com/walfrido-oliveira/ssv/blob/master/README.md) file for details
 
 
