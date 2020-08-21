@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'SSV') )
 
 @section('content_header')
-<h1 class="m-0 text-dark">{{ __('Edit Budget') }}</h1>
+<h1 class="m-0 text-dark">{{ __('Edit Budget') . ' - #' . $budget->formattedId }}</h1>
 @stop
 
 @section('content')
