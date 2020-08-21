@@ -39,6 +39,7 @@ class HomeController extends Controller
             $totalUsers = User::all()->count();
             $totalClients = Client::all()->count();
             $totalBudgets = Budget::all()->count();
+            $amountBudgets = Budget::sum('amount');
             $totalOders = Order::all()->count();
             $months = [__('January'), __('Febuary'), __('March'),
                         __('April'), __('May'), __('June'), __('July'),
@@ -56,7 +57,7 @@ class HomeController extends Controller
                 $totalBbudgetMonth[$key - 1] = $value->count();
             }
 
-            return view('admin.home', compact('totalClients', 'totalUsers', 'totalBudgets',
+            return view('admin.home', compact('totalClients', 'totalUsers', 'totalBudgets', 'amountBudgets',
                                               'totalOders', 'months', 'label', 'totalBbudgetMonth'));
         }
         else {
