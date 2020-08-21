@@ -230,8 +230,8 @@
     "Service Type don't removed! There is a order with this. Before the to remove, remove the especifics order, or change this method.":"Tipo de serviço não removido! Há uma ordem de servilo com ele. Antes de remover, remova a ordem de serviço específica ou altere este ele.",
     "Service Type removed successfully!":"Tipo de Serviço removido com sucesso",
     "Add Order":"Adicionar Ordem de Serviço",
+    "Edit Order":"Editar Ordem de Serviço",
     "Orders":"Ordem de Serviço",
-    "Add Order Method":"Adicionar Ordem de Serviço",
     "Budget":"Orçamento",
     "Budget Number":"Número do Orçamento",
     "Observation":"Observações",
@@ -308,6 +308,7 @@
     "October":"Outubro",
     "Novevember":"Novembro",
     "December":"Dezembro",
-    "# of budgets":"número de orçamentos"
+    "# of budgets":"número de orçamentos",
+    "Budgets Reports":"Relatórios de Orçamento"
 
 }

@@ -35,7 +35,8 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-green">
               <div class="inner">
-                <h3 class="animated-value" data-animated-value="{{ $totalBudgets }}">0</h3>
+                <h3 class="animated-value primary-value" data-animated-value="{{ $totalBudgets }}">0</h3>
+                <h3 class="second-value" style="display: none">{{ alternative_money($amountBudgets, '$', '2', ',') }}</h3>
                 <p>{{ __('Budgets') }}</p>
               </div>
               <div class="icon">
@@ -58,8 +59,28 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
-            <canvas id="budgetChart"  width="500" height="250"></canvas>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3  class="card-title">{{ __('Budgets Reports') }}</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                          <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-6">
+                        <canvas id="budgetChart"  width="500" height="250"></canvas>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
         </div>
     </div>
 

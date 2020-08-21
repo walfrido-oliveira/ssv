@@ -35,6 +35,14 @@ $(document).ready(function() {
             }
         });
     });
+    $(".primary-value").hover( function() {
+        $(this).hide('slow');
+        $('.second-value').show('slow');
+    });
+    $(".second-value").mouseleave( function() {
+        $(this).hide('slow');
+        $('.primary-value').show('slow');
+    });
 });
 
 window.currencyFormatDE = function(num) {
