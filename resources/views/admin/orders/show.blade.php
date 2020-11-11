@@ -55,6 +55,7 @@
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link active" href="#order-info" data-toggle="tab">{{ __('Info') }}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#services" data-toggle="tab">{{ __('Services') }}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#products" data-toggle="tab">{{ __('Products') }}</a></li>
                             </ul>
                         </div>
                         <div class="card-body">
@@ -118,6 +119,30 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="tab-pane table-responsive" id="products">
+                                    <table class="table table-hover table-head-fixed text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>{{ __('Product') }}</th>
+                                                <th>{{ __('Description') }}</th>
+                                                <th>{{ __('Responsible') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $index = 0; @endphp
+                                            @foreach ($order->products as $product)
+                                                <tr>
+                                                    <td>{{ $index+1 }}</td>
+                                                    <td>{{ $product->product->name }}</td>
+                                                    <td>{{ $product->description }}</td>
+                                                    <td>{{ $product->user->name }}</td>
+                                                </tr>
+                                                @php $index++; @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                  </div>
                             </div>
                         </div>
                     </div>

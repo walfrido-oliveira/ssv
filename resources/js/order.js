@@ -374,7 +374,7 @@ $(document).ready(function() {
         let $serviceType = $('select[name=service_type]');
         let $executedAt = $('input[name=executed_at]');
         let $equipmentId = $('input[name=equipment_id]');
-        let $description = $('textarea[name=description]');
+        let $description = $('textarea[name=product-description]');
 
         var serviceOption = new Option(serviceName, serviceId, false, false);
         var serviceTypeOption = new Option(serviceTypeName, serviceTypeId, false, false);
@@ -399,7 +399,7 @@ $(document).ready(function() {
 
 
         let $product = $('select[name=product]');
-        let $description = $('textarea[name=description]');
+        let $description = $('textarea[name=product-description]');
 
         var productOption = new Option(productName, productId, false, false);
 
