@@ -5,6 +5,7 @@ namespace App\Models\Order;
 use App\Models\User;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
+use App\Models\Order\OrderProduct;
 use App\Models\Order\OrderService;
 use App\Notifications\CreateOrder;
 use Illuminate\Database\Eloquent\Model;
@@ -59,6 +60,14 @@ class Order extends Model
     public function services()
     {
         return $this->hasMany(OrderService::class);
+    }
+
+    /**
+     * The order that belong to the products.
+     */
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class);
     }
 
     /**

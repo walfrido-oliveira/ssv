@@ -6,8 +6,10 @@ use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Models\Budget\Budget;
 use App\Models\Client\Client;
+use App\Models\Order\OrderProduct;
 use App\Models\Order\OrderService;
 use App\Http\Controllers\Controller;
+use App\Models\Budget\BudgetProduct;
 use App\Models\Budget\BudgetService;
 
 class OrderController extends Controller
@@ -97,6 +99,17 @@ class OrderController extends Controller
             }
         }
 
+        if (isset($data['products']))
+        {
+            foreach ($data['products'] as $key => $product) {
+                $product['product_id'] =  BudgetProduct::find($product['budget_product_id'])->product->id;
+                $product['user_id'] = $userId;
+                $product['order_id'] = $order->id;
+
+                $product = OrderProduct::create($product);
+            }
+        }
+
         $order->sendCreatedOrder();
 
         flash('success', 'Order added successfully!');
@@ -152,8 +165,10 @@ class OrderController extends Controller
         $order->update($data);
 
         $servicesIds = $order->services->pluck('id');
+        $productsIds = $order->products->pluck('id');
 
         if (!isset($data['services'])) $data['services'] = [];
+        if (!isset($data['products'])) $data['products'] = [];
 
         foreach ($servicesIds as $key => $id)
         {
@@ -161,6 +176,15 @@ class OrderController extends Controller
             {
                 $service = OrderService::find($id);
                 $service->delete();
+            }
+        }
+
+        foreach ($productsIds as $key => $id)
+        {
+            if(array_search($id, array_column($data['products'], 'id')) === false)
+            {
+                $product = OrderProduct::find($id);
+                $product->delete();
             }
         }
 
@@ -180,7 +204,29 @@ class OrderController extends Controller
             } else {
                 $service['user_id'] = $userId;
                 $service['order_id'] = $order->id;
+                $service['service_id'] =  BudgetService::find($service['budget_service_id'])->service->id;
                 $service = OrderService::create($service);
+            }
+        }
+
+        foreach ($data['products'] as $key => $product)
+        {
+
+            $product['product_id'] = BudgetProduct::find($product['budget_product_id'])->product->id;
+
+            if(isset($product['id']))
+            {
+                $orderProduct = OrderProduct::find($product['id']);
+
+                if(!is_null($orderProduct))
+                {
+                    $orderProduct->update($product);
+                }
+            } else {
+                $product['user_id'] = $userId;
+                $product['order_id'] = $order->id;
+                $product['product_id'] =  BudgetProduct::find($product['budget_product_id'])->product->id;
+                $product = OrderProduct::create($product);
             }
         }
 
