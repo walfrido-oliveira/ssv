@@ -83,6 +83,34 @@ $(document).ready(function() {
         }
     });
 
+    $('select[name=product]').select2({
+        language: "pt-BR",
+        theme: 'bootstrap4',
+        ajax: {
+            url: '/admin/budgets/find-product',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    q: $.trim(params.term),
+                    budget_id: $("select[name='budget_id'").val(),
+                    page: params.page
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        }
+    });
+
     $('select[name=service_type]').select2({
         language: "pt-BR",
         theme: 'bootstrap4',
@@ -114,7 +142,7 @@ $(document).ready(function() {
         $("select[name=budget_id]").empty().trigger('change');
     });
 
-    $('.btn-add-service').on('click', function(e) {
+    $('.btn-add-service').on('click', function() {
         if (!ceckServiceValues()) return;
 
         let dataRow = $(this).attr('data-row');
@@ -125,7 +153,7 @@ $(document).ready(function() {
         let serviceType = $('select[name=service_type]').select2('data')[0];
         let executedAt = $('input[name=executed_at]').val();
         let equipmentId = $('input[name=equipment_id]').val();
-        let description = $('textarea[name=description]').val();
+        let description = $('textarea[name=service-description]').val();
 
         let index = tbody.find('tr').length;
 
@@ -202,8 +230,74 @@ $(document).ready(function() {
 
     });
 
+    $('.btn-add-product').on('click', function() {
+        if (!ceckProductValues()) return;
+
+        let dataRow = $(this).attr('data-row');
+
+        let tbody = $('.table-product tbody');
+
+        let product = $('select[name=product]').select2('data')[0];
+        let description = $('textarea[name=product-description]').val();
+
+        let index = tbody.find('tr').length;
+
+        if (!dataRow) {
+            index++;
+
+            let row = '<tr id="row-product-' + (index-1) + '" data-row="' + (index-1) + '">' +
+            '<td>' + index +
+            '<input type="hidden" name="products[' + (index-1) + '][budget_product_id]" value="' + product.id + '" />'+
+            '<input type="hidden" name="products[' + (index-1) + '][index]" value="' + (index-1) + '" />'+
+            '</td>' +
+            '<td>' + product.name + '<input type="hidden" name="products[' + (index-1) + '][product_name]" value="' + product.name + '" /></td>' +
+            '<td>' + description + '<input type="hidden" name="products[' + (index-1) + '][description]" value="' + description + '" /></td>' +
+            '<td>' + CURRENT_USER + '</td>' +
+            '<td width="15%">' +
+            '<div class="btn-group">' +
+            '<a href="#" class="btn-secondary btn-sm btn-edit-product" data-toggle="modal" data-target="#product-modal" data-row="row-product-' + (index-1) + '">' +
+            '<i class="fas fa-pencil-alt"></i>' +
+            '</a>' +
+            '</div>&nbsp;' +
+            '<div class="btn-group">' +
+            '<a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-' + (index-1) + '">' +
+            '<i class="fas fa-trash-alt"></i>' +
+            '</a>' +
+            '</div>' +
+            '</td>' +
+            '</tr>';
+            tbody.append(row);
+        } else {
+            let $row = $('#' + dataRow);
+            index = $row.index();
+
+            let $productId = $("input[name='products[" + index + "][budget_product_id]']");
+            let $productName = $("input[name='products[" + index + "][product_name]']");
+
+            let $description = $("input[name='products[" + index + "][description]']");
+
+            $productId.val(product.id);
+
+            $productName.val(product.text);
+            $productNameParent = $productName.parent();
+            $productNameParent.text('').append($productName).append(product.text);
+
+            $description.val(description);
+            $descriptionParent = $description.parent();
+            $descriptionParent.text('').append($description).append(description);
+        }
+
+        $('select[name=product]').val(null).trigger("change");
+        $('#product-modal').modal('hide');
+
+      });
+
     $('.add-service').on('click', function() {
         clearServiceModal();
+    });
+
+    $('.add-product').on('click', function() {
+        clearProductModal();
     });
 
     $('#service-modal').on('show.bs.modal', function(e) {
@@ -211,6 +305,14 @@ $(document).ready(function() {
         if (row) {
             setFildsServiceModal(row);
             $('.btn-add-service').attr('data-row', row);
+        }
+    });
+
+    $('#product-modal').on('show.bs.modal', function(e) {
+        let row = $(e.relatedTarget).data('row');
+        if (row) {
+            setFildsProductModal(row);
+            $('.btn-add-product').attr('data-row', row);
         }
     });
 
@@ -239,6 +341,16 @@ $(document).ready(function() {
         (!executedAt || executedAt == '') ? $executedAt.addClass('is-invalid') : $executedAt.removeClass('is-invalid');
 
         return service && serviceType && executedAt;
+    }
+
+    function ceckProductValues() {
+        let product = $('select[name=product]').select2('data')[0];
+
+        let $product = $('select[name=product]');
+
+        !product ? $product.addClass('is-invalid') : $product.removeClass('is-invalid');
+
+        return product;
     }
 
     function setFildsServiceModal(row) {
@@ -274,12 +386,38 @@ $(document).ready(function() {
         $description.val(description);
     }
 
+    function setFildsProductModal(row) {
+        clearProductModal();
+
+        let $row = $('#' + row);
+        let index = $row.attr('data-row');
+
+        let productId = $("input[name='products[" + index + "][budget_product_id]']").val();
+        let productName = $("input[name='products[" + index + "][product_name]']").val();
+
+        let description = $("input[name='products[" + index + "][description]']").val();
+
+
+        let $product = $('select[name=product]');
+        let $description = $('textarea[name=description]');
+
+        var productOption = new Option(productName, productId, false, false);
+
+        $product.append(productOption).trigger('change');
+        $description.val(description);
+      }
+
     function clearServiceModal() {
         $("select[name=service]").empty().trigger('change');
         $("select[name=service_type]").empty().trigger('change');
         $('input[name=executed_at]').val('');
         $('input[name=equipment_id]').val('');
-        $('textarea[name=description]').val('');
+        $('textarea[name=service-description]').val('');
     }
+
+    function clearProductModal() {
+        $("select[name=product]").empty().trigger('change');
+        $('textarea[name=product-description]').val('');
+      }
 
 });

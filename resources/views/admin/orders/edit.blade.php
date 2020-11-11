@@ -128,6 +128,73 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __('Products') }}</h3>
+
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <div class="col-12 p-2">
+                                <button  type="button" class="btn btn-sm btn-primary add-product" data-toggle="modal" data-target="#product-modal">
+                                    <i class="fas fa-plus"></i> {{ __('Add Product') }}
+                                </button>
+                            </div>
+                            <table class="table table-hover table-head-fixed text-nowrap table-product">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{ __('Product') }}</th>
+                                        <th>{{ __('Description') }}</th>
+                                        <th>{{ __('Responsible') }}</th>
+                                        <th>{{ __('Actions') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($order->products)
+                                        @php $index = 0; @endphp
+                                        @foreach ($order->products as $product)
+                                            <tr id="row-product-{{ $index }}" data-row="{{ $index }}">
+                                                <td>{{ $index+1 }}
+                                                    <input type="hidden" name="products[{{ $index }}][id]" value="{{ $product->id }}">
+                                                    <input type="hidden" name="products[{{ $index }}][budget_id]" value="{{ $product->budget_id }}">
+                                                    <input type="hidden" name="products[{{ $index }}][budget_product_id]" value="{{ $product->budget_product_id }}">
+                                                    <input type="hidden" name="products[{{ $index }}][index]" value="{{ $product->index }}">
+                                                </td>
+                                                <td width="80%">{{ $product->product->name}}
+                                                    <input type="hidden" name="products[{{ $index }}][product_name]" value="{{ $product->product->name }}">
+                                                </td>
+                                                <td width="80%" class="cell-wrap">{{ $product->description }}
+                                                    <input type="hidden" name="products[{{ $index }}][description]" value="{{ $product->description }}">
+                                                </td>
+                                                <td width="80%">{{ $product->user->name  }}
+                                                    <input type="hidden" name="products[{{ $index }}][user_name]" value="{{ $product->user->name }}">
+                                                </td>
+                                                <td width="15%">
+                                                    <div class="btn-group">
+                                                        <a href="#" class="btn btn-secondary btn-sm btn-edit-product" data-toggle="modal" data-target="#product-modal" data-row="row-product-{{ $index }}">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <a href="#" class="btn btn-danger btn-sm btn-remove-product" data-toggle="modal" data-target="#delete-modal" data-row="row-product-{{ $index }}">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @php $index++; @endphp
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-12 card-footer">
@@ -170,14 +237,44 @@
                             'placeholder' => __('Equipament ID')]) !!}
                         </div>
                         <div class="form-group">
-                            <label for="description">{{ __('Description') }}</label>
-                            {!! Form::textarea('description', old('description'),['class' => 'form-control ' . $errors->first('description','is-invalid') ,
+                            <label for="service-description">{{ __('Description') }}</label>
+                            {!! Form::textarea('service-description', old('service-description'),['class' => 'form-control ' . $errors->first('service-description','is-invalid') ,
                             'placeholder' => __('Description')]) !!}
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-add-service">{{ __('OK') }}</button>
+                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- product-modal -->
+    <div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{ __('Add Product') }}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="product">{{ __('Product') }}</label>
+                            {!! Form::select('product', [], null, ['class' => 'select2-with-tag ', 'data-placeholder' => __('Choose a Product')]) !!}
+                            <div class="invalid-feedback">{{ __('This field is empty') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">{{ __('Description') }}</label>
+                            {!! Form::textarea('product-description', old('description'),['class' => 'form-control ' . $errors->first('description','is-invalid') ,
+                            'placeholder' => __('Description')]) !!}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-add-product">{{ __('OK') }}</button>
                     <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
                 </div>
             </div>

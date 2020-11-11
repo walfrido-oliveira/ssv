@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::get('/budgets/find', 'BudgetController@find');
         Route::get('/budgets/find-service', 'BudgetController@findService');
+        Route::get('/budgets/find-product', 'BudgetController@findProduct');
         Route::resource('budgets', 'BudgetController');
 
         Route::resource('orders', 'OrderController');

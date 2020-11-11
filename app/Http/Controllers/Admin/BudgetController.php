@@ -10,6 +10,7 @@ use App\Models\Budget\BudgetType;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\CreateBudget;
 use App\Http\Controllers\Controller;
+use App\Models\Budget\BudgetProduct;
 use App\Models\Budget\BudgetService;
 use App\Models\Budget\PaymentMethod;
 use App\Models\Budget\TransportMethod;
@@ -313,5 +314,35 @@ class BudgetController extends Controller
         }
 
         return \Response::json($formatted_services);
+    }
+
+    /**
+     * Display a listing of the resource by parameters.
+     *
+     * @return json
+     */
+    public function findProduct(Request $request)
+    {
+        $term = trim($request->q);
+        $budgetId = $request->budget_id;
+
+        if (empty($term)) {
+            $products = BudgetProduct::where('budget_id', $budgetId)->limit(5)->get();
+        } else {
+            $ids = Product::where('name', 'like', '%' . $term . '%')->get()->pluck('id');
+            $products = Budget::where('budget_id', $budgetId)->whereIn('product_id', $ids)->get();
+        }
+
+        $formatted_products = [];
+
+        foreach ($products as $product) {
+            $formatted_products[] = [
+                'id' => $product->id,
+                'text' => $product->product->name,
+                'name' => $product->product->name
+            ];
+        }
+
+        return \Response::json($formatted_products);
     }
 }
