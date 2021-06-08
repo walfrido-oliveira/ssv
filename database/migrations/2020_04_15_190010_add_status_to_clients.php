@@ -14,7 +14,7 @@ class AddStatusToClients extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->enum('status', ['active', 'disabled'])->default('active');
+            $table->enum('status', ['active', 'disabled', 'pending'])->default('active');
         });
     }
 
